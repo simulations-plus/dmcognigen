@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rcheck
+inst/doc
+doc
+Meta
+public
+/doc/
+/Meta/
+*.html
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto

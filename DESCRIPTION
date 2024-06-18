@@ -1,0 +1,43 @@
+Package: dmcognigen
+Type: Package
+Title: Cognigen Data Management Functions
+Version: 0.0.9000
+Date: $date$
+Authors@R: c(person("Nash", "Delcamp", email = "nash.delcamp@simulations-plus.com", role = c("aut", "cre")),
+             person("Louis", "Penrod", email = "louis.penrod@simulations-plus.com", role = "aut"),
+             person("Amin", "Sherzad", email = "amin.sherzad@simulations-plus.com", role = "aut"),
+             person("Steve", "Hummel", email = "steve.hummel@simulations-plus.com", role = "aut"),
+             person("Simulations Plus", role = "cph"))
+URL: https://simulations-plus.github.io/dmcognigen/, https://github.com/simulations-plus/dmcognigen
+BugReports: https://github.com/simulations-plus/dmcognigen/issues
+Description: dmcognigen provides functions for data management tasks at Cognigen.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+VignetteBuilder: knitr
+Suggests: 
+    admiral.test,
+    knitr,
+    haven,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    fs
+Imports: 
+    admiraldev,
+    assertthat,
+    cli,
+    dplyr,
+    glue,
+    janitor,
+    lubridate,
+    magrittr,
+    openxlsx,
+    purrr,
+    rlang,
+    stringr,
+    tibble,
+    tidyr
+Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
