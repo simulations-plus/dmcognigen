@@ -22,7 +22,8 @@ Suggests:
     haven,
     rmarkdown,
     testthat (>= 3.0.0),
-    fs
+    fs,
+    htmltools
 Imports: 
     admiraldev,
     assertthat,

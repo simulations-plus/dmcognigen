@@ -14,6 +14,16 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r include=FALSE}
+# function to use to display formulas in this vignette.
+vignette_equation <- function(.var_name) {
+  htmltools::pre(
+    gsub("\n  ", "\n", 
+         gsub("^  ", "", get_from_calculations_table(.var_name, "equation")))
+  )
+}
+```
+
 The `calculations` family is a collection of functions intended to facilitate the calculation of variables that mostly use standard equations (e.g: CrCl, eGFR, BMI etc). This vignette shows and explains: 
 
 * How these functions work when expected variables are not passed.
@@ -77,7 +87,13 @@ glimpse(dmcognigen_conc)
 Each function calculates a specific variable, but the same function can be used to calculate both baseline and time varying of a variable because it depends on the inputs. For instance, `calculate_bmi` can calculate both `BMI` and `BMIT`. If you provide time varying `WTKG` and `HTCM`, then the output will be a time varying `BMI`. Additionally, each function prints the equation that was used to calculate in a readable format.
 
 ## calculate_crcl
-The `calculate_crcl` function is to `r get_from_calculations_table("crcl","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("crcl","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_crcl` function is to `r get_from_calculations_table("crcl","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("crcl")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `age`: `r describe_param("age")`
 * `wtkg`: `r describe_param("wtkg")`
@@ -126,7 +142,13 @@ dmcognigen_cov %>%
 
 
 ## calculate_crcl_peck
-The `calculate_crcl_peck` function is to `r get_from_calculations_table("crcl_peck","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("crcl_peck","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_crcl_peck` function is to `r get_from_calculations_table("crcl_peck","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("crcl_peck")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `age`: `r describe_param("age")`
 * `wtkg`: `r describe_param("wtkg")`
@@ -165,7 +187,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_bmi
-The `calculate_bmi` function is to `r get_from_calculations_table("bmi","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("bmi","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_bmi` function is to `r get_from_calculations_table("bmi","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("bmi")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `wtkg`: `r describe_param("wtkg")`
 * `htcm`: `r describe_param("htcm")`
@@ -196,7 +224,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_bsa
-The `calculate_bsa` function is to `r get_from_calculations_table("bsa","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("bsa","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_bsa` function is to `r get_from_calculations_table("bsa","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("bsa")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `htcm`: `r describe_param("htcm")`
 * `wtkg`: `r describe_param("wtkg")`
@@ -227,7 +261,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_lbm
-The `calculate_lbm` function is to `r get_from_calculations_table("lbm","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("lbm","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_lbm` function is to `r get_from_calculations_table("lbm","purpose")`. Following is the formula to calculate it:
+
+```{r echo=FALSE}
+vignette_equation("lbm")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `sexf`: `r describe_param("sexf")`
 * `wtkg`: `r describe_param("wtkg")`
@@ -260,7 +300,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_ibw
-The `calculate_ibw` function is to `r get_from_calculations_table("ibw","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("ibw","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_ibw` function is to `r get_from_calculations_table("ibw","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("ibw")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `sexf`: `r describe_param("sexf")`
 * `htcm`: `r describe_param("htcm")`
@@ -291,7 +337,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_ibw_child
-The `calculate_ibw_child` function is to `r get_from_calculations_table("ibw_child","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("ibw_child","equation"))`</pre> `r describe_param("return_num_vect")`. Following is the input:
+The `calculate_ibw_child` function is to `r get_from_calculations_table("ibw_child","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("ibw_child")
+```
+
+`r describe_param("return_num_vect")`. Following is the input:
 
 * `htcm`: `r describe_param("htcm")`
 
@@ -318,7 +370,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_egfr
-The `calculate_egfr` function is to `r get_from_calculations_table("egfr","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("egfr","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_egfr` function is to `r get_from_calculations_table("egfr","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("egfr")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `scr`: `r describe_param("scr")`
 * `age`: `r describe_param("age")`
@@ -353,11 +411,10 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_egfr_child
-The `calculate_egfr_child` function is to `r get_from_calculations_table("egfr_child", "purpose")`. 
+The `calculate_egfr_child` function is to `r get_from_calculations_table("egfr_child", "purpose")`. Following is the formula to calculate it: 
 
-Following is the formula to calculate it: 
 ```{r echo=FALSE}
-htmltools::pre(gsub("  ", "", get_from_calculations_table("egfr_child", "equation")))
+vignette_equation("egfr_child")
 ```
 
 `r describe_param("return_num_vect")`. Following are the inputs:
@@ -395,7 +452,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_rfcat
-The `calculate_rfcat` function is to `r get_from_calculations_table("rfcat","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("rfcat","equation"))`</pre> `r describe_param("return_num_vect")`. Following is the input:
+The `calculate_rfcat` function is to `r get_from_calculations_table("rfcat","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("rfcat")
+```
+
+`r describe_param("return_num_vect")`. Following is the input:
 
 * `egfr`: `r describe_param("egfr")`
 
@@ -428,7 +491,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_tbilcat
-The `calculate_tbilcat` function is to `r get_from_calculations_table("tbilcat","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("tbilcat","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_tbilcat` function is to `r get_from_calculations_table("tbilcat","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("tbilcat")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `tbil`: `r describe_param("tbil")`
 * `tbiluln`: `r describe_param("uln")`
@@ -459,7 +528,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_astcat
-The `calculate_astcat` function is to `r get_from_calculations_table("astcat","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("astcat","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_astcat` function is to `r get_from_calculations_table("astcat","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("astcat")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `ast`: `r describe_param("ast")`
 * `astuln`: `r describe_param("uln")`
@@ -490,7 +565,13 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_nciliv
-The `calculate_nciliv` function is to `r get_from_calculations_table("nciliv","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("nciliv","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_nciliv` function is to `r get_from_calculations_table("nciliv","purpose")`. Following is the formula to calculate it: 
+
+```{r echo=FALSE}
+vignette_equation("nciliv")
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `tbilcat`: `r describe_param("tbilcat")`
 * `astcat`: `r describe_param("astcat")`
