@@ -1011,13 +1011,19 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_egfr_child">calculate_egfr_child<a class="anchor" aria-label="anchor" href="#calculate_egfr_child"></a>
 </h3>
-The <code>calculate_egfr_child</code> function is to Calculate Estimated
-Glomerular Filtration Fate (eGFR) for Pedatrics using the Schwartz
-formula. Following is the formula to calculate it:
-<pre>Children (AGE 
+<p>The <code>calculate_egfr_child</code> function is to Calculate
+Estimated Glomerular Filtration Fate (eGFR) for Pedatrics using the
+Schwartz formula.</p>
+<p>Following is the formula to calculate it:</p>
+<pre>Children (AGE &lt;= 16), where:
+egfr_child = (k * htcm) / scr (mg/dL)
+k = 0.45 for AGE &lt;= 1 (full term)
+k = 0.55 for girls 1 &lt; AGE &lt;= 16
+k = 0.55 for boys 1 &lt; AGE &lt; 13
+k = 0.70 for boys 13 &lt;= AGE &lt;= 16
+</pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
-</pre>
 <ul>
 <li>
 <code>htcm</code>: Height (cm). Numeric vector.</li>
