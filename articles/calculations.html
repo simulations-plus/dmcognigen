@@ -268,10 +268,10 @@ was used to calculate in a readable format.</p>
 <div class="section level3">
 <h3 id="calculate_crcl">calculate_crcl<a class="anchor" aria-label="anchor" href="#calculate_crcl"></a>
 </h3>
-The <code>calculate_crcl</code> function is to Calculate Creatinine
+<p>The <code>calculate_crcl</code> function is to Calculate Creatinine
 Clearance (CrCl), a measure of renal function based on age, weight,
 gender, and Serum Creatinine. This is the Cockcroft and Gault
-Calculation. Following is the formula to calculate it:
+Calculation. Following is the formula to calculate it:</p>
 <pre>Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])
 Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85
 </pre>
@@ -392,13 +392,14 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_crcl_peck">calculate_crcl_peck<a class="anchor" aria-label="anchor" href="#calculate_crcl_peck"></a>
 </h3>
-The <code>calculate_crcl_peck</code> function is to Calculate Creatinine
-Clearance (CrCl) using the Peck Formula, a measure of renal function
-based on age, ideal weight, gender, and Serum Creatinine. Following is
-the formula to calculate it:
-<pre>If WTKG = 120% of IBW:
-Males: CrCl = ((140 - AGE) × IBW) ÷ (72 × SCr)
-Females: CrCl = (((140 - AGE) × IBW) ÷ (72 × SCr)) × 0.85
+<p>The <code>calculate_crcl_peck</code> function is to Calculate
+Creatinine Clearance (CrCl) using the Peck Formula, a measure of renal
+function based on age, ideal weight, gender, and Serum Creatinine.
+Following is the formula to calculate it:</p>
+<pre>If WTKG &lt; 120% of IBW, CrCl = CRCL (Cockroft &amp; Gault)
+If WTKG &gt;= 120% of IBW:
+  Males: CrCl = ((140 - AGE) × IBW) ÷ (72 × SCr)
+  Females: CrCl = (((140 - AGE) × IBW) ÷ (72 × SCr)) × 0.85
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -501,9 +502,9 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_bmi">calculate_bmi<a class="anchor" aria-label="anchor" href="#calculate_bmi"></a>
 </h3>
-The <code>calculate_bmi</code> function is to Calculate Body Mass Index
-(BMI). BMI is a measure of body fat based on height and weight.
-Following is the formula to calculate it:
+<p>The <code>calculate_bmi</code> function is to Calculate Body Mass
+Index (BMI). BMI is a measure of body fat based on height and weight.
+Following is the formula to calculate it:</p>
 <pre>BMI = WTKG ÷ (HTCM ÷ 100) ^ 2
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
@@ -583,9 +584,9 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_bsa">calculate_bsa<a class="anchor" aria-label="anchor" href="#calculate_bsa"></a>
 </h3>
-The <code>calculate_bsa</code> function is to Calculate Body Surface
+<p>The <code>calculate_bsa</code> function is to Calculate Body Surface
 Area (BSA). Body Surface Area is a measure of body fat based on height
-and weight. Following is the formula to calculate it:
+and weight. Following is the formula to calculate it:</p>
 <pre>BSA = ((HTCM) ^ 0.42246 * (WTKG) ^ 0.51456) * .0235
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
@@ -665,10 +666,10 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_lbm">calculate_lbm<a class="anchor" aria-label="anchor" href="#calculate_lbm"></a>
 </h3>
-The <code>calculate_lbm</code> function is to Calculate Lean Body Mass
-(lbm), an estimation of how much someone weighs without the body fat -
-how much a persons bones, organs and muscles weigh. Following is the
-formula to calculate it:
+<p>The <code>calculate_lbm</code> function is to Calculate Lean Body
+Mass (lbm), an estimation of how much someone weighs without the body
+fat - how much a persons bones, organs and muscles weigh. Following is
+the formula to calculate it:</p>
 <pre>Males: LBM = (1.10 × WTKG) - 128 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)
 Females: LBM = (1.07 × WTKG) - 148 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)
 </pre>
@@ -756,9 +757,9 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_ibw">calculate_ibw<a class="anchor" aria-label="anchor" href="#calculate_ibw"></a>
 </h3>
-The <code>calculate_ibw</code> function is to Calculate Ideal Body
+<p>The <code>calculate_ibw</code> function is to Calculate Ideal Body
 Weight (IBW), a measure of potential body fat based on height. Following
-is the formula to calculate it:
+is the formula to calculate it:</p>
 <pre>Males: IBW = 51.65 kg + 1.85 kg × ((HTCM ÷ 2.54) - 60)
 Females: IBW = 48.67 kg + 1.65 kg × ((HTCM ÷ 2.54) - 60)
 </pre>
@@ -842,9 +843,9 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_ibw_child">calculate_ibw_child<a class="anchor" aria-label="anchor" href="#calculate_ibw_child"></a>
 </h3>
-The <code>calculate_ibw_child</code> function is to Calculate Ideal Body
-Weight (for children), a measure of potential body fat based on height.
-Following is the formula to calculate it:
+<p>The <code>calculate_ibw_child</code> function is to Calculate Ideal
+Body Weight (for children), a measure of potential body fat based on
+height. Following is the formula to calculate it:</p>
 <pre>IBW = [(HTCM) ^ 2 × 1.65] ÷ 1000
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
@@ -918,9 +919,9 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_egfr">calculate_egfr<a class="anchor" aria-label="anchor" href="#calculate_egfr"></a>
 </h3>
-The <code>calculate_egfr</code> function is to Calculate Estimated
+<p>The <code>calculate_egfr</code> function is to Calculate Estimated
 Glomerular Filtration Fate (eGFR) for adults. Following is the formula
-to calculate it:
+to calculate it:</p>
 <pre>EGFRMDRD = 175 × (SCR ^ -1.154) × (AGE ^ -0.203) × (0.742 if female) × (1.212 if African American)
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
@@ -1013,8 +1014,7 @@ environment:</p>
 </h3>
 <p>The <code>calculate_egfr_child</code> function is to Calculate
 Estimated Glomerular Filtration Fate (eGFR) for Pedatrics using the
-Schwartz formula.</p>
-<p>Following is the formula to calculate it:</p>
+Schwartz formula. Following is the formula to calculate it:</p>
 <pre>Children (AGE &lt;= 16), where:
 egfr_child = (k * htcm) / scr (mg/dL)
 k = 0.45 for AGE &lt;= 1 (full term)
@@ -1119,16 +1119,16 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_rfcat">calculate_rfcat<a class="anchor" aria-label="anchor" href="#calculate_rfcat"></a>
 </h3>
-The <code>calculate_rfcat</code> function is to Calculate Renal Function
-Category (RFCAT). Following is the formula to calculate it:
+<p>The <code>calculate_rfcat</code> function is to Calculate Renal
+Function Category (RFCAT). Following is the formula to calculate it:</p>
 <pre>1 = Normal Function (&gt;= 90 mL/min)
 2 = Mild Impairment (60-89 mL/min)
 3 = Moderate Impairment (30-59 mL/min)
 4 = Severe Impairment (15-29 mL/min)
-5 = End Stage Disease (
+5 = End Stage Disease (&lt; 15 mL/min or Dialysis)
+</pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following is the input:</p>
-</pre>
 <ul>
 <li>
 <code>egfr</code>: Estimated Glomerular Filtration Fate
@@ -1215,9 +1215,12 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_tbilcat">calculate_tbilcat<a class="anchor" aria-label="anchor" href="#calculate_tbilcat"></a>
 </h3>
-The <code>calculate_tbilcat</code> function is to Calculate TBIL
-Category. Following is the formula to calculate it:
-<pre>if TBIL  3 × ULN then TBILCAT = 3
+<p>The <code>calculate_tbilcat</code> function is to Calculate TBIL
+Category. Following is the formula to calculate it:</p>
+<pre>if TBIL &lt;= ULN then TBILCAT = 0
+if ULN &lt; TBIL &lt;= 1.5 × ULN then TBILCAT = 1
+if 1.5 × ULN &lt; TBIL &lt;= 3 × ULN then TBILCAT = 2
+if TBIL &gt; 3 × ULN then TBILCAT = 3
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -1303,12 +1306,13 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_astcat">calculate_astcat<a class="anchor" aria-label="anchor" href="#calculate_astcat"></a>
 </h3>
-The <code>calculate_astcat</code> function is to Calculate AST Category.
-Following is the formula to calculate it:
-<pre>if AST 
+<p>The <code>calculate_astcat</code> function is to Calculate AST
+Category. Following is the formula to calculate it:</p>
+<pre>if AST &lt;= ULN then ASTCAT = 0
+if ULN &lt; AST then ASTCAT = 1
+</pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
-</pre>
 <ul>
 <li>
 <code>ast</code>: Aspartate Aminotransferase (U/L). Numeric
@@ -1388,8 +1392,8 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_nciliv">calculate_nciliv<a class="anchor" aria-label="anchor" href="#calculate_nciliv"></a>
 </h3>
-The <code>calculate_nciliv</code> function is to Calculate NCI Liver Fx
-Group (NCILIV). Following is the formula to calculate it:
+<p>The <code>calculate_nciliv</code> function is to Calculate NCI Liver
+Fx Group (NCILIV). Following is the formula to calculate it:</p>
 <pre>if TBILCAT = 0 and ASTCAT = 0 then NCILIV = 0
 if TBILCAT = 0 and ASTCAT = 1 then NCILIV = 1
 if TBILCAT = 1 then NCILIV = 2
