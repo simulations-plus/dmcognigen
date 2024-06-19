@@ -353,7 +353,14 @@ dmcognigen_cov %>%
 ```
 
 ## calculate_egfr_child
-The `calculate_egfr_child` function is to `r get_from_calculations_table("egfr_child","purpose")`. Following is the formula to calculate it: <pre>`r gsub("  ", "", get_from_calculations_table("egfr_child","equation"))`</pre> `r describe_param("return_num_vect")`. Following are the inputs:
+The `calculate_egfr_child` function is to `r get_from_calculations_table("egfr_child", "purpose")`. 
+
+Following is the formula to calculate it: 
+```{r echo=FALSE}
+htmltools::pre(gsub("  ", "", get_from_calculations_table("egfr_child", "equation")))
+```
+
+`r describe_param("return_num_vect")`. Following are the inputs:
 
 * `htcm`: `r describe_param("htcm")`
 * `scr`: `r describe_param("scr")`
