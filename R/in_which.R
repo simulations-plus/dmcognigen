@@ -33,7 +33,7 @@ in_which <- function(x, envir = .GlobalEnv, ignore_case = TRUE) {
   }
   
   list_objs <- names(which(sapply(objs, function(obj) {
-    is.list(eval(parse(text = obj)))
+    is.list(eval(parse(text = obj), envir = envir))
   })))
   
   if(length(list_objs) == 0) {
@@ -47,7 +47,7 @@ in_which <- function(x, envir = .GlobalEnv, ignore_case = TRUE) {
     # check the names of each object for match_this
     # result is logical vector of length list_objs
     names(which(sapply(list_objs, function(obj) {
-      obj_names <- names(eval(parse(text = obj)))
+      obj_names <- names(eval(parse(text = obj), envir = envir))
       obj_names <- if(ignore_case) toupper(obj_names) else obj_names
       match_this %in% obj_names
     })))
