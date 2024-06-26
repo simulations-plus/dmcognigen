@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_tbilcat}
 \alias{calculate_tbilcat}
-\title{Calculate TBILCAT (TBIL Category)}
+\title{Calculate Total Bilirubin Category}
 \usage{
 calculate_tbilcat(tbil, tbiluln)
 }
@@ -15,21 +15,21 @@ calculate_tbilcat(tbil, tbiluln)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate TBIL Category
+Calculate Total Bilirubin Category
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate TBILCAT: 
-  if TBIL <= ULN then TBILCAT = 0
-  if ULN < TBIL <= 1.5 × ULN then TBILCAT = 1
-  if 1.5 × ULN < TBIL <= 3 × ULN then TBILCAT = 2
-  if TBIL > 3 × ULN then TBILCAT = 3
+  if TBIL [mg/dL] <= ULN [mg/dL] then TBILCAT = 0
+  if ULN [mg/dL] < TBIL [mg/dL] <= 1.5 × ULN [mg/dL] then TBILCAT = 1
+  if 1.5 × ULN [mg/dL] < TBIL [mg/dL] <= 3 × ULN [mg/dL] then TBILCAT = 2
+  if TBIL [mg/dL] > 3 × ULN [mg/dL] then TBILCAT = 3
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(TBILCAT = calculate_tbilcat(TBIL, TBILULN))
+  mutate(TBILCAT = calculate_tbilcat(tbil = TBIL, tbiluln = TBILULN))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

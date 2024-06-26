@@ -127,7 +127,7 @@ test_that("get_variable_from_env() returns error when no match found", {
 
 test_that("get_from_calculations_table() returns expected result", {
   
-  expected_value <- paste0("  Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])\n  Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85\n")
+  expected_value <- paste0("  Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])\n  Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85\n")
   
   returned_value <- get_from_calculations_table("crcl", "equation")
   
@@ -540,7 +540,7 @@ test_that("calculate_ibw() returns exact match", {
   expected_result <- dmcognigen_cov %>% 
     mutate(
       IBW = ifelse(SEXF == 0, 51.65 + 1.85 * ((HTCM / 2.54) - 60),
-                   48.67 + 2.65 * ((HTCM / 2.54) - 60))
+                   48.67 + 1.65 * ((HTCM / 2.54) - 60))
     ) %>% 
     select(USUBJID, SEXF, WTKG, HTCM, IBW)
   

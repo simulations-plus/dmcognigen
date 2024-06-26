@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_nciliv}
 \alias{calculate_nciliv}
-\title{Calculate NCILIV (NCI Liver Fx Group)}
+\title{Calculate NCI Liver Function Group}
 \usage{
 calculate_nciliv(tbilcat, astcat)
 }
@@ -15,7 +15,7 @@ calculate_nciliv(tbilcat, astcat)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate NCI Liver Fx Group (NCILIV)
+Calculate NCI Liver Function Group (NCILIV)
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate NCILIV: 
@@ -30,7 +30,7 @@ Calculate NCI Liver Fx Group (NCILIV)
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(NCILIV = calculate_nciliv(TBILCAT, ASTCAT))
+  mutate(NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

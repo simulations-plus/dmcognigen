@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_astcat}
 \alias{calculate_astcat}
-\title{Calculate ASTCAT (AST Category)}
+\title{Calculate Aspartate Aminotransferase Category}
 \usage{
 calculate_astcat(ast, astuln)
 }
@@ -15,19 +15,19 @@ calculate_astcat(ast, astuln)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate AST Category
+Calculate Aspartate Aminotransferase Category
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate ASTCAT: 
-  if AST <= ULN then ASTCAT = 0
-  if ULN < AST then ASTCAT = 1
+  if AST [U/L] <= ULN [U/L] then ASTCAT = 0
+  if ULN [U/L] < AST [U/L] then ASTCAT = 1
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\%
-  mutate(ASTCAT = calculate_astcat(AST, ASTULN))
+  mutate(ASTCAT = calculate_astcat(ast = AST, astuln = ASTULN))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

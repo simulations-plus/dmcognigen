@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_ibw}
 \alias{calculate_ibw}
-\title{Calculate IBW (Ideal Body Weight)}
+\title{Calculate Ideal Body Weight}
 \usage{
 calculate_ibw(sexf, htcm)
 }
@@ -19,15 +19,15 @@ Calculate Ideal Body Weight (IBW), a measure of potential body fat based on heig
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate IBW: 
-  Males: IBW = 51.65 kg + 1.85 kg × ((HTCM ÷ 2.54) - 60)
-  Females: IBW = 48.67 kg + 1.65 kg × ((HTCM ÷ 2.54) - 60)
+  Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] × ((HTCM [cm] ÷ 2.54) - 60)
+  Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(IBW = calculate_ibw(SEXF, HTCM))
+  mutate(IBW = calculate_ibw(sexf = SEXF, htcm = HTCM))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

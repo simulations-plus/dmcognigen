@@ -2,15 +2,15 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_egfr_child}
 \alias{calculate_egfr_child}
-\title{Calculate eGFR (Estimated Glomerular Filtration Fate for children) for
-children using the Schwartz formula}
+\title{Calculate Estimated Glomerular Filtration Rate for Children using the
+Schwartz Formula}
 \usage{
 calculate_egfr_child(htcm, scr, age, sexf)
 }
 \arguments{
 \item{htcm}{Height (cm). Numeric vector.}
 
-\item{scr}{SCR (Serum Creatinine, mg/dL). Numeric vector.}
+\item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
 
 \item{age}{Age (y). Numeric vector.}
 
@@ -20,23 +20,28 @@ calculate_egfr_child(htcm, scr, age, sexf)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate Estimated Glomerular Filtration Fate (eGFR) for Pedatrics using the Schwartz formula
+Calculate Estimated Glomerular Filtration Rate (eGFR) for Pedatrics using the Schwartz formula
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate EGFR_CHILD: 
-  Children (AGE <= 16), where:
-  egfr_child = (k * htcm) / scr (mg/dL)
-  k = 0.45 for AGE <= 1 (full term)
-  k = 0.55 for girls 1 < AGE <= 16
-  k = 0.55 for boys 1 < AGE < 13
-  k = 0.70 for boys 13 <= AGE <= 16
+  Children (AGE [y] <= 16), where:
+  EGFR = (k * HTCM [cm]) / SCR [mg/dL]
+  k = 0.45 for AGE [y] <= 1 (full term)
+  k = 0.55 for girls 1 < AGE [y] <= 16
+  k = 0.55 for boys 1 < AGE [y] < 13
+  k = 0.70 for boys 13 <= AGE [y] <= 16
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(EGFRSCHW = calculate_egfr_child(HTCM, SCR, AGE, SEXF))
+  mutate(EGFRSCHW = calculate_egfr_child(
+    htcm = HTCM, 
+    scr = SCR, 
+    age = AGE, 
+    sexf = SEXF
+  ))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

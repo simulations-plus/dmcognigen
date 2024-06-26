@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_crcl_peck}
 \alias{calculate_crcl_peck}
-\title{Calculate CrCl peck (Creatinine Clearance using the Peck Formula)}
+\title{Calculate Creatinine Clearance using the Peck Formula}
 \usage{
 calculate_crcl_peck(age, wtkg, crcl, ibw, scr, sexf)
 }
@@ -11,11 +11,11 @@ calculate_crcl_peck(age, wtkg, crcl, ibw, scr, sexf)
 
 \item{wtkg}{Weight (kg). Numeric vector.}
 
-\item{crcl}{Creatinine Clearance}
+\item{crcl}{Creatinine Clearance (mL/min)}
 
 \item{ibw}{Ideal Body Weight (kg). Numeric vector.}
 
-\item{scr}{SCR (Serum Creatinine, mg/dL). Numeric vector.}
+\item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
 
 \item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
 }
@@ -23,21 +23,28 @@ calculate_crcl_peck(age, wtkg, crcl, ibw, scr, sexf)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate Creatinine Clearance (CrCl) using the Peck Formula, a measure of renal function based on age, ideal weight, gender, and Serum Creatinine
+Calculate Creatinine Clearance (CrCl) using the Peck Formula, a measure of renal function based on age, ideal weight, gender, and serum creatinine
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate CRCL_PECK: 
-  If WTKG < 120\% of IBW, CrCl = CRCL (Cockroft & Gault)
-  If WTKG >= 120\% of IBW:
-    Males: CrCl = ((140 - AGE) × IBW) ÷ (72 × SCr)
-    Females: CrCl = (((140 - AGE) × IBW) ÷ (72 × SCr)) × 0.85
+  If WTKG [kg] < 120\% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft & Gault)
+  If WTKG [kg] >= 120\% of IBW [kg]:
+    Males: CRCL [mL/min] = ((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])
+    Females: CRCL [mL/min] = (((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])) × 0.85
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(CRCLP = calculate_crcl_peck(AGE, WTKG, CRCL, IBW, SCR, SEXF))
+  mutate(CRCLP = calculate_crcl_peck(
+    age = AGE, 
+    wtkg = WTKG, 
+    crcl = CRCL, 
+    ibw = IBW, 
+    scr = SCR, 
+    sexf = SEXF
+  ))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

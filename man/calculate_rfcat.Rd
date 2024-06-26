@@ -2,12 +2,12 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_rfcat}
 \alias{calculate_rfcat}
-\title{Calculate RFCAT (Renal Function Category)}
+\title{Calculate Renal Function Category}
 \usage{
 calculate_rfcat(egfr)
 }
 \arguments{
-\item{egfr}{Estimated Glomerular Filtration Fate (mL/min/1.73m^2). Numeric vector.}
+\item{egfr}{Estimated Glomerular Filtration Rate (mL/min/1.73m^2). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs

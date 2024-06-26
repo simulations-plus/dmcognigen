@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_bsa}
 \alias{calculate_bsa}
-\title{Calculate BSA (Body Surface Area)}
+\title{Calculate Body Surface Area}
 \usage{
 calculate_bsa(htcm, wtkg)
 }
@@ -19,14 +19,14 @@ Calculate Body Surface Area (BSA). Body Surface Area is a measure of body fat ba
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate BSA: 
-  BSA = ((HTCM) ^ 0.42246 * (WTKG) ^ 0.51456) * .0235
+  BSA [m^2] = ((HTCM [cm]) ^ 0.42246 * (WTKG [kg]) ^ 0.51456) * 0.0235
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(BSA = calculate_bsa(HTCM, WTKG))
+  mutate(BSA = calculate_bsa(htcm = HTCM, wtkg = WTKG))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

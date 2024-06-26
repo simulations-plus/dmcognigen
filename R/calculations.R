@@ -7,27 +7,27 @@ calculations_table <- dplyr::tribble(
   "crcl",
   rlang::expr((((140 - age) * wtkg) / (72 * scr)) * ifelse(sexf == 1, 0.85, 1)),
   paste0(
-    "  Males: CrCl = ((140 - AGE [year]) \u00d7 WTKG) \u00f7 (72 \u00d7 SCr [mg/dL])\n",
-    "  Females: CrCl = (((140 - AGE [year]) \u00d7 WTKG) \u00f7 (72 \u00d7 SCr[mg/dL])) \u00d7 0.85\n"
+    "  Males: CRCL [mL/min] = ((140 - AGE [y]) \u00d7 WTKG [kg]) \u00f7 (72 \u00d7 SCR [mg/dL])\n",
+    "  Females: CRCL [mL/min] = (((140 - AGE [y]) \u00d7 WTKG [kg]) \u00f7 (72 \u00d7 SCR [mg/dL])) \u00d7 0.85\n"
   ),
   "Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16:31-41.",
-  "Calculate Creatinine Clearance (CrCl), a measure of renal function based on age, weight, gender, and Serum Creatinine. This is the Cockcroft and Gault Calculation",
+  "Calculate Creatinine Clearance (CrCl), a measure of renal function based on age, weight, gender, and serum creatinine. This is the Cockcroft and Gault Formula.",
   
   "crcl_peck",
   rlang::expr(ifelse(wtkg < 1.2 * ibw, crcl, ((140 - age) * ibw) / (72 * scr) * ifelse(sexf == 1, 0.85, 1))),
   paste0(
-    "  If WTKG < 120% of IBW, CrCl = CRCL (Cockroft & Gault)\n",
-    "  If WTKG >= 120% of IBW:\n",
-    "    Males: CrCl = ((140 - AGE) \u00d7 IBW) \u00f7 (72 \u00d7 SCr)\n",
-    "    Females: CrCl = (((140 - AGE) \u00d7 IBW) \u00f7 (72 \u00d7 SCr)) \u00d7 0.85\n"
+    "  If WTKG [kg] < 120% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft & Gault)\n",
+    "  If WTKG [kg] >= 120% of IBW [kg]:\n",
+    "    Males: CRCL [mL/min] = ((140 - AGE [y]) \u00d7 IBW [kg]) \u00f7 (72 \u00d7 SCR [mg/dL])\n",
+    "    Females: CRCL [mL/min] = (((140 - AGE [y]) \u00d7 IBW [kg]) \u00f7 (72 \u00d7 SCR [mg/dL])) \u00d7 0.85\n"
   ),
   "Peck CC, Conner DP, Murphy MG. Simple Techniques for Individualizing Drug Therapy. Vancouver, WA. Applied Therapeutics, Inc. 1989.",
-  "Calculate Creatinine Clearance (CrCl) using the Peck Formula, a measure of renal function based on age, ideal weight, gender, and Serum Creatinine",
+  "Calculate Creatinine Clearance (CrCl) using the Peck Formula, a measure of renal function based on age, ideal weight, gender, and serum creatinine",
   
   "bmi",
   rlang::expr(wtkg / (htcm / 100) ^ 2),
   paste0(
-    "  BMI = WTKG \u00f7 (HTCM \u00f7 100) ^ 2\n"
+    "  BMI [kg/m^2] = WTKG [kg] \u00f7 (HTCM [cm] \u00f7 100) ^ 2\n"
   ),
   "[CDC](https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html)",
   "Calculate Body Mass Index (BMI). BMI is a measure of body fat based on height and weight",
@@ -35,7 +35,7 @@ calculations_table <- dplyr::tribble(
   "bsa",
   rlang::expr(((htcm) ^ 0.42246 * (wtkg) ^ 0.51456) * 0.0235),
   paste0(
-    "  BSA = ((HTCM) ^ 0.42246 * (WTKG) ^ 0.51456) * .0235\n"
+    "  BSA [m^2] = ((HTCM [cm]) ^ 0.42246 * (WTKG [kg]) ^ 0.51456) * 0.0235\n"
   ),
   "Gehan EA, George SL. Estimation of human body surface area from height and weight. Cancer Chemother Rep. 1970 Aug;54(4):225-35. PMID: 5527019",
   "Calculate Body Surface Area (BSA). Body Surface Area is a measure of body fat based on height and weight",
@@ -44,21 +44,21 @@ calculations_table <- dplyr::tribble(
   rlang::expr(ifelse(sexf == 0, (1.10 * wtkg) - 128 * ((wtkg) ^ 2 / (htcm) ^ 2),
                      (1.07 * wtkg) - 148 * ((wtkg) ^ 2 / (htcm) ^ 2))),
   paste0(
-    "  Males: LBM = (1.10 \u00d7 WTKG) - 128 \u00d7 ((WTKG) ^ 2 \u00f7 (HTCM) ^ 2)\n",
-    "  Females: LBM = (1.07 \u00d7 WTKG) - 148 \u00d7 ((WTKG) ^ 2 \u00f7 (HTCM) ^ 2)\n"
+    "  Males: LBM [kg] = (1.10 \u00d7 WTKG [kg]) - 128 \u00d7 ((WTKG [kg]) ^ 2 \u00f7 (HTCM [cm]) ^ 2)\n",
+    "  Females: LBM [kg] = (1.07 \u00d7 WTKG [kg]) - 148 \u00d7 ((WTKG [kg]) ^ 2 \u00f7 (HTCM [cm]) ^ 2)\n"
   ),
   paste0(
     "Hallynck TH, Soep HH, Thomis JA, et al. Should clearance be normalised to body surface or to lean body mass? Br J Clin Pharmacol. 1981;11:523-526\n\n",
     "James WPT. Research on obesity. London. Her Majesty's Stationery Office. 1976"
   ),
-  "Calculate Lean Body Mass (lbm), an estimation of how much someone weighs without the body fat - how much a persons bones, organs and muscles weigh",
+  "Calculate Lean Body Mass (LBM), an estimation of how much someone weighs without the body fat; how much a persons bones, organs and muscles weigh",
   
   "ibw",
   rlang::expr(ifelse(sexf == 0, 51.65 + 1.85 * ((htcm / 2.54) - 60),
-                     48.67 + 2.65 * ((htcm / 2.54) - 60))),
+                     48.67 + 1.65 * ((htcm / 2.54) - 60))),
   paste0(
-    "  Males: IBW = 51.65 kg + 1.85 kg \u00d7 ((HTCM \u00f7 2.54) - 60)\n",
-    "  Females: IBW = 48.67 kg + 1.65 kg \u00d7 ((HTCM \u00f7 2.54) - 60)\n"
+    "  Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] \u00d7 ((HTCM [cm] \u00f7 2.54) - 60)\n",
+    "  Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] \u00d7 ((HTCM [cm] \u00f7 2.54) - 60)\n"
   ),
   "Robinson JD, Lupkiewicz SM, Palenik L, Lopez LM, Ariet M. Determination of ideal body weight for drug dosage calculations. AmJHosp Pharm.  1983;40:1016-1019",
   "Calculate Ideal Body Weight (IBW), a measure of potential body fat based on height",
@@ -66,7 +66,7 @@ calculations_table <- dplyr::tribble(
   "ibw_child",
   rlang::expr(((htcm) ^ 2 * 1.65) / 1000),
   paste0(
-    "  IBW = [(HTCM) ^ 2 \u00d7 1.65] \u00f7 1000\n"
+    "  IBW [kg] = [(HTCM [cm]) ^ 2 \u00d7 1.65] \u00f7 1000\n"
   ),
   "Traub SL and Johnson CE. Am J Hosp Pharm. 1980;37:195-201",
   "Calculate Ideal Body Weight (for children), a measure of potential body fat based on height",
@@ -76,24 +76,24 @@ calculations_table <- dplyr::tribble(
   # racen == 2 indicates 'African American', also formula from requirements template is used to write below formula, wiki page was not precise
   rlang::expr(175 * (scr ^ -1.154) * (age ^ -0.203) * ifelse(sexf == 1, 0.742, 1) * ifelse(racen == 2, 1.212, 1)),
   paste0(
-    "  EGFRMDRD = 175 \u00d7 (SCR ^ -1.154) \u00d7 (AGE ^ -0.203) \u00d7 (0.742 if female) \u00d7 (1.212 if African American)\n"
+    "  EGFR [mL/min/1.73m^2] = 175 \u00d7 (SCR [mg/dL] ^ -1.154) \u00d7 (AGE [y] ^ -0.203) \u00d7 (0.742 if female) \u00d7 (1.212 if African American)\n"
   ),
   "[Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function \u2014 Study Design, Data Analysis, and Impact on Dosing and Labeling](www.fda.gov/media/78573/download)",
-  "Calculate Estimated Glomerular Filtration Fate (eGFR) for adults",
+  "Calculate Estimated Glomerular Filtration Rate (eGFR) for adults",
   
   "egfr_child",
   # k coded inside calculate_egfr_child function
   rlang::expr((k * htcm) / scr),
   paste0(
-    "  Children (AGE <= 16), where:\n",
-    "  egfr_child = (k * htcm) / scr (mg/dL)\n",
-    "  k = 0.45 for AGE <= 1 (full term)\n",
-    "  k = 0.55 for girls 1 < AGE <= 16\n",
-    "  k = 0.55 for boys 1 < AGE < 13\n",
-    "  k = 0.70 for boys 13 <= AGE <= 16\n"
+    "  Children (AGE [y] <= 16), where:\n",
+    "  EGFR = (k * HTCM [cm]) / SCR [mg/dL]\n",
+    "  k = 0.45 for AGE [y] <= 1 (full term)\n",
+    "  k = 0.55 for girls 1 < AGE [y] <= 16\n",
+    "  k = 0.55 for boys 1 < AGE [y] < 13\n",
+    "  k = 0.70 for boys 13 <= AGE [y] <= 16\n"
   ),
   "Schwartz GJ, Furth SL. Glomerular filtration rate measurement and estimation in chronic kidney disease. Pediatr Nephrol. 2007;22(11):1839-48.",
-  "Calculate Estimated Glomerular Filtration Fate (eGFR) for Pedatrics using the Schwartz formula",
+  "Calculate Estimated Glomerular Filtration Rate (eGFR) for Pedatrics using the Schwartz formula",
   
   "rfcat",
   rlang::expr(dplyr::case_when(
@@ -121,16 +121,16 @@ calculations_table <- dplyr::tribble(
     tbil > (3 * tbiluln) ~ 3
   )),
   paste0(
-    "  if TBIL <= ULN then TBILCAT = 0\n",
-    "  if ULN < TBIL <= 1.5 \u00d7 ULN then TBILCAT = 1\n",
-    "  if 1.5 \u00d7 ULN < TBIL <= 3 \u00d7 ULN then TBILCAT = 2\n",
-    "  if TBIL > 3 \u00d7 ULN then TBILCAT = 3\n"
+    "  if TBIL [mg/dL] <= ULN [mg/dL] then TBILCAT = 0\n",
+    "  if ULN [mg/dL] < TBIL [mg/dL] <= 1.5 \u00d7 ULN [mg/dL] then TBILCAT = 1\n",
+    "  if 1.5 \u00d7 ULN [mg/dL] < TBIL [mg/dL] <= 3 \u00d7 ULN [mg/dL] then TBILCAT = 2\n",
+    "  if TBIL [mg/dL] > 3 \u00d7 ULN [mg/dL] then TBILCAT = 3\n"
   ),
   paste0(
     "Ramanathan RK, Egorin MJ, Takimoto CHM, Remick SC, Doroshow JH, LoRusso PA, et al. Phase I and pharmacokinetic study of imatinib mesylate in patients with advanced malignancies and varying degrees of liver dysfunction: a study by the national cancer institute organ dysfunction working group. J Clin Oncol. 2008;26:563-9.\n\n",
     "Ramalingam SS, Kummar S, Sarantopoulos J, Shibata S, LoRusso P, Yerk M, et al. Phase I study of vorinostat in patients with advanced solid tumors and hepatic dysfunction: a National Cancer Institute Organ Dysfunction Working Group study. J Clin Oncol. 2010;28(29):4507-12."
   ),
-  "Calculate TBIL Category",
+  "Calculate Total Bilirubin Category",
   
   "astcat",
   rlang::expr(dplyr::case_when(
@@ -138,13 +138,13 @@ calculations_table <- dplyr::tribble(
     ast > astuln ~ 1
   )),
   paste0(
-    "  if AST <= ULN then ASTCAT = 0\n  if ULN < AST then ASTCAT = 1\n"
+    "  if AST [U/L] <= ULN [U/L] then ASTCAT = 0\n  if ULN [U/L] < AST [U/L] then ASTCAT = 1\n"
   ),
   paste0(
     "Ramanathan RK, Egorin MJ, Takimoto CHM, Remick SC, Doroshow JH, LoRusso PA, et al. Phase I and pharmacokinetic study of imatinib mesylate in patients with advanced malignancies and varying degrees of liver dysfunction: a study by the national cancer institute organ dysfunction working group. J Clin Oncol. 2008;26:563-9.\n\n",
     "Ramalingam SS, Kummar S, Sarantopoulos J, Shibata S, LoRusso P, Yerk M, et al. Phase I study of vorinostat in patients with advanced solid tumors and hepatic dysfunction: a National Cancer Institute Organ Dysfunction Working Group study. J Clin Oncol. 2010;28(29):4507-12."
   ),
-  "Calculate AST Category",
+  "Calculate Aspartate Aminotransferase Category",
   
   "nciliv",
   rlang::expr(dplyr::case_when(
@@ -165,7 +165,7 @@ calculations_table <- dplyr::tribble(
     "Ramanathan RK, Egorin MJ, Takimoto CHM, Remick SC, Doroshow JH, LoRusso PA, et al. Phase I and pharmacokinetic study of imatinib mesylate in patients with advanced malignancies and varying degrees of liver dysfunction: a study by the national cancer institute organ dysfunction working group. J Clin Oncol. 2008;26:563-9.\n\n",
     "Ramalingam SS, Kummar S, Sarantopoulos J, Shibata S, LoRusso P, Yerk M, et al. Phase I study of vorinostat in patients with advanced solid tumors and hepatic dysfunction: a National Cancer Institute Organ Dysfunction Working Group study. J Clin Oncol. 2010;28(29):4507-12."
   ),
-  "Calculate NCI Liver Fx Group (NCILIV)",
+  "Calculate NCI Liver Function Group (NCILIV)",
 )
 
 # params description table
@@ -182,7 +182,7 @@ params_table <- dplyr::tribble(
   "Height (cm). Numeric vector.",
   
   "scr",
-  "SCR (Serum Creatinine, mg/dL). Numeric vector.",
+  "Serum Creatinine (mg/dL). Numeric vector.",
   
   "sexf",
   "Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.",
@@ -197,7 +197,7 @@ params_table <- dplyr::tribble(
   "Dependent Variable. Numeric vector.",
   
   "egfr",
-  "Estimated Glomerular Filtration Fate (mL/min/1.73m^2). Numeric vector.",
+  "Estimated Glomerular Filtration Rate (mL/min/1.73m^2). Numeric vector.",
   
   "tbil",
   "Total Bilirubin (mg/dL). Numeric vector.",
@@ -215,7 +215,7 @@ params_table <- dplyr::tribble(
   "Aspartate Aminotransferase Category. Numeric vector.",
   
   "crcl",
-  "Creatinine Clearance",
+  "Creatinine Clearance (mL/min)",
   
   "return_num_vect",
   "This function returns a numeric vector the same length as its inputs"
@@ -368,7 +368,7 @@ warn_about_pediatrics <- function(age, age_min = 18) {
   }
 }
 
-#' Calculate CrCl (Creatinine Clearance)
+#' Calculate Creatinine Clearance
 #'
 #' @md 
 #' @description `r get_from_calculations_table("crcl", "purpose")`
@@ -393,7 +393,12 @@ warn_about_pediatrics <- function(age, age_min = 18) {
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(CRCL = calculate_crcl(AGE, WTKG, SCR, SEXF))
+#'   mutate(CRCL = calculate_crcl(
+#'     age = AGE, 
+#'     wtkg = WTKG, 
+#'     scr = SCR, 
+#'     sexf = SEXF
+#'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -436,7 +441,7 @@ calculate_crcl <- function(age,
   )
 }
 
-#' Calculate CrCl peck (Creatinine Clearance using the Peck Formula)
+#' Calculate Creatinine Clearance using the Peck Formula
 #'
 #' @md 
 #' @description `r get_from_calculations_table("crcl_peck", "purpose")`
@@ -462,7 +467,14 @@ calculate_crcl <- function(age,
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(CRCLP = calculate_crcl_peck(AGE, WTKG, CRCL, IBW, SCR, SEXF))
+#'   mutate(CRCLP = calculate_crcl_peck(
+#'     age = AGE, 
+#'     wtkg = WTKG, 
+#'     crcl = CRCL, 
+#'     ibw = IBW, 
+#'     scr = SCR, 
+#'     sexf = SEXF
+#'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -503,7 +515,7 @@ calculate_crcl_peck <- function(age,
   )
 }
 
-#' Calculate BMI (Body Mass Index)
+#' Calculate Body Mass Index
 #'
 #' @md 
 #' @description `r get_from_calculations_table("bmi", "purpose")`
@@ -522,7 +534,7 @@ calculate_crcl_peck <- function(age,
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(BMI = calculate_bmi(WTKG, HTCM))
+#'   mutate(BMI = calculate_bmi(wtkg = WTKG, htcm = HTCM))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -552,7 +564,7 @@ calculate_bmi <- function(wtkg, htcm){
   )
 }
 
-#' Calculate BSA (Body Surface Area)
+#' Calculate Body Surface Area
 #'
 #' @md 
 #' @description `r get_from_calculations_table("bsa", "purpose")`
@@ -571,7 +583,7 @@ calculate_bmi <- function(wtkg, htcm){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(BSA = calculate_bsa(HTCM, WTKG))
+#'   mutate(BSA = calculate_bsa(htcm = HTCM, wtkg = WTKG))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -601,7 +613,7 @@ calculate_bsa <- function(htcm, wtkg){
   )
 }
 
-#' Calculate LBM (Lean Body Mass)
+#' Calculate Lean Body Mass
 #'
 #' @md 
 #' @description `r get_from_calculations_table("lbm", "purpose")`
@@ -621,7 +633,11 @@ calculate_bsa <- function(htcm, wtkg){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(LBM = calculate_lbm(SEXF, WTKG, HTCM))
+#'   mutate(LBM = calculate_lbm(
+#'     sexf = SEXF, 
+#'     wtkg = WTKG, 
+#'     htcm = HTCM
+#'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -652,7 +668,7 @@ calculate_lbm <- function(sexf, wtkg, htcm){
   )
 }
 
-#' Calculate IBW (Ideal Body Weight)
+#' Calculate Ideal Body Weight
 #'
 #' @md 
 #' @description `r get_from_calculations_table("ibw", "purpose")`
@@ -674,7 +690,7 @@ calculate_lbm <- function(sexf, wtkg, htcm){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(IBW = calculate_ibw(SEXF, HTCM))
+#'   mutate(IBW = calculate_ibw(sexf = SEXF, htcm = HTCM))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -704,7 +720,7 @@ calculate_ibw <- function(sexf, htcm){
   )
 }
 
-#' Calculate IBW child (Ideal Body Weight for children)
+#' Calculate Ideal Body Weight for Children
 #'
 #' @md 
 #' @description `r get_from_calculations_table("ibw_child", "purpose")`
@@ -754,7 +770,7 @@ calculate_ibw_child <- function(htcm){
   )
 }
 
-#' Calculate eGFR (Estimated Glomerular Filtration Fate)
+#' Calculate Estimated Glomerular Filtration Rate (eGFR)
 #'
 #' @md 
 #' @description `r get_from_calculations_table("egfr", "purpose")`
@@ -778,7 +794,12 @@ calculate_ibw_child <- function(htcm){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(EGFR = calculate_egfr(SCR, AGE, SEXF, RACEN))
+#'   mutate(EGFR = calculate_egfr(
+#'     scr = SCR, 
+#'     age = AGE, 
+#'     sexf = SEXF, 
+#'     racen = RACEN
+#'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -815,8 +836,8 @@ calculate_egfr <- function(scr,
   )
 }
 
-#' Calculate eGFR (Estimated Glomerular Filtration Fate for children) for
-#' children using the Schwartz formula
+#' Calculate Estimated Glomerular Filtration Rate for Children using the
+#' Schwartz Formula
 #'
 #' @md 
 #' @description `r get_from_calculations_table("egfr_child", "purpose")`
@@ -840,7 +861,12 @@ calculate_egfr <- function(scr,
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(EGFRSCHW = calculate_egfr_child(HTCM, SCR, AGE, SEXF))
+#'   mutate(EGFRSCHW = calculate_egfr_child(
+#'     htcm = HTCM, 
+#'     scr = SCR, 
+#'     age = AGE, 
+#'     sexf = SEXF
+#'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -890,7 +916,7 @@ calculate_egfr_child <- function(htcm,
 }
 
 
-#' Calculate RFCAT (Renal Function Category)
+#' Calculate Renal Function Category
 #'
 #' @md 
 #' @description `r get_from_calculations_table("rfcat", "purpose")`
@@ -938,7 +964,7 @@ calculate_rfcat <- function(egfr){
   )
 }
 
-#' Calculate TBILCAT (TBIL Category)
+#' Calculate Total Bilirubin Category
 #'
 #' @md 
 #' @description `r get_from_calculations_table("tbilcat", "purpose")`
@@ -957,7 +983,7 @@ calculate_rfcat <- function(egfr){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(TBILCAT = calculate_tbilcat(TBIL, TBILULN))
+#'   mutate(TBILCAT = calculate_tbilcat(tbil = TBIL, tbiluln = TBILULN))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -988,7 +1014,7 @@ calculate_tbilcat <- function(tbil, tbiluln){
   )
 }
 
-#' Calculate ASTCAT (AST Category)
+#' Calculate Aspartate Aminotransferase Category
 #'
 #' @md 
 #' @description `r get_from_calculations_table("astcat", "purpose")`
@@ -1007,7 +1033,7 @@ calculate_tbilcat <- function(tbil, tbiluln){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>%
-#'   mutate(ASTCAT = calculate_astcat(AST, ASTULN))
+#'   mutate(ASTCAT = calculate_astcat(ast = AST, astuln = ASTULN))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -1038,7 +1064,7 @@ calculate_astcat <- function(ast, astuln){
   )
 }
 
-#' Calculate NCILIV (NCI Liver Fx Group)
+#' Calculate NCI Liver Function Group
 #'
 #' @md 
 #' @description `r get_from_calculations_table("nciliv", "purpose")`
@@ -1057,7 +1083,7 @@ calculate_astcat <- function(ast, astuln){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(NCILIV = calculate_nciliv(TBILCAT, ASTCAT))
+#'   mutate(NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
@@ -1087,4 +1113,3 @@ calculate_nciliv <- function(tbilcat, astcat){
     envir_list = args_list
   )
 }
-

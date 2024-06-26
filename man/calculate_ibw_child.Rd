@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_ibw_child}
 \alias{calculate_ibw_child}
-\title{Calculate IBW child (Ideal Body Weight for children)}
+\title{Calculate Ideal Body Weight for Children}
 \usage{
 calculate_ibw_child(htcm)
 }
@@ -17,7 +17,7 @@ Calculate Ideal Body Weight (for children), a measure of potential body fat base
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate IBW_CHILD: 
-  IBW = [(HTCM) ^ 2 × 1.65] ÷ 1000
+  IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000
 }\if{html}{\out{</div>}}
 }
 \examples{

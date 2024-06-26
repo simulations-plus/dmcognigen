@@ -2,12 +2,12 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_egfr}
 \alias{calculate_egfr}
-\title{Calculate eGFR (Estimated Glomerular Filtration Fate)}
+\title{Calculate Estimated Glomerular Filtration Rate (eGFR)}
 \usage{
 calculate_egfr(scr, age, sexf, racen)
 }
 \arguments{
-\item{scr}{SCR (Serum Creatinine, mg/dL). Numeric vector.}
+\item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
 
 \item{age}{Age (y). Numeric vector.}
 
@@ -19,18 +19,23 @@ calculate_egfr(scr, age, sexf, racen)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate Estimated Glomerular Filtration Fate (eGFR) for adults
+Calculate Estimated Glomerular Filtration Rate (eGFR) for adults
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate EGFR: 
-  EGFRMDRD = 175 × (SCR ^ -1.154) × (AGE ^ -0.203) × (0.742 if female) × (1.212 if African American)
+  EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(EGFR = calculate_egfr(SCR, AGE, SEXF, RACEN))
+  mutate(EGFR = calculate_egfr(
+    scr = SCR, 
+    age = AGE, 
+    sexf = SEXF, 
+    racen = RACEN
+  ))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

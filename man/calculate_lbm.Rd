@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_lbm}
 \alias{calculate_lbm}
-\title{Calculate LBM (Lean Body Mass)}
+\title{Calculate Lean Body Mass}
 \usage{
 calculate_lbm(sexf, wtkg, htcm)
 }
@@ -17,19 +17,23 @@ calculate_lbm(sexf, wtkg, htcm)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate Lean Body Mass (lbm), an estimation of how much someone weighs without the body fat - how much a persons bones, organs and muscles weigh
+Calculate Lean Body Mass (LBM), an estimation of how much someone weighs without the body fat; how much a persons bones, organs and muscles weigh
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate LBM: 
-  Males: LBM = (1.10 × WTKG) - 128 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)
-  Females: LBM = (1.07 × WTKG) - 148 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)
+  Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)
+  Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(LBM = calculate_lbm(SEXF, WTKG, HTCM))
+  mutate(LBM = calculate_lbm(
+    sexf = SEXF, 
+    wtkg = WTKG, 
+    htcm = HTCM
+  ))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

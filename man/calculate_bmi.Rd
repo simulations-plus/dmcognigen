@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_bmi}
 \alias{calculate_bmi}
-\title{Calculate BMI (Body Mass Index)}
+\title{Calculate Body Mass Index}
 \usage{
 calculate_bmi(wtkg, htcm)
 }
@@ -19,14 +19,14 @@ Calculate Body Mass Index (BMI). BMI is a measure of body fat based on height an
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate BMI: 
-  BMI = WTKG ÷ (HTCM ÷ 100) ^ 2
+  BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(BMI = calculate_bmi(WTKG, HTCM))
+  mutate(BMI = calculate_bmi(wtkg = WTKG, htcm = HTCM))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

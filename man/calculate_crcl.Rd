@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculations.R
 \name{calculate_crcl}
 \alias{calculate_crcl}
-\title{Calculate CrCl (Creatinine Clearance)}
+\title{Calculate Creatinine Clearance}
 \usage{
 calculate_crcl(age, wtkg, scr, sexf)
 }
@@ -11,7 +11,7 @@ calculate_crcl(age, wtkg, scr, sexf)
 
 \item{wtkg}{Weight (kg). Numeric vector.}
 
-\item{scr}{SCR (Serum Creatinine, mg/dL). Numeric vector.}
+\item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
 
 \item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
 }
@@ -19,19 +19,24 @@ calculate_crcl(age, wtkg, scr, sexf)
 This function returns a numeric vector the same length as its inputs
 }
 \description{
-Calculate Creatinine Clearance (CrCl), a measure of renal function based on age, weight, gender, and Serum Creatinine. This is the Cockcroft and Gault Calculation
+Calculate Creatinine Clearance (CrCl), a measure of renal function based on age, weight, gender, and serum creatinine. This is the Cockcroft and Gault Formula.
 }
 \details{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Formula to calculate CRCL: 
-  Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])
-  Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85
+  Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])
+  Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85
 }\if{html}{\out{</div>}}
 }
 \examples{
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(CRCL = calculate_crcl(AGE, WTKG, SCR, SEXF))
+  mutate(CRCL = calculate_crcl(
+    age = AGE, 
+    wtkg = WTKG, 
+    scr = SCR, 
+    sexf = SEXF
+  ))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 
