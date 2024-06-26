@@ -4,11 +4,14 @@
 \alias{join_decodes}
 \alias{join_decode_labels}
 \alias{join_decode_levels}
+\alias{decode_tbls_lvl_to_lbl}
 \title{Join decode labels or levels}
 \usage{
 join_decode_labels(.data, decode_tbls, lvl_to_lbl = "{var}C", ...)
 
 join_decode_levels(.data, decode_tbls, lvl_to_lbl = "{var}C", ...)
+
+decode_tbls_lvl_to_lbl(decode_tbls, lvl_to_lbl = "{var}C")
 }
 \arguments{
 \item{.data}{data frame}
@@ -19,11 +22,11 @@ Alternatively, the result of \code{read_requirements()} can be used
 directly.}
 
 \item{lvl_to_lbl}{a named \code{list}, where elements correspond to matching
-names in \code{decode_tbls}. One element can be left unnamed to provide the
-default transformation. Each element should be either: (1) a
-function/formula; (2) a custom glue specification. The default is
-\code{"{var}C"}, which means the label variable name is the level variable
-name appended with a "C".}
+names in \code{.data} and \code{decode_tbls}. One element can be left
+unnamed to provide the default transformation. Each element should be
+either: (1) a function/formula; (2) a custom glue specification. The
+default is \code{"{var}C"}, which means the label variable name is the
+level variable name appended with a "C".}
 
 \item{...}{additional arguments (currently unused)}
 }
@@ -34,4 +37,10 @@ data frame with the same number of rows as \code{.data}. New
 }
 \description{
 Join decode labels or levels
+}
+\seealso{
+\code{\link{extract_decode_tbls_from_data}} to extract decode tables from a
+dataset;
+\code{\link{extract_decode_tbls}} to extract decode tables from a table
+describing variable decodes.
 }

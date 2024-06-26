@@ -17,7 +17,7 @@ good_decodes <- tibble::tribble(
   "RFCAT",  "1=Normal (>=90 mL/min)\n2=Mild (60-89 mL/min)\n3=Moderate (30-59 mL/min)"
 )
 
-# extract_decode ----------------------------------------------------------
+# extract_decode_tbls -----------------------------------------------------
 
 test_that("extract_decode_tbl() extracts the decodes with different formats/symbols", {
   
@@ -102,21 +102,3 @@ test_that("extract_decode_tbl() matches expected structure and values", {
     expected = expected_result
   )
 })
-
-# req_decodes -------------------------------------------------------------
-req_ex <- tibble::tribble(
-  ~Variable.Name, ~Format.Decode,
-  "SEXF", "0=Male\r\n1=Female",
-  "AGECAT", "0=<65 years\r\n1=65 to 74 years\r\n2=75 years or older",
-  "FLG", "Y=Yes\r\nN=No"
-)
-
-bad_req_ex <- tibble::tribble(
-  ~Variable.Name, ~Format.Decode,
-  "SEXF", "0=Male\r\n1=Female\r\n1=Other",
-  "AGECAT", "0=<65 years\r\n1=65 to 74 years\r\n2=75 years or older",
-  "FLG", "Y=Yes\r\nN=No"
-)
-
-# TODO replace req_decodes with a test when read_requirements returns an attribute
-# with decode_tbl

@@ -14,9 +14,10 @@
 #' 
 #' @return a \code{decode_tbl} or \code{decode_tbls} object.
 #' 
-#' @seealso \code{\link{extract_decodes}}, \code{\link{print.decode_tbl}}
+#' @seealso \code{\link{print.decode_tbl}}, \code{\link{extract_decode_tbls}},
+#' \code{\link{extract_decode_tbls_from_data}}, \code{\link{join_decodes}}
 #'
-#' @name as_decode_tbl
+#' @name decode_tbls
 NULL
 #> NULL
 
@@ -60,14 +61,14 @@ decode_tbl <- function(x = tibble::tibble()) {
 }
 
 
-#' @rdname as_decode_tbl
+#' @rdname decode_tbls
 #' @export
-as_decode_tbl <- function(x = decode_tbl()) {
+as_decode_tbl <- function(x = tibble::tibble()) {
   validate_decode_tbl(decode_tbl(x))
 }
 
 # Checks a data frame for the requirements of a decode_tbl
-validate_decode_tbl <- function(x = decode_tbl()) {
+validate_decode_tbl <- function(x = tibble::tibble()) {
   
   # set visible bindings
   var <- lvl <- n <- lbl <- NULL
@@ -117,7 +118,7 @@ validate_decode_tbl <- function(x = decode_tbl()) {
 }
 
 
-#' @rdname as_decode_tbl
+#' @rdname decode_tbls
 #' @export
 as_decode_tbls <- function(x = list()) {
   
@@ -177,7 +178,7 @@ as_decode_tbls <- function(x = list()) {
 #'   (default), "center" (aligns '='), or "right".
 #' @param ... Passed to \code{print}.
 #' 
-#' @name print.decode_tbl
+#' @name print.decode_tbls
 #' 
 #' @export
 print.decode_tbl <- function(x, align = c("left", "center", "right"), ...) {
@@ -239,7 +240,7 @@ print.decode_tbl <- function(x, align = c("left", "center", "right"), ...) {
   
 }
 
-#' @rdname print.decode_tbl
+#' @rdname print.decode_tbls
 #' @export
 print.decode_tbls <- function(x, align = c("left", "center", "right"), ...) {
   

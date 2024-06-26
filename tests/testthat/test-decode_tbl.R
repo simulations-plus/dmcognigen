@@ -17,7 +17,7 @@ good_decodes <- tibble::tribble(
   "RFCAT",  "1=Normal (>=90 mL/min)\n2=Mild (60-89 mL/min)\n3=Moderate (30-59 mL/min)"
 )
 
-# new_decode_tbl ----------------------------------------------------------
+# decode_tbl -------------------------------------------------------------
 
 complete_decode_tbl <- data.frame(
   var = "SEXF",
