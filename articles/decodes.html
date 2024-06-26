@@ -171,6 +171,109 @@ defines a level-to-label relationship separated by an equal sign.</p>
 <span><span class="co">#&gt; FED:</span></span>
 <span><span class="co">#&gt; 0=Fasted</span></span>
 <span><span class="co">#&gt; 1=Fed</span></span></code></pre>
+<p>We can extract the decode tables as below:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/extract_decode_tbls.html">extract_decode_tbls</a></span><span class="op">(</span></span>
+<span>  variable_name <span class="op">=</span> <span class="va">example_decodes</span><span class="op">$</span><span class="va">variable_name</span>,</span>
+<span>  decode <span class="op">=</span> <span class="va">example_decodes</span><span class="op">$</span><span class="va">format_decode</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">AGECAT</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=18-50</span></span>
+<span><span class="co">#&gt; 2=51-69</span></span>
+<span><span class="co">#&gt; 3=70+</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 3=Asian-Japanese</span></span>
+<span><span class="co">#&gt; 4=Asian-Korean</span></span>
+<span><span class="co">#&gt; 5=Asian-other</span></span>
+<span><span class="co">#&gt; 6=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; 7=Native Hawaiian or Other Pacific Islander</span></span>
+<span><span class="co">#&gt; 8=Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; 1=Female</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">FED</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Fasted</span></span>
+<span><span class="co">#&gt; 1=Fed</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="extracting-from-a-dataset">Extracting from a dataset<a class="anchor" aria-label="anchor" href="#extracting-from-a-dataset"></a>
+</h3>
+<p>This method is expected to be used when a dataset includes variables
+and their decodes.</p>
+<p>Like RACEN and RACE below:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
+<span><span class="co">#&gt;   RACEN RACE                                 n n_cumulative</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 WHITE                              230          230</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 BLACK OR AFRICAN AMERICAN           23          253</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     4 AMERICAN INDIAN OR ALASKA NATIVE     1          254</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></span><span class="op">(</span></span>
+<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RACEN"</span> <span class="op">=</span> <span class="st">"RACE"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=WHITE</span></span>
+<span><span class="co">#&gt; 2=BLACK OR AFRICAN AMERICAN</span></span>
+<span><span class="co">#&gt; 4=AMERICAN INDIAN OR ALASKA NATIVE</span></span></code></pre></div>
+<p>The <code>lvl_to_lbl</code> argument maps the names of “level”
+variables to the names of “label” variables.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></span><span class="op">(</span></span>
+<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="co"># map individual variables</span></span>
+<span>      <span class="st">"SEXF"</span> <span class="op">=</span> <span class="st">"SEXFC"</span>,</span>
+<span>      <span class="st">"RACEN"</span> <span class="op">=</span> <span class="st">"RACE"</span>,</span>
+<span>      <span class="co"># by default map lvl to lbl by removing CD at the end of variable names</span></span>
+<span>      <span class="op">~</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"CD$"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=Female</span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=WHITE</span></span>
+<span><span class="co">#&gt; 2=BLACK OR AFRICAN AMERICAN</span></span>
+<span><span class="co">#&gt; 4=AMERICAN INDIAN OR ALASKA NATIVE</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">ARMCD</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Pbo=Placebo</span></span>
+<span><span class="co">#&gt; Xan_Hi=Xanomeline High Dose</span></span>
+<span><span class="co">#&gt; Xan_Lo=Xanomeline Low Dose</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">ACTARMCD</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Pbo=Placebo</span></span>
+<span><span class="co">#&gt; Xan_Hi=Xanomeline High Dose</span></span>
+<span><span class="co">#&gt; Xan_Lo=Xanomeline Low Dose</span></span></code></pre></div>
 </div>
 </div>
   </div>
