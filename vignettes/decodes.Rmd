@@ -21,7 +21,7 @@ library(dplyr)
 
 ```{r echo=FALSE}
 # copied content from vignettes/requirements.Rmd
-reqs_to_write <- example_requirements
+reqs_to_write <- dmcognigen:::example_requirements
 
 example_decodes <- reqs_to_write %>% 
   select(variable_name, variable_label, format_decode)
