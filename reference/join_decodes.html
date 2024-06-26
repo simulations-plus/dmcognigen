@@ -71,7 +71,9 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">join_decode_labels</span><span class="op">(</span><span class="va">.data</span>, <span class="va">decode_tbls</span>, lvl_to_lbl <span class="op">=</span> <span class="st">"{var}C"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">join_decode_levels</span><span class="op">(</span><span class="va">.data</span>, <span class="va">decode_tbls</span>, lvl_to_lbl <span class="op">=</span> <span class="st">"{var}C"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">join_decode_levels</span><span class="op">(</span><span class="va">.data</span>, <span class="va">decode_tbls</span>, lvl_to_lbl <span class="op">=</span> <span class="st">"{var}C"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">decode_tbls_lvl_to_lbl</span><span class="op">(</span><span class="va">decode_tbls</span>, lvl_to_lbl <span class="op">=</span> <span class="st">"{var}C"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -82,18 +84,18 @@
 
 <dt>decode_tbls</dt>
 <dd><p><code>decode_tbls</code> list as returned by
-<code><a href="extract_decodes.html">extract_decode_tbls()</a></code> or <code>extract_decode_tbls_from_data()</code>.
+<code><a href="extract_decode_tbls.html">extract_decode_tbls()</a></code> or <code><a href="extract_decode_tbls_from_data.html">extract_decode_tbls_from_data()</a></code>.
 Alternatively, the result of <code><a href="requirements.html">read_requirements()</a></code> can be used
 directly.</p></dd>
 
 
 <dt>lvl_to_lbl</dt>
 <dd><p>a named <code>list</code>, where elements correspond to matching
-names in <code>decode_tbls</code>. One element can be left unnamed to provide the
-default transformation. Each element should be either: (1) a
-function/formula; (2) a custom glue specification. The default is
-<code>"{var}C"</code>, which means the label variable name is the level variable
-name appended with a "C".</p></dd>
+names in <code>.data</code> and <code>decode_tbls</code>. One element can be left
+unnamed to provide the default transformation. Each element should be
+either: (1) a function/formula; (2) a custom glue specification. The
+default is <code>"{var}C"</code>, which means the label variable name is the
+level variable name appended with a "C".</p></dd>
 
 
 <dt>...</dt>
@@ -108,6 +110,13 @@ name appended with a "C".</p></dd>
   variables will be included for matching content in <code>.data</code> and</p>
 <p></p>
 <p><code>decode_tbls</code>.</p>
+    </div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></code> to extract decode tables from a
+dataset;
+<code><a href="extract_decode_tbls.html">extract_decode_tbls</a></code> to extract decode tables from a table
+describing variable decodes.</p></div>
     </div>
 
   </div>

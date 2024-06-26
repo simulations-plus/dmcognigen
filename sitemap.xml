@@ -31,9 +31,6 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/as_decode_tbl.html</loc>
-  </url>
-  <url>
     <loc>/reference/calculate_astcat.html</loc>
   </url>
   <url>
@@ -76,6 +73,9 @@
     <loc>/reference/cnt.html</loc>
   </url>
   <url>
+    <loc>/reference/decode_tbls.html</loc>
+  </url>
+  <url>
     <loc>/reference/describe_param.html</loc>
   </url>
   <url>
@@ -85,7 +85,10 @@
     <loc>/reference/dmcognigen_cov.html</loc>
   </url>
   <url>
-    <loc>/reference/extract_decodes.html</loc>
+    <loc>/reference/extract_decode_tbls.html</loc>
+  </url>
+  <url>
+    <loc>/reference/extract_decode_tbls_from_data.html</loc>
   </url>
   <url>
     <loc>/reference/get_from_calculations_table.html</loc>
@@ -103,7 +106,7 @@
     <loc>/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/print.decode_tbl.html</loc>
+    <loc>/reference/print.decode_tbls.html</loc>
   </url>
   <url>
     <loc>/reference/requirements.html</loc>
