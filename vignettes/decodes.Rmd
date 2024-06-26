@@ -20,10 +20,7 @@ library(dplyr)
 ```
 
 ```{r echo=FALSE}
-# copied content from vignettes/requirements.Rmd
-reqs_to_write <- dmcognigen:::example_requirements
-
-example_decodes <- reqs_to_write %>% 
+example_decodes <- dmcognigen:::example_requirements %>% 
   select(variable_name, variable_label, format_decode)
 ```
 
@@ -63,5 +60,43 @@ example_decodes %>%
     variable_name, ":\n", format_decode, "\n\n"
   ))) %>% 
   invisible()
+```
+
+We can extract the decode tables as below:
+```{r}
+extract_decode_tbls(
+  variable_name = example_decodes$variable_name,
+  decode = example_decodes$format_decode
+)
+```
+
+
+## Extracting from a dataset
+
+This method is expected to be used when a dataset includes variables and their decodes.
+
+Like RACEN and RACE below:
+```{r}
+dmcognigen_cov %>%
+  cnt(RACEN, RACE)
+
+dmcognigen_cov %>%
+  extract_decode_tbls_from_data(
+    lvl_to_lbl = c("RACEN" = "RACE")
+  )
+```
+
+The `lvl_to_lbl` argument maps the names of "level" variables to the names of "label" variables.
+```{r}
+dmcognigen_cov %>%
+  extract_decode_tbls_from_data(
+    lvl_to_lbl = c(
+      # map individual variables
+      "SEXF" = "SEXFC",
+      "RACEN" = "RACE",
+      # by default map lvl to lbl by removing CD at the end of variable names
+      ~ stringr::str_remove(.x, "CD$")
+    )
+  )
 ```
 
