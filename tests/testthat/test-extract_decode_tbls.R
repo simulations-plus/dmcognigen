@@ -84,6 +84,14 @@ test_that("extract_decode_tbl() extracts the decodes with different formats/symb
     c(3, 3)
   )
   
+  expect_length(
+    object = extract_decode_tbls(
+      variable_name = good_decodes$var,
+      decode = good_decodes$decode
+    ),
+    n = 7L
+  )
+  
 })
 
 test_that("extract_decode_tbl() matches expected structure and values", {
