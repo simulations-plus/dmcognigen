@@ -153,8 +153,8 @@ simply access them by calling their names.</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
-<span><span class="co">#&gt;   Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])</span></span>
-<span><span class="co">#&gt;   Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85</span></span>
+<span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
+<span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -270,10 +270,10 @@ was used to calculate in a readable format.</p>
 </h3>
 <p>The <code>calculate_crcl</code> function is to Calculate Creatinine
 Clearance (CrCl), a measure of renal function based on age, weight,
-gender, and Serum Creatinine. This is the Cockcroft and Gault
-Calculation. Following is the formula to calculate it:</p>
-<pre>Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])
-Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85
+gender, and serum creatinine. This is the Cockcroft and Gault Formula..
+Following is the formula to calculate it:</p>
+<pre>Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])
+Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -283,8 +283,7 @@ Following are the inputs:</p>
 <li>
 <code>wtkg</code>: Weight (kg). Numeric vector.</li>
 <li>
-<code>scr</code>: SCR (Serum Creatinine, mg/dL). Numeric
-vector.</li>
+<code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
 <li>
 <code>sexf</code>: Sex. Numeric vector including values of 0 and/or
 1. 0=Male; 1=Female.</li>
@@ -309,8 +308,8 @@ vector.</li>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
-<span><span class="co">#&gt;   Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])</span></span>
-<span><span class="co">#&gt;   Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85</span></span>
+<span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
+<span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -343,8 +342,8 @@ environment:</p>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
-<span><span class="co">#&gt;   Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])</span></span>
-<span><span class="co">#&gt;   Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85</span></span>
+<span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
+<span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -370,8 +369,8 @@ environment:</p>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
-<span><span class="co">#&gt;   Males: CrCl = ((140 - AGE [year]) × WTKG) ÷ (72 × SCr [mg/dL])</span></span>
-<span><span class="co">#&gt;   Females: CrCl = (((140 - AGE [year]) × WTKG) ÷ (72 × SCr[mg/dL])) × 0.85</span></span>
+<span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
+<span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -394,12 +393,12 @@ environment:</p>
 </h3>
 <p>The <code>calculate_crcl_peck</code> function is to Calculate
 Creatinine Clearance (CrCl) using the Peck Formula, a measure of renal
-function based on age, ideal weight, gender, and Serum Creatinine.
+function based on age, ideal weight, gender, and serum creatinine.
 Following is the formula to calculate it:</p>
-<pre>If WTKG &lt; 120% of IBW, CrCl = CRCL (Cockroft &amp; Gault)
-If WTKG &gt;= 120% of IBW:
-  Males: CrCl = ((140 - AGE) × IBW) ÷ (72 × SCr)
-  Females: CrCl = (((140 - AGE) × IBW) ÷ (72 × SCr)) × 0.85
+<pre>If WTKG [kg] &lt; 120% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft &amp; Gault)
+If WTKG [kg] &gt;= 120% of IBW [kg]:
+  Males: CRCL [mL/min] = ((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])
+  Females: CRCL [mL/min] = (((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])) × 0.85
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -409,12 +408,11 @@ Following are the inputs:</p>
 <li>
 <code>wtkg</code>: Weight (kg). Numeric vector.</li>
 <li>
-<code>crcl</code>: Creatinine Clearance</li>
+<code>crcl</code>: Creatinine Clearance (mL/min)</li>
 <li>
 <code>ibw</code>: Ideal Body Weight (kg). Numeric vector.</li>
 <li>
-<code>scr</code>: SCR (Serum Creatinine, mg/dL). Numeric
-vector.</li>
+<code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
 <li>
 <code>sexf</code>: Sex. Numeric vector including values of 0 and/or
 1. 0=Male; 1=Female.</li>
@@ -440,10 +438,10 @@ vector.</li>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span>, <span class="va">IBW</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCLP</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL_PECK: </span></span>
-<span><span class="co">#&gt;   If WTKG &lt; 120% of IBW, CrCl = CRCL (Cockroft &amp; Gault)</span></span>
-<span><span class="co">#&gt;   If WTKG &gt;= 120% of IBW:</span></span>
-<span><span class="co">#&gt;     Males: CrCl = ((140 - AGE) × IBW) ÷ (72 × SCr)</span></span>
-<span><span class="co">#&gt;     Females: CrCl = (((140 - AGE) × IBW) ÷ (72 × SCr)) × 0.85</span></span>
+<span><span class="co">#&gt;   If WTKG [kg] &lt; 120% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft &amp; Gault)</span></span>
+<span><span class="co">#&gt;   If WTKG [kg] &gt;= 120% of IBW [kg]:</span></span>
+<span><span class="co">#&gt;     Males: CRCL [mL/min] = ((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])</span></span>
+<span><span class="co">#&gt;     Females: CRCL [mL/min] = (((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 8</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AGE  WTKG  CRCL   IBW   SCR  SEXF CRCLP</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -478,10 +476,10 @@ environment:</p>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL_PECK: </span></span>
-<span><span class="co">#&gt;   If WTKG &lt; 120% of IBW, CrCl = CRCL (Cockroft &amp; Gault)</span></span>
-<span><span class="co">#&gt;   If WTKG &gt;= 120% of IBW:</span></span>
-<span><span class="co">#&gt;     Males: CrCl = ((140 - AGE) × IBW) ÷ (72 × SCr)</span></span>
-<span><span class="co">#&gt;     Females: CrCl = (((140 - AGE) × IBW) ÷ (72 × SCr)) × 0.85</span></span>
+<span><span class="co">#&gt;   If WTKG [kg] &lt; 120% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft &amp; Gault)</span></span>
+<span><span class="co">#&gt;   If WTKG [kg] &gt;= 120% of IBW [kg]:</span></span>
+<span><span class="co">#&gt;     Males: CRCL [mL/min] = ((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])</span></span>
+<span><span class="co">#&gt;     Females: CRCL [mL/min] = (((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 8</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AGE  WTKG  CRCL   IBW   SCR  SEXF CRCLP</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -505,7 +503,7 @@ environment:</p>
 <p>The <code>calculate_bmi</code> function is to Calculate Body Mass
 Index (BMI). BMI is a measure of body fat based on height and weight.
 Following is the formula to calculate it:</p>
-<pre>BMI = WTKG ÷ (HTCM ÷ 100) ^ 2
+<pre>BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -532,7 +530,7 @@ Following are the inputs:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">WTKG</span>, <span class="va">HTCM</span>, <span class="va">BMI</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate BMI: </span></span>
-<span><span class="co">#&gt;   BMI = WTKG ÷ (HTCM ÷ 100) ^ 2</span></span>
+<span><span class="co">#&gt;   BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      WTKG  HTCM   BMI</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -563,7 +561,7 @@ environment:</p>
 <span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate BMI: </span></span>
-<span><span class="co">#&gt;   BMI = WTKG ÷ (HTCM ÷ 100) ^ 2</span></span>
+<span><span class="co">#&gt;   BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      WTKG  HTCM   BMI</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -587,7 +585,7 @@ environment:</p>
 <p>The <code>calculate_bsa</code> function is to Calculate Body Surface
 Area (BSA). Body Surface Area is a measure of body fat based on height
 and weight. Following is the formula to calculate it:</p>
-<pre>BSA = ((HTCM) ^ 0.42246 * (WTKG) ^ 0.51456) * .0235
+<pre>BSA [m^2] = ((HTCM [cm]) ^ 0.42246 * (WTKG [kg]) ^ 0.51456) * 0.0235
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -614,7 +612,7 @@ Following are the inputs:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">WTKG</span>, <span class="va">BSA</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate BSA: </span></span>
-<span><span class="co">#&gt;   BSA = ((HTCM) ^ 0.42246 * (WTKG) ^ 0.51456) * .0235</span></span>
+<span><span class="co">#&gt;   BSA [m^2] = ((HTCM [cm]) ^ 0.42246 * (WTKG [kg]) ^ 0.51456) * 0.0235</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      HTCM  WTKG   BSA</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -645,7 +643,7 @@ environment:</p>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate BSA: </span></span>
-<span><span class="co">#&gt;   BSA = ((HTCM) ^ 0.42246 * (WTKG) ^ 0.51456) * .0235</span></span>
+<span><span class="co">#&gt;   BSA [m^2] = ((HTCM [cm]) ^ 0.42246 * (WTKG [kg]) ^ 0.51456) * 0.0235</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      HTCM  WTKG   BSA</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -667,11 +665,11 @@ environment:</p>
 <h3 id="calculate_lbm">calculate_lbm<a class="anchor" aria-label="anchor" href="#calculate_lbm"></a>
 </h3>
 <p>The <code>calculate_lbm</code> function is to Calculate Lean Body
-Mass (lbm), an estimation of how much someone weighs without the body
-fat - how much a persons bones, organs and muscles weigh. Following is
+Mass (LBM), an estimation of how much someone weighs without the body
+fat; how much a persons bones, organs and muscles weigh. Following is
 the formula to calculate it:</p>
-<pre>Males: LBM = (1.10 × WTKG) - 128 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)
-Females: LBM = (1.07 × WTKG) - 148 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)
+<pre>Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)
+Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -702,8 +700,8 @@ Following are the inputs:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">HTCM</span>, <span class="va">LBM</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate LBM: </span></span>
-<span><span class="co">#&gt;   Males: LBM = (1.10 × WTKG) - 128 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)</span></span>
-<span><span class="co">#&gt;   Females: LBM = (1.07 × WTKG) - 148 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)</span></span>
+<span><span class="co">#&gt;   Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
+<span><span class="co">#&gt;   Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 5</span></span></span>
 <span><span class="co">#&gt;    USUBJID      SEXF  WTKG  HTCM   LBM</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -735,8 +733,8 @@ environment:</p>
 <span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate LBM: </span></span>
-<span><span class="co">#&gt;   Males: LBM = (1.10 × WTKG) - 128 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)</span></span>
-<span><span class="co">#&gt;   Females: LBM = (1.07 × WTKG) - 148 × ((WTKG) ^ 2 ÷ (HTCM) ^ 2)</span></span>
+<span><span class="co">#&gt;   Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
+<span><span class="co">#&gt;   Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 5</span></span></span>
 <span><span class="co">#&gt;    USUBJID      SEXF  WTKG  HTCM   LBM</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -760,8 +758,8 @@ environment:</p>
 <p>The <code>calculate_ibw</code> function is to Calculate Ideal Body
 Weight (IBW), a measure of potential body fat based on height. Following
 is the formula to calculate it:</p>
-<pre>Males: IBW = 51.65 kg + 1.85 kg × ((HTCM ÷ 2.54) - 60)
-Females: IBW = 48.67 kg + 1.65 kg × ((HTCM ÷ 2.54) - 60)
+<pre>Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] × ((HTCM [cm] ÷ 2.54) - 60)
+Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -789,19 +787,19 @@ Following are the inputs:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SEXF</span>, <span class="va">HTCM</span>, <span class="va">IBW</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW: </span></span>
-<span><span class="co">#&gt;   Males: IBW = 51.65 kg + 1.85 kg × ((HTCM ÷ 2.54) - 60)</span></span>
-<span><span class="co">#&gt;   Females: IBW = 48.67 kg + 1.65 kg × ((HTCM ÷ 2.54) - 60)</span></span>
+<span><span class="co">#&gt;   Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
+<span><span class="co">#&gt;   Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      SEXF  HTCM   IBW</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  147.  43.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  147.  45.4</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023     0  163.  59.0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028     0  178.  70.2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033     0  175.  68.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  155.  51.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  149.  44.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  155.  50.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  149.  46.2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097     0  169.  63.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  158.  54.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  158.  52.5</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115     0  182.  72.9</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118     0  180.  72  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
@@ -821,19 +819,19 @@ environment:</p>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW: </span></span>
-<span><span class="co">#&gt;   Males: IBW = 51.65 kg + 1.85 kg × ((HTCM ÷ 2.54) - 60)</span></span>
-<span><span class="co">#&gt;   Females: IBW = 48.67 kg + 1.65 kg × ((HTCM ÷ 2.54) - 60)</span></span>
+<span><span class="co">#&gt;   Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
+<span><span class="co">#&gt;   Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      SEXF  HTCM   IBW</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  147.  43.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  147.  45.4</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023     0  163.  59.0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028     0  178.  70.2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033     0  175.  68.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  155.  51.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  149.  44.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  155.  50.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  149.  46.2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097     0  169.  63.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  158.  54.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  158.  52.5</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115     0  182.  72.9</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118     0  180.  72  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
@@ -846,7 +844,7 @@ environment:</p>
 <p>The <code>calculate_ibw_child</code> function is to Calculate Ideal
 Body Weight (for children), a measure of potential body fat based on
 height. Following is the formula to calculate it:</p>
-<pre>IBW = [(HTCM) ^ 2 × 1.65] ÷ 1000
+<pre>IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following is the input:</p>
@@ -868,7 +866,7 @@ Following is the input:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">IBWCHILD</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW_CHILD: </span></span>
-<span><span class="co">#&gt;   IBW = [(HTCM) ^ 2 × 1.65] ÷ 1000</span></span>
+<span><span class="co">#&gt;   IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 3</span></span></span>
 <span><span class="co">#&gt;    USUBJID      HTCM IBWCHILD</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -898,7 +896,7 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">IBWCHILD</span><span class="op">)</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW_CHILD: </span></span>
-<span><span class="co">#&gt;   IBW = [(HTCM) ^ 2 × 1.65] ÷ 1000</span></span>
+<span><span class="co">#&gt;   IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 3</span></span></span>
 <span><span class="co">#&gt;    USUBJID      HTCM IBWCHILD</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -920,16 +918,15 @@ environment:</p>
 <h3 id="calculate_egfr">calculate_egfr<a class="anchor" aria-label="anchor" href="#calculate_egfr"></a>
 </h3>
 <p>The <code>calculate_egfr</code> function is to Calculate Estimated
-Glomerular Filtration Fate (eGFR) for adults. Following is the formula
+Glomerular Filtration Rate (eGFR) for adults. Following is the formula
 to calculate it:</p>
-<pre>EGFRMDRD = 175 × (SCR ^ -1.154) × (AGE ^ -0.203) × (0.742 if female) × (1.212 if African American)
+<pre>EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
 <ul>
 <li>
-<code>scr</code>: SCR (Serum Creatinine, mg/dL). Numeric
-vector.</li>
+<code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
 <li>
 <code>age</code>: Age (y). Numeric vector.</li>
 <li>
@@ -958,7 +955,7 @@ expected to correspond to Black/African American.</li>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SCR</span>, <span class="va">AGE</span>, <span class="va">SEXF</span>, <span class="va">RACEN</span>, <span class="va">EGFR</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR: </span></span>
-<span><span class="co">#&gt;   EGFRMDRD = 175 × (SCR ^ -1.154) × (AGE ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
+<span><span class="co">#&gt;   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID       SCR   AGE  SEXF RACEN  EGFR</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -991,7 +988,7 @@ environment:</p>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; RACEN variable found and used for the racen argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR: </span></span>
-<span><span class="co">#&gt;   EGFRMDRD = 175 × (SCR ^ -1.154) × (AGE ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
+<span><span class="co">#&gt;   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID       SCR   AGE  SEXF RACEN  EGFR</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1013,14 +1010,14 @@ environment:</p>
 <h3 id="calculate_egfr_child">calculate_egfr_child<a class="anchor" aria-label="anchor" href="#calculate_egfr_child"></a>
 </h3>
 <p>The <code>calculate_egfr_child</code> function is to Calculate
-Estimated Glomerular Filtration Fate (eGFR) for Pedatrics using the
+Estimated Glomerular Filtration Rate (eGFR) for Pedatrics using the
 Schwartz formula. Following is the formula to calculate it:</p>
-<pre>Children (AGE &lt;= 16), where:
-egfr_child = (k * htcm) / scr (mg/dL)
-k = 0.45 for AGE &lt;= 1 (full term)
-k = 0.55 for girls 1 &lt; AGE &lt;= 16
-k = 0.55 for boys 1 &lt; AGE &lt; 13
-k = 0.70 for boys 13 &lt;= AGE &lt;= 16
+<pre>Children (AGE [y] &lt;= 16), where:
+EGFR = (k * HTCM [cm]) / SCR [mg/dL]
+k = 0.45 for AGE [y] &lt;= 1 (full term)
+k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16
+k = 0.55 for boys 1 &lt; AGE [y] &lt; 13
+k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -1028,8 +1025,7 @@ Following are the inputs:</p>
 <li>
 <code>htcm</code>: Height (cm). Numeric vector.</li>
 <li>
-<code>scr</code>: SCR (Serum Creatinine, mg/dL). Numeric
-vector.</li>
+<code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
 <li>
 <code>age</code>: Age (y). Numeric vector.</li>
 <li>
@@ -1055,12 +1051,12 @@ vector.</li>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SCR</span>, <span class="va">AGE</span>, <span class="va">SEXF</span>, <span class="va">EGFR_CHILD</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR_CHILD: </span></span>
-<span><span class="co">#&gt;   Children (AGE &lt;= 16), where:</span></span>
-<span><span class="co">#&gt;   egfr_child = (k * htcm) / scr (mg/dL)</span></span>
-<span><span class="co">#&gt;   k = 0.45 for AGE &lt;= 1 (full term)</span></span>
-<span><span class="co">#&gt;   k = 0.55 for girls 1 &lt; AGE &lt;= 16</span></span>
-<span><span class="co">#&gt;   k = 0.55 for boys 1 &lt; AGE &lt; 13</span></span>
-<span><span class="co">#&gt;   k = 0.70 for boys 13 &lt;= AGE &lt;= 16</span></span>
+<span><span class="co">#&gt;   Children (AGE [y] &lt;= 16), where:</span></span>
+<span><span class="co">#&gt;   EGFR = (k * HTCM [cm]) / SCR [mg/dL]</span></span>
+<span><span class="co">#&gt;   k = 0.45 for AGE [y] &lt;= 1 (full term)</span></span>
+<span><span class="co">#&gt;   k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16</span></span>
+<span><span class="co">#&gt;   k = 0.55 for boys 1 &lt; AGE [y] &lt; 13</span></span>
+<span><span class="co">#&gt;   k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID      HTCM   SCR   AGE  SEXF EGFR_CHILD</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1093,12 +1089,12 @@ environment:</p>
 <span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR_CHILD: </span></span>
-<span><span class="co">#&gt;   Children (AGE &lt;= 16), where:</span></span>
-<span><span class="co">#&gt;   egfr_child = (k * htcm) / scr (mg/dL)</span></span>
-<span><span class="co">#&gt;   k = 0.45 for AGE &lt;= 1 (full term)</span></span>
-<span><span class="co">#&gt;   k = 0.55 for girls 1 &lt; AGE &lt;= 16</span></span>
-<span><span class="co">#&gt;   k = 0.55 for boys 1 &lt; AGE &lt; 13</span></span>
-<span><span class="co">#&gt;   k = 0.70 for boys 13 &lt;= AGE &lt;= 16</span></span>
+<span><span class="co">#&gt;   Children (AGE [y] &lt;= 16), where:</span></span>
+<span><span class="co">#&gt;   EGFR = (k * HTCM [cm]) / SCR [mg/dL]</span></span>
+<span><span class="co">#&gt;   k = 0.45 for AGE [y] &lt;= 1 (full term)</span></span>
+<span><span class="co">#&gt;   k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16</span></span>
+<span><span class="co">#&gt;   k = 0.55 for boys 1 &lt; AGE [y] &lt; 13</span></span>
+<span><span class="co">#&gt;   k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
 <span><span class="co">#&gt;    USUBJID      HTCM   SCR   AGE  SEXF EGFR_CHILD</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1131,7 +1127,7 @@ Function Category (RFCAT). Following is the formula to calculate it:</p>
 Following is the input:</p>
 <ul>
 <li>
-<code>egfr</code>: Estimated Glomerular Filtration Fate
+<code>egfr</code>: Estimated Glomerular Filtration Rate
 (mL/min/1.73m^2). Numeric vector.</li>
 </ul>
 <div class="section level4">
@@ -1154,7 +1150,7 @@ Following is the input:</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">EGFR</span>, <span class="va">RFCAT</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR: </span></span>
-<span><span class="co">#&gt;   EGFRMDRD = 175 × (SCR ^ -1.154) × (AGE ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
+<span><span class="co">#&gt;   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
 <span><span class="co">#&gt; Formula to calculate RFCAT: </span></span>
 <span><span class="co">#&gt;   1 = Normal Function (&gt;= 90 mL/min)</span></span>
 <span><span class="co">#&gt;   2 = Mild Impairment (60-89 mL/min)</span></span>
@@ -1215,12 +1211,12 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_tbilcat">calculate_tbilcat<a class="anchor" aria-label="anchor" href="#calculate_tbilcat"></a>
 </h3>
-<p>The <code>calculate_tbilcat</code> function is to Calculate TBIL
-Category. Following is the formula to calculate it:</p>
-<pre>if TBIL &lt;= ULN then TBILCAT = 0
-if ULN &lt; TBIL &lt;= 1.5 × ULN then TBILCAT = 1
-if 1.5 × ULN &lt; TBIL &lt;= 3 × ULN then TBILCAT = 2
-if TBIL &gt; 3 × ULN then TBILCAT = 3
+<p>The <code>calculate_tbilcat</code> function is to Calculate Total
+Bilirubin Category. Following is the formula to calculate it:</p>
+<pre>if TBIL [mg/dL] &lt;= ULN [mg/dL] then TBILCAT = 0
+if ULN [mg/dL] &lt; TBIL [mg/dL] &lt;= 1.5 × ULN [mg/dL] then TBILCAT = 1
+if 1.5 × ULN [mg/dL] &lt; TBIL [mg/dL] &lt;= 3 × ULN [mg/dL] then TBILCAT = 2
+if TBIL [mg/dL] &gt; 3 × ULN [mg/dL] then TBILCAT = 3
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -1248,10 +1244,10 @@ observed values). Numeric vector.</li>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">TBIL</span>, <span class="va">TBILULN</span>, <span class="va">TBILCAT</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate TBILCAT: </span></span>
-<span><span class="co">#&gt;   if TBIL &lt;= ULN then TBILCAT = 0</span></span>
-<span><span class="co">#&gt;   if ULN &lt; TBIL &lt;= 1.5 × ULN then TBILCAT = 1</span></span>
-<span><span class="co">#&gt;   if 1.5 × ULN &lt; TBIL &lt;= 3 × ULN then TBILCAT = 2</span></span>
-<span><span class="co">#&gt;   if TBIL &gt; 3 × ULN then TBILCAT = 3</span></span>
+<span><span class="co">#&gt;   if TBIL [mg/dL] &lt;= ULN [mg/dL] then TBILCAT = 0</span></span>
+<span><span class="co">#&gt;   if ULN [mg/dL] &lt; TBIL [mg/dL] &lt;= 1.5 × ULN [mg/dL] then TBILCAT = 1</span></span>
+<span><span class="co">#&gt;   if 1.5 × ULN [mg/dL] &lt; TBIL [mg/dL] &lt;= 3 × ULN [mg/dL] then TBILCAT = 2</span></span>
+<span><span class="co">#&gt;   if TBIL [mg/dL] &gt; 3 × ULN [mg/dL] then TBILCAT = 3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      TBIL TBILULN TBILCAT</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1282,10 +1278,10 @@ environment:</p>
 <span><span class="co">#&gt; TBIL variable found and used for the tbil argument.</span></span>
 <span><span class="co">#&gt; TBILULN variable found and used for the tbiluln argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate TBILCAT: </span></span>
-<span><span class="co">#&gt;   if TBIL &lt;= ULN then TBILCAT = 0</span></span>
-<span><span class="co">#&gt;   if ULN &lt; TBIL &lt;= 1.5 × ULN then TBILCAT = 1</span></span>
-<span><span class="co">#&gt;   if 1.5 × ULN &lt; TBIL &lt;= 3 × ULN then TBILCAT = 2</span></span>
-<span><span class="co">#&gt;   if TBIL &gt; 3 × ULN then TBILCAT = 3</span></span>
+<span><span class="co">#&gt;   if TBIL [mg/dL] &lt;= ULN [mg/dL] then TBILCAT = 0</span></span>
+<span><span class="co">#&gt;   if ULN [mg/dL] &lt; TBIL [mg/dL] &lt;= 1.5 × ULN [mg/dL] then TBILCAT = 1</span></span>
+<span><span class="co">#&gt;   if 1.5 × ULN [mg/dL] &lt; TBIL [mg/dL] &lt;= 3 × ULN [mg/dL] then TBILCAT = 2</span></span>
+<span><span class="co">#&gt;   if TBIL [mg/dL] &gt; 3 × ULN [mg/dL] then TBILCAT = 3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID      TBIL TBILULN TBILCAT</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1306,10 +1302,10 @@ environment:</p>
 <div class="section level3">
 <h3 id="calculate_astcat">calculate_astcat<a class="anchor" aria-label="anchor" href="#calculate_astcat"></a>
 </h3>
-<p>The <code>calculate_astcat</code> function is to Calculate AST
-Category. Following is the formula to calculate it:</p>
-<pre>if AST &lt;= ULN then ASTCAT = 0
-if ULN &lt; AST then ASTCAT = 1
+<p>The <code>calculate_astcat</code> function is to Calculate Aspartate
+Aminotransferase Category. Following is the formula to calculate it:</p>
+<pre>if AST [U/L] &lt;= ULN [U/L] then ASTCAT = 0
+if ULN [U/L] &lt; AST [U/L] then ASTCAT = 1
 </pre>
 <p>This function returns a numeric vector the same length as its inputs.
 Following are the inputs:</p>
@@ -1338,8 +1334,8 @@ observed values). Numeric vector.</li>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AST</span>, <span class="va">ASTULN</span>, <span class="va">ASTCAT</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate ASTCAT: </span></span>
-<span><span class="co">#&gt;   if AST &lt;= ULN then ASTCAT = 0</span></span>
-<span><span class="co">#&gt;   if ULN &lt; AST then ASTCAT = 1</span></span>
+<span><span class="co">#&gt;   if AST [U/L] &lt;= ULN [U/L] then ASTCAT = 0</span></span>
+<span><span class="co">#&gt;   if ULN [U/L] &lt; AST [U/L] then ASTCAT = 1</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AST ASTULN ASTCAT</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1370,8 +1366,8 @@ environment:</p>
 <span><span class="co">#&gt; AST variable found and used for the ast argument.</span></span>
 <span><span class="co">#&gt; ASTULN variable found and used for the astuln argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate ASTCAT: </span></span>
-<span><span class="co">#&gt;   if AST &lt;= ULN then ASTCAT = 0</span></span>
-<span><span class="co">#&gt;   if ULN &lt; AST then ASTCAT = 1</span></span>
+<span><span class="co">#&gt;   if AST [U/L] &lt;= ULN [U/L] then ASTCAT = 0</span></span>
+<span><span class="co">#&gt;   if ULN [U/L] &lt; AST [U/L] then ASTCAT = 1</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
 <span><span class="co">#&gt;    USUBJID       AST ASTULN ASTCAT</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1393,7 +1389,7 @@ environment:</p>
 <h3 id="calculate_nciliv">calculate_nciliv<a class="anchor" aria-label="anchor" href="#calculate_nciliv"></a>
 </h3>
 <p>The <code>calculate_nciliv</code> function is to Calculate NCI Liver
-Fx Group (NCILIV). Following is the formula to calculate it:</p>
+Function Group (NCILIV). Following is the formula to calculate it:</p>
 <pre>if TBILCAT = 0 and ASTCAT = 0 then NCILIV = 0
 if TBILCAT = 0 and ASTCAT = 1 then NCILIV = 1
 if TBILCAT = 1 then NCILIV = 2
