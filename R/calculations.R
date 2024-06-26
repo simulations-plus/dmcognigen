@@ -78,7 +78,7 @@ calculations_table <- dplyr::tribble(
   paste0(
     "  EGFR [mL/min/1.73m^2] = 175 \u00d7 (SCR [mg/dL] ^ -1.154) \u00d7 (AGE [y] ^ -0.203) \u00d7 (0.742 if female) \u00d7 (1.212 if African American)\n"
   ),
-  "[Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function \u2014 Study Design, Data Analysis, and Impact on Dosing and Labeling](www.fda.gov/media/78573/download)",
+  "[Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function \u2014 Study Design, Data Analysis, and Impact on Dosing and Labeling](https://www.fda.gov/media/78573/download)",
   "Calculate Estimated Glomerular Filtration Rate (eGFR) for adults",
   
   "egfr_child",
@@ -110,7 +110,7 @@ calculations_table <- dplyr::tribble(
     "  4 = Severe Impairment (15-29 mL/min)\n",
     "  5 = End Stage Disease (< 15 mL/min or Dialysis)\n"
   ),
-  "[Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function \u2014 Study Design, Data Analysis, and Impact on Dosing and Labeling](www.fda.gov/media/78573/download)",
+  "[Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function \u2014 Study Design, Data Analysis, and Impact on Dosing and Labeling](https://www.fda.gov/media/78573/download)",
   "Calculate Renal Function Category (RFCAT)",
   
   "tbilcat",

@@ -35,5 +35,5 @@ dmcognigen_cov \%>\%
   mutate(RFCAT = calculate_rfcat())
 }
 \references{
-\href{www.fda.gov/media/78573/download}{Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function — Study Design, Data Analysis, and Impact on Dosing and Labeling}
+\href{https://www.fda.gov/media/78573/download}{Guidance for Industry: Pharmacokinetics in Patients with Impaired Renal Function — Study Design, Data Analysis, and Impact on Dosing and Labeling}
 }
