@@ -85,6 +85,14 @@ join_decode_levels <- function(.data, decode_tbls, lvl_to_lbl = "{var}C", ...) {
     )
   })
   
+  # only keep shared names
+  shared_names <- sort(intersect(
+    names(decode_tbls), 
+    names(lvl_to_lbl[lvl_to_lbl != ""])
+  ))
+  decode_tbls <- as_decode_tbls(decode_tbls[shared_names])
+  lvl_to_lbl <- lvl_to_lbl[shared_names]
+  
   for(i in seq_along(decode_tbls)) {
     
     .decode_tbl <- decode_tbls[[i]]
@@ -203,13 +211,14 @@ decode_tbls_lvl_to_lbl <- function(decode_tbls, lvl_to_lbl = "{var}C") {
     })
   
   if(any(is.na(lvl_to_lbl_list))) {
-    cli::cli_abort(
+    cli::cli_warn(
       "The following level names are missing from {.arg lvl_to_lbl} and no default was provided: {.val {names(lvl_to_lbl_list)[is.na(lvl_to_lbl_list)]}}."
     )
   }
   
   # evaluate
   result <- evaluate_lvl_to_lbl(lvl_to_lbl_list = lvl_to_lbl_list)
+  result <- tidyr::replace_na(result, replace = "")
   
   # warn if any result has the same output as its input (lvl=lbl)
   lvl_equals_lbl_lgl <- names(result) == result
@@ -219,8 +228,8 @@ decode_tbls_lvl_to_lbl <- function(decode_tbls, lvl_to_lbl = "{var}C") {
     )
   }
   
-  # warn if two results are the same.
-  same_result_lgl <- duplicated(result)
+  # warn if two results are the same (and non-blank).
+  same_result_lgl <- duplicated(result[result != ""])
   if(any(same_result_lgl)) {
     replicated_results <- unique(result[same_result_lgl])
     replicated_results_with_names <- replicated_results %>% 
