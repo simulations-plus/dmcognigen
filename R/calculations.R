@@ -68,7 +68,7 @@ calculations_table <- dplyr::tribble(
   paste0(
     "  IBW [kg] = [(HTCM [cm]) ^ 2 \u00d7 1.65] \u00f7 1000\n"
   ),
-  "Traub SL and Johnson CE. Am J Hosp Pharm. 1980;37:195-201",
+  "Traub SL, Johnson CE. Comparison of methods of estimating creatinine clearance in children. Am J Hosp Pharm. 1980 Feb;37(2):195-201. PMID: 7361791.",
   "Calculate Ideal Body Weight (for children), a measure of potential body fat based on height",
   
   "egfr",
@@ -362,10 +362,27 @@ check_args_missing <- function(args_in){
 }
 
 # function to warn about pediatric subjects being included in calculations for adults
-warn_about_pediatrics <- function(age, age_min = 18) {
-  if(any(age < age_min, na.rm = TRUE)) {
-    cli::cli_warn("Cases where AGE < {age_min} were detected. This formula is intended for adults.")
+warn_about_pediatrics <- function(age, age_min, age_max) {
+  
+  if(
+    (!missing(age_min) && !missing(age_max)) ||
+    (missing(age_min) && missing(age_max))
+  ) {
+    cli::cli_abort("Exactly one of {.arg age_min} or {.arg age_max} should be provided.")
   }
+  
+  if(!missing(age_min)) {
+    if(any(age < age_min, na.rm = TRUE)) {
+      cli::cli_warn("Cases where AGE < {age_min} were detected. This formula is intended for adults.")
+    }
+  }
+  
+  if(!missing(age_max)) {
+    if(any(age > age_max, na.rm = TRUE)) {
+      cli::cli_warn("Cases where AGE > {age_max} were detected. This formula is intended for children.")
+    }
+  }
+  
 }
 
 #' Calculate Creatinine Clearance
@@ -433,7 +450,7 @@ calculate_crcl <- function(age,
   admiraldev::assert_numeric_vector(scr)
   admiraldev::assert_numeric_vector(sexf)
   
-  warn_about_pediatrics(age)
+  warn_about_pediatrics(age, age_min = 18)
 
   evaluate_calculation(
     "crcl",
@@ -507,7 +524,7 @@ calculate_crcl_peck <- function(age,
   admiraldev::assert_numeric_vector(scr)
   admiraldev::assert_numeric_vector(sexf)
   
-  warn_about_pediatrics(age)
+  warn_about_pediatrics(age, age_min = 18)
   
   evaluate_calculation(
     "crcl_peck",
@@ -730,6 +747,7 @@ calculate_ibw <- function(sexf, htcm){
 #' ```
 #' @references `r get_from_calculations_table("ibw_child", "reference")`
 #' @param htcm `r describe_param("htcm")`
+#' @param age `r describe_param("age")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -741,12 +759,12 @@ calculate_ibw <- function(sexf, htcm){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(IBWCHILD = calculate_ibw_child(HTCM))
+#'   mutate(IBWCHILD = calculate_ibw_child(htcm = HTCM, age = AGE))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(IBWCHILD = calculate_ibw_child())
-calculate_ibw_child <- function(htcm){
+calculate_ibw_child <- function(htcm, age){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -763,6 +781,10 @@ calculate_ibw_child <- function(htcm){
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
   admiraldev::assert_numeric_vector(htcm)
+  admiraldev::assert_numeric_vector(age)
+  
+  # per reference
+  warn_about_pediatrics(age, age_max = 18)
   
   evaluate_calculation(
     "ibw_child",
@@ -894,6 +916,8 @@ calculate_egfr_child <- function(htcm,
   admiraldev::assert_numeric_vector(scr)
   admiraldev::assert_numeric_vector(age)
   admiraldev::assert_numeric_vector(sexf)
+  
+  warn_about_pediatrics(age, age_max = 16)
   
   # calculate k
   k <- dplyr::case_when(

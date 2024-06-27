@@ -4,10 +4,12 @@
 \alias{calculate_ibw_child}
 \title{Calculate Ideal Body Weight for Children}
 \usage{
-calculate_ibw_child(htcm)
+calculate_ibw_child(htcm, age)
 }
 \arguments{
 \item{htcm}{Height (cm). Numeric vector.}
+
+\item{age}{Age (y). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -31,7 +33,7 @@ dmcognigen_cov \%>\%
   mutate(IBWCHILD = calculate_ibw_child())
 }
 \references{
-Traub SL and Johnson CE. Am J Hosp Pharm. 1980;37:195-201
+Traub SL, Johnson CE. Comparison of methods of estimating creatinine clearance in children. Am J Hosp Pharm. 1980 Feb;37(2):195-201. PMID: 7361791.
 }
 \seealso{
 \code{\link{calculate_ibw}}

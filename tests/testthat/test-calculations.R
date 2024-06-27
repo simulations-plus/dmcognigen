@@ -1,5 +1,13 @@
 library(dplyr)
 
+child_data <- tibble::tibble(
+  ID = seq(1, 5, length.out = 5),
+  HTCM = seq(10, 50, length.out = 5),
+  AGE = seq(3, 15, length.out = 5),
+  SCR = c(.75, .9, 1.4, 1.2, 1.1),
+  SEXF = c(0, 1, 0, 1, 0)
+)
+
 # test evaluate_calculation() -------------------------------------------
 
 test_that("evaluate_calculation() returns numeric value", {
@@ -591,14 +599,13 @@ test_that("calculate_ibw() returns error", {
 
 test_that("calculate_ibw_child() returns numeric value", {
   
-  returned_result <- dmcognigen_cov %>% 
-    mutate(
-      IBWCHILD = calculate_ibw_child(HTCM)
-    ) %>% 
-    select(USUBJID, SEXF, WTKG, IBWCHILD)
+  returned_result <- calculate_ibw_child(
+    htcm = child_data$HTCM,
+    age = child_data$AGE
+  )
   
   expect_type(
-    object = returned_result$IBWCHILD,
+    object = returned_result,
     type = "double"
   )
   
@@ -606,21 +613,16 @@ test_that("calculate_ibw_child() returns numeric value", {
 
 test_that("calculate_ibw_child() returns exact match", {
   
-  expected_result <- dmcognigen_cov %>% 
-    mutate(
-      IBWCHILD = ((HTCM) ^ 2 * 1.65) / 1000
-    ) %>% 
-    select(USUBJID, SEXF, WTKG, HTCM, IBWCHILD)
+  expected_result <- ((child_data$HTCM) ^ 2 * 1.65) / 1000
   
-  returned_result <- dmcognigen_cov %>% 
-    mutate(
-      IBWCHILD = calculate_ibw_child(HTCM)
-    ) %>% 
-    select(USUBJID, SEXF, HTCM, IBWCHILD)
+  returned_result <- calculate_ibw_child(
+    htcm = child_data$HTCM,
+    age = child_data$AGE
+  )
   
   expect_equal(
-    object = returned_result$IBWCHILD,
-    expected = expected_result$IBWCHILD,
+    object = returned_result,
+    expected = expected_result,
     ignore_attr = TRUE
   )
   
@@ -628,17 +630,15 @@ test_that("calculate_ibw_child() returns exact match", {
 
 test_that("calculate_ibw_child() works with missing variables", {
   
-  expected_result <- dmcognigen_cov %>% 
+  expected_result <- child_data %>%
     mutate(
-      IBWCHILD = calculate_ibw_child(HTCM)
-    ) %>% 
-    select(USUBJID, SEXF, HTCM, IBWCHILD)
+      IBWCHILD = ((HTCM) ^ 2 * 1.65) / 1000
+    )
   
-  returned_result <- dmcognigen_cov %>% 
+  returned_result <- child_data %>% 
     mutate(
       IBWCHILD = calculate_ibw_child()
-    ) %>% 
-    select(USUBJID, SEXF, HTCM, IBWCHILD)
+    )
   
   expect_equal(
     object = returned_result$IBWCHILD,
@@ -654,6 +654,18 @@ test_that("calculate_ibw_child() returns error", {
   
 })
 
+test_that("calculate_ibw_child() warns about adults", {
+  
+  expect_warning(
+    object = calculate_ibw_child(
+      htcm = child_data$HTCM,
+      age = 18.1
+    ),
+    regexp = "Cases where.*>.*"
+  )
+  
+})
+
 
 # test calculate_egfr() ---------------------------------------------------
 
@@ -661,7 +673,7 @@ test_that("calculate_egfr() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      EGFR = calculate_egfr(SCR, AGE, SEXF, RACEN)
+      EGFR = calculate_egfr(scr = SCR, age = AGE, sexf = SEXF, racen = RACEN)
     ) %>% 
     select(USUBJID, SCR, AGE, SEXF, RACEN, EGFR)
   
@@ -727,11 +739,11 @@ test_that("calculate_egfr() returns error", {
 
 test_that("calculate_egfr_child() returns numeric value", {
   
-  returned_result <- dmcognigen_cov %>% 
+  returned_result <- child_data %>% 
     mutate(
-      EGFRSCHW = calculate_egfr_child(HTCM, SCR, AGE, SEXF)
+      EGFRSCHW = calculate_egfr_child(htcm = HTCM, scr = SCR, age = AGE, sexf = SEXF)
     ) %>% 
-    select(USUBJID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
+    select(ID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
   
   expect_type(
     object = returned_result$EGFRSCHW,
@@ -742,10 +754,8 @@ test_that("calculate_egfr_child() returns numeric value", {
 
 test_that("calculate_egfr_child() returns exact match", {
   
-  expected_result <- dmcognigen_cov %>% 
+  expected_result <- child_data %>% 
     mutate(
-      # alter AGE to lower values in order to be able to use formula in proper case
-      AGE = AGE * 0.05,
       k = dplyr::case_when(
         AGE <= 1 ~ 0.45,
         SEXF == 1 & (AGE > 1 & AGE <= 16) ~ 0.55,
@@ -755,14 +765,13 @@ test_that("calculate_egfr_child() returns exact match", {
       ),
       EGFRSCHW = (k * HTCM) / SCR
     ) %>% 
-    select(USUBJID, HTCM, SCR, AGE, SEXF, k, EGFRSCHW)
+    select(ID, HTCM, SCR, AGE, SEXF, k, EGFRSCHW)
   
-  returned_result <- dmcognigen_cov %>% 
+  returned_result <- child_data %>% 
     mutate(
-      AGE = AGE * 0.05,
-      EGFRSCHW = calculate_egfr_child(HTCM, SCR, AGE, SEXF)
+      EGFRSCHW = calculate_egfr_child(htcm = HTCM, scr = SCR, age = AGE, sexf = SEXF)
     ) %>% 
-    select(USUBJID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
+    select(ID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
   
   expect_equal(
     object = returned_result$EGFRSCHW,
@@ -774,17 +783,17 @@ test_that("calculate_egfr_child() returns exact match", {
 
 test_that("calculate_egfr_child() works with missing variables", {
   
-  expected_result <- dmcognigen_cov %>% 
+  expected_result <- child_data %>% 
     mutate(
-      EGFRSCHW = calculate_egfr_child(HTCM, SCR, AGE, SEXF)
+      EGFRSCHW = calculate_egfr_child(htcm = HTCM, scr = SCR, age = AGE, sexf = SEXF)
     ) %>% 
-    select(USUBJID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
+    select(ID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
   
-  returned_result <- dmcognigen_cov %>% 
+  returned_result <- child_data %>% 
     mutate(
       EGFRSCHW = calculate_egfr_child()
     ) %>% 
-    select(USUBJID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
+    select(ID, HTCM, SCR, AGE, SEXF, EGFRSCHW)
   
   expect_equal(
     object = returned_result$EGFRSCHW,
@@ -800,6 +809,19 @@ test_that("calculate_egfr_child() returns error", {
   
 })
 
+test_that("calculate_egfr_child() warns about adults", {
+  
+  expect_warning(
+    object = child_data %>%
+      mutate(
+        AGE = 18.1,
+        EGFRSCHW = calculate_egfr_child(htcm = HTCM, scr = SCR, age = AGE, sexf = SEXF)
+      ),
+    regexp = "Cases where.*>.*"
+  )
+  
+})
+
 
 # test calculate_rfcat() --------------------------------------------------
 
@@ -807,7 +829,7 @@ test_that("calculate_rfcat() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      RFCAT = calculate_rfcat(EGFR)
+      RFCAT = calculate_rfcat(egfr = EGFR)
     ) %>% 
     select(USUBJID, EGFR, RFCAT)
   
