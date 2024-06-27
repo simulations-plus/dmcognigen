@@ -69,12 +69,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_ibw_child</span><span class="op">(</span><span class="va">htcm</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_ibw_child</span><span class="op">(</span><span class="va">age</span>, <span class="va">htcm</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>htcm</dt>
+    <dl><dt>age</dt>
+<dd><p>Age (y). Numeric vector.</p></dd>
+
+
+<dt>htcm</dt>
 <dd><p>Height (cm). Numeric vector.</p></dd>
 
 </dl></div>
@@ -91,7 +95,7 @@
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>Traub SL and Johnson CE. Am J Hosp Pharm. 1980;37:195-201</p>
+    <p>Traub SL, Johnson CE. Comparison of methods of estimating creatinine clearance in children. Am J Hosp Pharm. 1980 Feb;37(2):195-201. PMID: 7361791.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -103,9 +107,13 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>IBWCHILD <span class="op">=</span> <span class="fu">calculate_ibw_child</span><span class="op">(</span><span class="va">HTCM</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>IBWCHILD <span class="op">=</span> <span class="fu">calculate_ibw_child</span><span class="op">(</span>age <span class="op">=</span> <span class="va">AGE</span>, htcm <span class="op">=</span> <span class="va">HTCM</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate IBW_CHILD: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `IBWCHILD = calculate_ibw_child(age = AGE, htcm = HTCM)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 18 were detected. This formula is intended for children.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID SUBJID   AGE SEX    SEXF SEXFC RACE  RACEN ETHNIC ARMCD ARM  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -129,9 +137,14 @@
 <span class="r-in"><span><span class="co"># Below will also work if the dataset contains expected variables</span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>IBWCHILD <span class="op">=</span> <span class="fu">calculate_ibw_child</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> AGE variable found and used for the age argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> HTCM variable found and used for the htcm argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate IBW_CHILD: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `IBWCHILD = calculate_ibw_child()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 18 were detected. This formula is intended for children.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID SUBJID   AGE SEX    SEXF SEXFC RACE  RACEN ETHNIC ARMCD ARM  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>

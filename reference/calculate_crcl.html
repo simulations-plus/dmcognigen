@@ -69,7 +69,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_crcl</span><span class="op">(</span><span class="va">age</span>, <span class="va">wtkg</span>, <span class="va">scr</span>, <span class="va">sexf</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_crcl</span><span class="op">(</span><span class="va">age</span>, <span class="va">scr</span>, <span class="va">sexf</span>, <span class="va">wtkg</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -78,16 +78,16 @@
 <dd><p>Age (y). Numeric vector.</p></dd>
 
 
-<dt>wtkg</dt>
-<dd><p>Weight (kg). Numeric vector.</p></dd>
-
-
 <dt>scr</dt>
 <dd><p>Serum Creatinine (mg/dL). Numeric vector.</p></dd>
 
 
 <dt>sexf</dt>
 <dd><p>Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.</p></dd>
+
+
+<dt>wtkg</dt>
+<dd><p>Weight (kg). Numeric vector.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -118,9 +118,9 @@
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>CRCL <span class="op">=</span> <span class="fu">calculate_crcl</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    age <span class="op">=</span> <span class="va">AGE</span>, </span></span>
-<span class="r-in"><span>    wtkg <span class="op">=</span> <span class="va">WTKG</span>, </span></span>
 <span class="r-in"><span>    scr <span class="op">=</span> <span class="va">SCR</span>, </span></span>
-<span class="r-in"><span>    sexf <span class="op">=</span> <span class="va">SEXF</span></span></span>
+<span class="r-in"><span>    sexf <span class="op">=</span> <span class="va">SEXF</span>,</span></span>
+<span class="r-in"><span>    wtkg <span class="op">=</span> <span class="va">WTKG</span> </span></span>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate CRCL: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span>
@@ -149,9 +149,9 @@
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>CRCL <span class="op">=</span> <span class="fu">calculate_crcl</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> AGE variable found and used for the age argument.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SCR variable found and used for the scr argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SEXF variable found and used for the sexf argument.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate CRCL: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span>
@@ -179,9 +179,9 @@
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>CRCL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="fu">calculate_crcl</span><span class="op">(</span><span class="op">)</span>, <span class="fl">160</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> AGE variable found and used for the age argument.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SCR variable found and used for the scr argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SEXF variable found and used for the sexf argument.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate CRCL: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span>

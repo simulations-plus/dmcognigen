@@ -69,21 +69,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_egfr_child</span><span class="op">(</span><span class="va">htcm</span>, <span class="va">scr</span>, <span class="va">age</span>, <span class="va">sexf</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_egfr_child</span><span class="op">(</span><span class="va">age</span>, <span class="va">htcm</span>, <span class="va">scr</span>, <span class="va">sexf</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>htcm</dt>
+    <dl><dt>age</dt>
+<dd><p>Age (y). Numeric vector.</p></dd>
+
+
+<dt>htcm</dt>
 <dd><p>Height (cm). Numeric vector.</p></dd>
 
 
 <dt>scr</dt>
 <dd><p>Serum Creatinine (mg/dL). Numeric vector.</p></dd>
-
-
-<dt>age</dt>
-<dd><p>Age (y). Numeric vector.</p></dd>
 
 
 <dt>sexf</dt>
@@ -121,9 +121,9 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>EGFRSCHW <span class="op">=</span> <span class="fu">calculate_egfr_child</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    age <span class="op">=</span> <span class="va">AGE</span>, </span></span>
 <span class="r-in"><span>    htcm <span class="op">=</span> <span class="va">HTCM</span>, </span></span>
 <span class="r-in"><span>    scr <span class="op">=</span> <span class="va">SCR</span>, </span></span>
-<span class="r-in"><span>    age <span class="op">=</span> <span class="va">AGE</span>, </span></span>
 <span class="r-in"><span>    sexf <span class="op">=</span> <span class="va">SEXF</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate EGFR_CHILD: </span>
@@ -133,6 +133,11 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   k = 0.55 for boys 1 &lt; AGE [y] &lt; 13</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `EGFRSCHW = calculate_egfr_child(age = AGE, htcm = HTCM, scr =</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   SCR, sexf = SEXF)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 16 were detected. This formula is intended for children.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID SUBJID   AGE SEX    SEXF SEXFC RACE  RACEN ETHNIC ARMCD ARM  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
@@ -156,9 +161,9 @@
 <span class="r-in"><span><span class="co"># Below will also work if the dataset contains expected variables</span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>EGFRSCHW <span class="op">=</span> <span class="fu">calculate_egfr_child</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> AGE variable found and used for the age argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> HTCM variable found and used for the htcm argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SCR variable found and used for the scr argument.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> AGE variable found and used for the age argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SEXF variable found and used for the sexf argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate EGFR_CHILD: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Children (AGE [y] &lt;= 16), where:</span>
@@ -167,6 +172,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   k = 0.55 for boys 1 &lt; AGE [y] &lt; 13</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `EGFRSCHW = calculate_egfr_child()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 16 were detected. This formula is intended for children.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID SUBJID   AGE SEX    SEXF SEXFC RACE  RACEN ETHNIC ARMCD ARM  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>

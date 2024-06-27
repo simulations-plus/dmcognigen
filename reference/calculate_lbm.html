@@ -69,21 +69,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_lbm</span><span class="op">(</span><span class="va">sexf</span>, <span class="va">wtkg</span>, <span class="va">htcm</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_lbm</span><span class="op">(</span><span class="va">htcm</span>, <span class="va">sexf</span>, <span class="va">wtkg</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>sexf</dt>
+    <dl><dt>htcm</dt>
+<dd><p>Height (cm). Numeric vector.</p></dd>
+
+
+<dt>sexf</dt>
 <dd><p>Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.</p></dd>
 
 
 <dt>wtkg</dt>
 <dd><p>Weight (kg). Numeric vector.</p></dd>
-
-
-<dt>htcm</dt>
-<dd><p>Height (cm). Numeric vector.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -110,9 +110,9 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>LBM <span class="op">=</span> <span class="fu">calculate_lbm</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    htcm <span class="op">=</span> <span class="va">HTCM</span>,</span></span>
 <span class="r-in"><span>    sexf <span class="op">=</span> <span class="va">SEXF</span>, </span></span>
-<span class="r-in"><span>    wtkg <span class="op">=</span> <span class="va">WTKG</span>, </span></span>
-<span class="r-in"><span>    htcm <span class="op">=</span> <span class="va">HTCM</span></span></span>
+<span class="r-in"><span>    wtkg <span class="op">=</span> <span class="va">WTKG</span> </span></span>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate LBM: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span>
@@ -140,9 +140,9 @@
 <span class="r-in"><span><span class="co"># Below will also work if the dataset contains expected variables</span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>LBM <span class="op">=</span> <span class="fu">calculate_lbm</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> HTCM variable found and used for the htcm argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SEXF variable found and used for the sexf argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> HTCM variable found and used for the htcm argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate LBM: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span>

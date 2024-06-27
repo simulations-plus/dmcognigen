@@ -69,25 +69,25 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_egfr</span><span class="op">(</span><span class="va">scr</span>, <span class="va">age</span>, <span class="va">sexf</span>, <span class="va">racen</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_egfr</span><span class="op">(</span><span class="va">age</span>, <span class="va">racen</span>, <span class="va">scr</span>, <span class="va">sexf</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>scr</dt>
-<dd><p>Serum Creatinine (mg/dL). Numeric vector.</p></dd>
-
-
-<dt>age</dt>
+    <dl><dt>age</dt>
 <dd><p>Age (y). Numeric vector.</p></dd>
-
-
-<dt>sexf</dt>
-<dd><p>Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.</p></dd>
 
 
 <dt>racen</dt>
 <dd><p>Race. Numeric vector where the value 2 is expected to correspond to Black/African American.</p></dd>
+
+
+<dt>scr</dt>
+<dd><p>Serum Creatinine (mg/dL). Numeric vector.</p></dd>
+
+
+<dt>sexf</dt>
+<dd><p>Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -116,10 +116,10 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>EGFR <span class="op">=</span> <span class="fu">calculate_egfr</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    scr <span class="op">=</span> <span class="va">SCR</span>, </span></span>
 <span class="r-in"><span>    age <span class="op">=</span> <span class="va">AGE</span>, </span></span>
-<span class="r-in"><span>    sexf <span class="op">=</span> <span class="va">SEXF</span>, </span></span>
-<span class="r-in"><span>    racen <span class="op">=</span> <span class="va">RACEN</span></span></span>
+<span class="r-in"><span>    racen <span class="op">=</span> <span class="va">RACEN</span>,</span></span>
+<span class="r-in"><span>    scr <span class="op">=</span> <span class="va">SCR</span>, </span></span>
+<span class="r-in"><span>    sexf <span class="op">=</span> <span class="va">SEXF</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate EGFR: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span>
@@ -146,10 +146,10 @@
 <span class="r-in"><span><span class="co"># Below will also work if the dataset contains expected variables</span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>EGFR <span class="op">=</span> <span class="fu">calculate_egfr</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> SCR variable found and used for the scr argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> AGE variable found and used for the age argument.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> SEXF variable found and used for the sexf argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> RACEN variable found and used for the racen argument.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> SCR variable found and used for the scr argument.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> SEXF variable found and used for the sexf argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate EGFR: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>

@@ -69,17 +69,17 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_bmi</span><span class="op">(</span><span class="va">wtkg</span>, <span class="va">htcm</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_bmi</span><span class="op">(</span><span class="va">htcm</span>, <span class="va">wtkg</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>wtkg</dt>
-<dd><p>Weight (kg). Numeric vector.</p></dd>
-
-
-<dt>htcm</dt>
+    <dl><dt>htcm</dt>
 <dd><p>Height (cm). Numeric vector.</p></dd>
+
+
+<dt>wtkg</dt>
+<dd><p>Weight (kg). Numeric vector.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -103,7 +103,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>BMI <span class="op">=</span> <span class="fu">calculate_bmi</span><span class="op">(</span>wtkg <span class="op">=</span> <span class="va">WTKG</span>, htcm <span class="op">=</span> <span class="va">HTCM</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>BMI <span class="op">=</span> <span class="fu">calculate_bmi</span><span class="op">(</span>htcm <span class="op">=</span> <span class="va">HTCM</span>, wtkg <span class="op">=</span> <span class="va">WTKG</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate BMI: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>
@@ -129,8 +129,8 @@
 <span class="r-in"><span><span class="co"># Below will also work if the dataset contains expected variables</span></span></span>
 <span class="r-in"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>BMI <span class="op">=</span> <span class="fu">calculate_bmi</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> HTCM variable found and used for the htcm argument.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> WTKG variable found and used for the wtkg argument.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Formula to calculate BMI: </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 36</span></span>

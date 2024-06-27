@@ -146,28 +146,28 @@ simply access them by calling their names.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    CRCL <span class="op">=</span> <span class="fu"><a href="../reference/calculate_crcl.html">calculate_crcl</a></span><span class="op">(</span></span>
 <span>      age <span class="op">=</span> <span class="va">AGE</span>,</span>
-<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span>,</span>
 <span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
-<span>      sexf <span class="op">=</span> <span class="va">SEXF</span></span>
+<span>      sexf <span class="op">=</span> <span class="va">SEXF</span>,</span>
+<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCL</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
 <span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
 <span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE   SCR  SEXF  WTKG  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  54.4   0.9     1  55.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  80.3   1.4     0  60.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  99.3   1.4     0  68.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  88.4   1.5     0  54.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  62.6   1       1  46.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  67.1   1       1  43.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  78.0   1.4     0  55.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  59.9   0.9     1  46.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  78.9   1.3     0  47.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  71.2   1       0  87.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63   0.9     1  54.4  55.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64   1.4     0  80.3  60.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71   1.4     0  99.3  68.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74   1.5     0  88.4  54.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77   1       1  62.6  46.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85   1       1  67.1  43.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68   1.4     0  78.0  55.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81   0.9     1  59.9  46.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84   1.3     0  78.9  47.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52   1       0  71.2  87.0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 <div class="section level3">
 <h3 id="dmcognigen_cov">dmcognigen_cov<a class="anchor" aria-label="anchor" href="#dmcognigen_cov"></a>
@@ -301,28 +301,28 @@ Following are the inputs:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    CRCL <span class="op">=</span> <span class="fu"><a href="../reference/calculate_crcl.html">calculate_crcl</a></span><span class="op">(</span></span>
 <span>      age <span class="op">=</span> <span class="va">AGE</span>,</span>
-<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span>,</span>
 <span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
-<span>      sexf <span class="op">=</span> <span class="va">SEXF</span></span>
+<span>      sexf <span class="op">=</span> <span class="va">SEXF</span>,</span>
+<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCL</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
 <span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
 <span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE   SCR  SEXF  WTKG  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  54.4   0.9     1  55.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  80.3   1.4     0  60.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  99.3   1.4     0  68.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  88.4   1.5     0  54.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  62.6   1       1  46.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  67.1   1       1  43.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  78.0   1.4     0  55.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  59.9   0.9     1  46.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  78.9   1.3     0  47.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  71.2   1       0  87.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63   0.9     1  54.4  55.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64   1.4     0  80.3  60.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71   1.4     0  99.3  68.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74   1.5     0  88.4  54.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77   1       1  62.6  46.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85   1       1  67.1  43.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68   1.4     0  78.0  55.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81   0.9     1  59.9  46.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84   1.3     0  78.9  47.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52   1       0  71.2  87.0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -336,27 +336,27 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    CRCL <span class="op">=</span> <span class="fu"><a href="../reference/calculate_crcl.html">calculate_crcl</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCL</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
-<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
+<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
 <span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
 <span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE   SCR  SEXF  WTKG  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  54.4   0.9     1  55.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  80.3   1.4     0  60.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  99.3   1.4     0  68.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  88.4   1.5     0  54.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  62.6   1       1  46.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  67.1   1       1  43.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  78.0   1.4     0  55.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  59.9   0.9     1  46.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  78.9   1.3     0  47.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  71.2   1       0  87.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63   0.9     1  54.4  55.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64   1.4     0  80.3  60.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71   1.4     0  99.3  68.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74   1.5     0  88.4  54.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77   1       1  62.6  46.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85   1       1  67.1  43.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68   1.4     0  78.0  55.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81   0.9     1  59.9  46.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84   1.3     0  78.9  47.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52   1       0  71.2  87.0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -364,26 +364,26 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    CRCL <span class="op">=</span> <span class="fu"><a href="../reference/calculate_crcl.html">calculate_crcl</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">AGE</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
+<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL: </span></span>
 <span><span class="co">#&gt;   Males: CRCL [mL/min] = ((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])</span></span>
 <span><span class="co">#&gt;   Females: CRCL [mL/min] = (((140 - AGE [y]) × WTKG [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID       AGE  WTKG   SCR  SEXF  CRCL</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE   SCR  SEXF  WTKG  CRCL</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  54.4   0.9     1  55.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  80.3   1.4     0  60.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  99.3   1.4     0  68.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  88.4   1.5     0  54.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  62.6   1       1  46.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  67.1   1       1  43.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  78.0   1.4     0  55.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  59.9   0.9     1  46.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  78.9   1.3     0  47.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  71.2   1       0  87.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63   0.9     1  54.4  55.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64   1.4     0  80.3  60.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71   1.4     0  99.3  68.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74   1.5     0  88.4  54.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77   1       1  62.6  46.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85   1       1  67.1  43.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68   1.4     0  78.0  55.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81   0.9     1  59.9  46.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84   1.3     0  78.9  47.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52   1       0  71.2  87.0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -406,8 +406,6 @@ Following are the inputs:</p>
 <li>
 <code>age</code>: Age (y). Numeric vector.</li>
 <li>
-<code>wtkg</code>: Weight (kg). Numeric vector.</li>
-<li>
 <code>crcl</code>: Creatinine Clearance (mL/min)</li>
 <li>
 <code>ibw</code>: Ideal Body Weight (kg). Numeric vector.</li>
@@ -416,6 +414,8 @@ Following are the inputs:</p>
 <li>
 <code>sexf</code>: Sex. Numeric vector including values of 0 and/or
 1. 0=Male; 1=Female.</li>
+<li>
+<code>wtkg</code>: Weight (kg). Numeric vector.</li>
 </ul>
 <div class="section level4">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a>
@@ -429,32 +429,32 @@ Following are the inputs:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    CRCLP <span class="op">=</span> <span class="fu"><a href="../reference/calculate_crcl_peck.html">calculate_crcl_peck</a></span><span class="op">(</span></span>
 <span>      age <span class="op">=</span> <span class="va">AGE</span>,</span>
-<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span>,</span>
 <span>      crcl <span class="op">=</span> <span class="va">CRCL</span>,</span>
 <span>      ibw <span class="op">=</span> <span class="va">IBW</span>,</span>
 <span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
-<span>      sexf <span class="op">=</span> <span class="va">SEXF</span></span>
+<span>      sexf <span class="op">=</span> <span class="va">SEXF</span>,</span>
+<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span>, <span class="va">IBW</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCLP</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">CRCL</span>, <span class="va">IBW</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">CRCLP</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL_PECK: </span></span>
 <span><span class="co">#&gt;   If WTKG [kg] &lt; 120% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft &amp; Gault)</span></span>
 <span><span class="co">#&gt;   If WTKG [kg] &gt;= 120% of IBW [kg]:</span></span>
 <span><span class="co">#&gt;     Males: CRCL [mL/min] = ((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])</span></span>
 <span><span class="co">#&gt;     Females: CRCL [mL/min] = (((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 8</span></span></span>
-<span><span class="co">#&gt;    USUBJID       AGE  WTKG  CRCL   IBW   SCR  SEXF CRCLP</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE  CRCL   IBW   SCR  SEXF  WTKG CRCLP</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  54.4  55.0  43.4   0.9     1  43.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  80.3  60.5  59.0   1.4     0  44.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  99.3  68.0  70.2   1.4     0  48.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  88.4  54.1  68.3   1.5     0  41.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  62.6  46.6  51.3   1       1  38.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  67.1  43.6  44.7   1       1  29.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  78.0  55.7  63.7   1.4     0  45.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  59.9  46.3  54.8   0.9     1  46.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  78.9  47.2  72.9   1.3     0  47.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  71.2  87.0  72     1       0  87.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  55.0  43.4   0.9     1  54.4  43.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  60.5  59.0   1.4     0  80.3  44.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  68.0  70.2   1.4     0  99.3  48.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  54.1  68.3   1.5     0  88.4  41.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  46.6  51.3   1       1  62.6  38.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  43.6  44.7   1       1  67.1  29.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  55.7  63.7   1.4     0  78.0  45.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  46.3  54.8   0.9     1  59.9  46.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  47.2  72.9   1.3     0  78.9  47.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  87.0  72     1       0  71.2  87.0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -468,31 +468,31 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    CRCLP <span class="op">=</span> <span class="fu"><a href="../reference/calculate_crcl_peck.html">calculate_crcl_peck</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">WTKG</span>, <span class="va">CRCL</span>, <span class="va">IBW</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">CRCLP</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">CRCL</span>, <span class="va">IBW</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">CRCLP</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
-<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; CRCL variable found and used for the crcl argument.</span></span>
 <span><span class="co">#&gt; IBW variable found and used for the ibw argument.</span></span>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
+<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate CRCL_PECK: </span></span>
 <span><span class="co">#&gt;   If WTKG [kg] &lt; 120% of IBW [kg], CRCL [mL/min] = CRCL [mL/min] (Cockroft &amp; Gault)</span></span>
 <span><span class="co">#&gt;   If WTKG [kg] &gt;= 120% of IBW [kg]:</span></span>
 <span><span class="co">#&gt;     Males: CRCL [mL/min] = ((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])</span></span>
 <span><span class="co">#&gt;     Females: CRCL [mL/min] = (((140 - AGE [y]) × IBW [kg]) ÷ (72 × SCR [mg/dL])) × 0.85</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 8</span></span></span>
-<span><span class="co">#&gt;    USUBJID       AGE  WTKG  CRCL   IBW   SCR  SEXF CRCLP</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE  CRCL   IBW   SCR  SEXF  WTKG CRCLP</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  54.4  55.0  43.4   0.9     1  43.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  80.3  60.5  59.0   1.4     0  44.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  99.3  68.0  70.2   1.4     0  48.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  88.4  54.1  68.3   1.5     0  41.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  62.6  46.6  51.3   1       1  38.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  67.1  43.6  44.7   1       1  29.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  78.0  55.7  63.7   1.4     0  45.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  59.9  46.3  54.8   0.9     1  46.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  78.9  47.2  72.9   1.3     0  47.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  71.2  87.0  72     1       0  87.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  55.0  43.4   0.9     1  54.4  43.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  60.5  59.0   1.4     0  80.3  44.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  68.0  70.2   1.4     0  99.3  48.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  54.1  68.3   1.5     0  88.4  41.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  46.6  51.3   1       1  62.6  38.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  43.6  44.7   1       1  67.1  29.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  55.7  63.7   1.4     0  78.0  45.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  46.3  54.8   0.9     1  59.9  46.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  47.2  72.9   1.3     0  78.9  47.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  87.0  72     1       0  71.2  87.0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -509,9 +509,9 @@ Following is the formula to calculate it:</p>
 Following are the inputs:</p>
 <ul>
 <li>
-<code>wtkg</code>: Weight (kg). Numeric vector.</li>
-<li>
 <code>htcm</code>: Height (cm). Numeric vector.</li>
+<li>
+<code>wtkg</code>: Weight (kg). Numeric vector.</li>
 </ul>
 <div class="section level4">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a>
@@ -524,26 +524,26 @@ Following are the inputs:</p>
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    BMI <span class="op">=</span> <span class="fu"><a href="../reference/calculate_bmi.html">calculate_bmi</a></span><span class="op">(</span></span>
-<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span>, </span>
-<span>      htcm <span class="op">=</span> <span class="va">HTCM</span></span>
+<span>      htcm <span class="op">=</span> <span class="va">HTCM</span>,</span>
+<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span> </span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">WTKG</span>, <span class="va">HTCM</span>, <span class="va">BMI</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">WTKG</span>, <span class="va">BMI</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate BMI: </span></span>
 <span><span class="co">#&gt;   BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
-<span><span class="co">#&gt;    USUBJID      WTKG  HTCM   BMI</span></span>
+<span><span class="co">#&gt;    USUBJID      HTCM  WTKG   BMI</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  54.4  147.  25.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  80.3  163.  30.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  99.3  178.  31.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  88.4  175.  28.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  62.6  155.  26.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  67.1  149.  30.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  78.0  169.  27.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  59.9  158.  23.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  78.9  182.  23.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  71.2  180.  21.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.  54.4  25.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.  80.3  30.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.  99.3  31.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.  88.4  28.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.  62.6  26.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.  67.1  30.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.  78.0  27.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.  59.9  23.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.  78.9  23.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.  71.2  21.9</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -557,24 +557,24 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    BMI <span class="op">=</span> <span class="fu"><a href="../reference/calculate_bmi.html">calculate_bmi</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">WTKG</span>, <span class="va">HTCM</span>, <span class="va">BMI</span><span class="op">)</span></span>
-<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">WTKG</span>, <span class="va">BMI</span><span class="op">)</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
+<span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate BMI: </span></span>
 <span><span class="co">#&gt;   BMI [kg/m^2] = WTKG [kg] ÷ (HTCM [cm] ÷ 100) ^ 2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
-<span><span class="co">#&gt;    USUBJID      WTKG  HTCM   BMI</span></span>
+<span><span class="co">#&gt;    USUBJID      HTCM  WTKG   BMI</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  54.4  147.  25.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  80.3  163.  30.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  99.3  178.  31.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  88.4  175.  28.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  62.6  155.  26.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  67.1  149.  30.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  78.0  169.  27.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  59.9  158.  23.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  78.9  182.  23.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  71.2  180.  21.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.  54.4  25.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.  80.3  30.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.  99.3  31.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.  88.4  28.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.  62.6  26.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.  67.1  30.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.  78.0  27.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.  59.9  23.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.  78.9  23.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.  71.2  21.9</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -675,12 +675,12 @@ Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm])
 Following are the inputs:</p>
 <ul>
 <li>
+<code>htcm</code>: Height (cm). Numeric vector.</li>
+<li>
 <code>sexf</code>: Sex. Numeric vector including values of 0 and/or
 1. 0=Male; 1=Female.</li>
 <li>
 <code>wtkg</code>: Weight (kg). Numeric vector.</li>
-<li>
-<code>htcm</code>: Height (cm). Numeric vector.</li>
 </ul>
 <div class="section level4">
 <h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a>
@@ -693,28 +693,28 @@ Following are the inputs:</p>
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    LBM <span class="op">=</span> <span class="fu"><a href="../reference/calculate_lbm.html">calculate_lbm</a></span><span class="op">(</span></span>
+<span>      htcm <span class="op">=</span> <span class="va">HTCM</span>,</span>
 <span>      sexf <span class="op">=</span> <span class="va">SEXF</span>,</span>
-<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span>,</span>
-<span>      htcm <span class="op">=</span> <span class="va">HTCM</span></span>
+<span>      wtkg <span class="op">=</span> <span class="va">WTKG</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">HTCM</span>, <span class="va">LBM</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">LBM</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate LBM: </span></span>
 <span><span class="co">#&gt;   Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
 <span><span class="co">#&gt;   Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 5</span></span></span>
-<span><span class="co">#&gt;    USUBJID      SEXF  WTKG  HTCM   LBM</span></span>
+<span><span class="co">#&gt;    USUBJID      HTCM  SEXF  WTKG   LBM</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  54.4  147.  38.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023     0  80.3  163.  57.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028     0  99.3  178.  69.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033     0  88.4  175.  64.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  62.6  155.  42.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  67.1  149.  41.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097     0  78.0  169.  58.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  59.9  158.  42.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115     0  78.9  182.  62.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118     0  71.2  180.  58.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.     1  54.4  38.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.     0  80.3  57.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.     0  99.3  69.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.     0  88.4  64.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.     1  62.6  42.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.     1  67.1  41.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.     0  78.0  58.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.     1  59.9  42.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.     0  78.9  62.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.     0  71.2  58.4</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -728,26 +728,26 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    LBM <span class="op">=</span> <span class="fu"><a href="../reference/calculate_lbm.html">calculate_lbm</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">HTCM</span>, <span class="va">LBM</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SEXF</span>, <span class="va">WTKG</span>, <span class="va">LBM</span><span class="op">)</span></span>
+<span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; WTKG variable found and used for the wtkg argument.</span></span>
-<span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate LBM: </span></span>
 <span><span class="co">#&gt;   Males: LBM [kg] = (1.10 × WTKG [kg]) - 128 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
 <span><span class="co">#&gt;   Females: LBM [kg] = (1.07 × WTKG [kg]) - 148 × ((WTKG [kg]) ^ 2 ÷ (HTCM [cm]) ^ 2)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 5</span></span></span>
-<span><span class="co">#&gt;    USUBJID      SEXF  WTKG  HTCM   LBM</span></span>
+<span><span class="co">#&gt;    USUBJID      HTCM  SEXF  WTKG   LBM</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  54.4  147.  38.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023     0  80.3  163.  57.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028     0  99.3  178.  69.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033     0  88.4  175.  64.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  62.6  155.  42.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  67.1  149.  41.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097     0  78.0  169.  58.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  59.9  158.  42.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115     0  78.9  182.  62.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118     0  71.2  180.  58.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.     1  54.4  38.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.     0  80.3  57.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.     0  99.3  69.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.     0  88.4  64.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.     1  62.6  42.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.     1  67.1  41.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.     0  78.0  58.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.     1  59.9  42.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.     0  78.9  62.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.     0  71.2  58.4</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -765,10 +765,10 @@ Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)
 Following are the inputs:</p>
 <ul>
 <li>
+<code>htcm</code>: Height (cm). Numeric vector.</li>
+<li>
 <code>sexf</code>: Sex. Numeric vector including values of 0 and/or
 1. 0=Male; 1=Female.</li>
-<li>
-<code>htcm</code>: Height (cm). Numeric vector.</li>
 </ul>
 <div class="section level4">
 <h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a>
@@ -781,27 +781,27 @@ Following are the inputs:</p>
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    IBW <span class="op">=</span> <span class="fu"><a href="../reference/calculate_ibw.html">calculate_ibw</a></span><span class="op">(</span></span>
-<span>      sexf <span class="op">=</span> <span class="va">SEXF</span>, </span>
-<span>      htcm <span class="op">=</span> <span class="va">HTCM</span></span>
+<span>      htcm <span class="op">=</span> <span class="va">HTCM</span>,</span>
+<span>      sexf <span class="op">=</span> <span class="va">SEXF</span> </span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SEXF</span>, <span class="va">HTCM</span>, <span class="va">IBW</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SEXF</span>, <span class="va">IBW</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW: </span></span>
 <span><span class="co">#&gt;   Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
 <span><span class="co">#&gt;   Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
-<span><span class="co">#&gt;    USUBJID      SEXF  HTCM   IBW</span></span>
+<span><span class="co">#&gt;    USUBJID      HTCM  SEXF   IBW</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  147.  45.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023     0  163.  59.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028     0  178.  70.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033     0  175.  68.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  155.  50.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  149.  46.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097     0  169.  63.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  158.  52.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115     0  182.  72.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118     0  180.  72  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.     1  45.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.     0  59.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.     0  70.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.     0  68.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.     1  50.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.     1  46.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.     0  63.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.     1  52.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.     0  72.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.     0  72  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -815,25 +815,25 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    IBW <span class="op">=</span> <span class="fu"><a href="../reference/calculate_ibw.html">calculate_ibw</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SEXF</span>, <span class="va">HTCM</span>, <span class="va">IBW</span><span class="op">)</span></span>
-<span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SEXF</span>, <span class="va">IBW</span><span class="op">)</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
+<span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW: </span></span>
 <span><span class="co">#&gt;   Males: IBW [kg] = 51.65 [kg] + 1.85 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
 <span><span class="co">#&gt;   Females: IBW [kg] = 48.67 [kg] + 1.65 [kg] × ((HTCM [cm] ÷ 2.54) - 60)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
-<span><span class="co">#&gt;    USUBJID      SEXF  HTCM   IBW</span></span>
+<span><span class="co">#&gt;    USUBJID      HTCM  SEXF   IBW</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015     1  147.  45.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023     0  163.  59.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028     0  178.  70.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033     0  175.  68.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034     1  155.  50.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047     1  149.  46.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097     0  169.  63.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111     1  158.  52.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115     0  182.  72.9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118     0  180.  72  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.     1  45.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.     0  59.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.     0  70.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.     0  68.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.     1  50.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.     1  46.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.     0  63.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.     1  52.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.     0  72.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.     0  72  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -850,6 +850,8 @@ height. Following is the formula to calculate it:</p>
 Following is the input:</p>
 <ul>
 <li>
+<code>age</code>: Age (y). Numeric vector.</li>
+<li>
 <code>htcm</code>: Height (cm). Numeric vector.</li>
 </ul>
 <div class="section level4">
@@ -862,24 +864,28 @@ Following is the input:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    IBWCHILD <span class="op">=</span> <span class="fu"><a href="../reference/calculate_ibw_child.html">calculate_ibw_child</a></span><span class="op">(</span>htcm <span class="op">=</span> <span class="va">HTCM</span><span class="op">)</span></span>
+<span>    IBWCHILD <span class="op">=</span> <span class="fu"><a href="../reference/calculate_ibw_child.html">calculate_ibw_child</a></span><span class="op">(</span>age <span class="op">=</span> <span class="va">AGE</span>, htcm <span class="op">=</span> <span class="va">HTCM</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">IBWCHILD</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">HTCM</span>, <span class="va">IBWCHILD</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW_CHILD: </span></span>
 <span><span class="co">#&gt;   IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 3</span></span></span>
-<span><span class="co">#&gt;    USUBJID      HTCM IBWCHILD</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.     35.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.     43.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.     52.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.     50.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.     39.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.     36.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.     47.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.     41.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.     54.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.     53.7</span></span>
+<span><span class="co">#&gt; Warning: There was 1 warning in `mutate()`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> In argument: `IBWCHILD = calculate_ibw_child(age = AGE, htcm = HTCM)`.</span></span>
+<span><span class="co">#&gt; Caused by warning:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 18 were detected. This formula is intended for children.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
+<span><span class="co">#&gt;    USUBJID       AGE  HTCM IBWCHILD</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  147.     35.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  163.     43.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  178.     52.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  175.     50.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  155.     39.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  149.     36.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  169.     47.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  158.     41.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  182.     54.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  180.     53.7</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -893,23 +899,28 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    IBWCHILD <span class="op">=</span> <span class="fu"><a href="../reference/calculate_ibw_child.html">calculate_ibw_child</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">IBWCHILD</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">HTCM</span>, <span class="va">IBWCHILD</span><span class="op">)</span></span>
+<span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate IBW_CHILD: </span></span>
 <span><span class="co">#&gt;   IBW [kg] = [(HTCM [cm]) ^ 2 × 1.65] ÷ 1000</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 3</span></span></span>
-<span><span class="co">#&gt;    USUBJID      HTCM IBWCHILD</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.     35.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.     43.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.     52.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.     50.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.     39.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.     36.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.     47.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.     41.3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.     54.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.     53.7</span></span>
+<span><span class="co">#&gt; Warning: There was 1 warning in `mutate()`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> In argument: `IBWCHILD = calculate_ibw_child()`.</span></span>
+<span><span class="co">#&gt; Caused by warning:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 18 were detected. This formula is intended for children.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
+<span><span class="co">#&gt;    USUBJID       AGE  HTCM IBWCHILD</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  147.     35.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  163.     43.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  178.     52.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  175.     50.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  155.     39.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  149.     36.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  169.     47.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  158.     41.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  182.     54.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  180.     53.7</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -926,15 +937,15 @@ to calculate it:</p>
 Following are the inputs:</p>
 <ul>
 <li>
-<code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
-<li>
 <code>age</code>: Age (y). Numeric vector.</li>
-<li>
-<code>sexf</code>: Sex. Numeric vector including values of 0 and/or
-1. 0=Male; 1=Female.</li>
 <li>
 <code>racen</code>: Race. Numeric vector where the value 2 is
 expected to correspond to Black/African American.</li>
+<li>
+<code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
+<li>
+<code>sexf</code>: Sex. Numeric vector including values of 0 and/or
+1. 0=Male; 1=Female.</li>
 </ul>
 <div class="section level4">
 <h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a>
@@ -947,28 +958,28 @@ expected to correspond to Black/African American.</li>
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    EGFR <span class="op">=</span> <span class="fu"><a href="../reference/calculate_egfr.html">calculate_egfr</a></span><span class="op">(</span></span>
-<span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
 <span>      age <span class="op">=</span> <span class="va">AGE</span>,</span>
-<span>      sexf <span class="op">=</span> <span class="va">SEXF</span>,</span>
-<span>      racen <span class="op">=</span> <span class="va">RACEN</span></span>
+<span>      racen <span class="op">=</span> <span class="va">RACEN</span>,</span>
+<span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
+<span>      sexf <span class="op">=</span> <span class="va">SEXF</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SCR</span>, <span class="va">AGE</span>, <span class="va">SEXF</span>, <span class="va">RACEN</span>, <span class="va">EGFR</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">RACEN</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">EGFR</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR: </span></span>
 <span><span class="co">#&gt;   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID       SCR   AGE  SEXF RACEN  EGFR</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE RACEN   SCR  SEXF  EGFR</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015   0.9    63     1     1  63.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023   1.4    64     0     1  51.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028   1.4    71     0     1  50.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033   1.5    74     0     1  45.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034   1      77     1     1  53.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047   1      85     1     1  52.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097   1.4    68     0     1  50.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111   0.9    81     1     1  60.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115   1.3    84     0     1  52.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118   1      52     0     1  78.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63     1   0.9     1  63.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64     1   1.4     0  51.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71     1   1.4     0  50.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74     1   1.5     0  45.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77     1   1       1  53.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85     1   1       1  52.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68     1   1.4     0  50.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81     1   0.9     1  60.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84     1   1.3     0  52.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52     1   1       0  78.5</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -982,26 +993,26 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    EGFR <span class="op">=</span> <span class="fu"><a href="../reference/calculate_egfr.html">calculate_egfr</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">SCR</span>, <span class="va">AGE</span>, <span class="va">SEXF</span>, <span class="va">RACEN</span>, <span class="va">EGFR</span><span class="op">)</span></span>
-<span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">RACEN</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">EGFR</span><span class="op">)</span></span>
 <span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
-<span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; RACEN variable found and used for the racen argument.</span></span>
+<span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
+<span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR: </span></span>
 <span><span class="co">#&gt;   EGFR [mL/min/1.73m^2] = 175 × (SCR [mg/dL] ^ -1.154) × (AGE [y] ^ -0.203) × (0.742 if female) × (1.212 if African American)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID       SCR   AGE  SEXF RACEN  EGFR</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE RACEN   SCR  SEXF  EGFR</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015   0.9    63     1     1  63.2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023   1.4    64     0     1  51.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028   1.4    71     0     1  50.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033   1.5    74     0     1  45.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034   1      77     1     1  53.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047   1      85     1     1  52.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097   1.4    68     0     1  50.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111   0.9    81     1     1  60.1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115   1.3    84     0     1  52.6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118   1      52     0     1  78.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63     1   0.9     1  63.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64     1   1.4     0  51.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71     1   1.4     0  50.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74     1   1.5     0  45.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77     1   1       1  53.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85     1   1       1  52.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68     1   1.4     0  50.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81     1   0.9     1  60.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84     1   1.3     0  52.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52     1   1       0  78.5</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -1023,11 +1034,11 @@ k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16
 Following are the inputs:</p>
 <ul>
 <li>
+<code>age</code>: Age (y). Numeric vector.</li>
+<li>
 <code>htcm</code>: Height (cm). Numeric vector.</li>
 <li>
 <code>scr</code>: Serum Creatinine (mg/dL). Numeric vector.</li>
-<li>
-<code>age</code>: Age (y). Numeric vector.</li>
 <li>
 <code>sexf</code>: Sex. Numeric vector including values of 0 and/or
 1. 0=Male; 1=Female.</li>
@@ -1043,13 +1054,13 @@ Following are the inputs:</p>
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    EGFR_CHILD <span class="op">=</span> <span class="fu"><a href="../reference/calculate_egfr_child.html">calculate_egfr_child</a></span><span class="op">(</span></span>
+<span>      age <span class="op">=</span> <span class="va">AGE</span>, </span>
 <span>      htcm <span class="op">=</span> <span class="va">HTCM</span>,</span>
 <span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
-<span>      age <span class="op">=</span> <span class="va">AGE</span>, </span>
 <span>      sexf <span class="op">=</span> <span class="va">SEXF</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SCR</span>, <span class="va">AGE</span>, <span class="va">SEXF</span>, <span class="va">EGFR_CHILD</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">HTCM</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">EGFR_CHILD</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR_CHILD: </span></span>
 <span><span class="co">#&gt;   Children (AGE [y] &lt;= 16), where:</span></span>
 <span><span class="co">#&gt;   EGFR = (k * HTCM [cm]) / SCR [mg/dL]</span></span>
@@ -1057,19 +1068,24 @@ Following are the inputs:</p>
 <span><span class="co">#&gt;   k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16</span></span>
 <span><span class="co">#&gt;   k = 0.55 for boys 1 &lt; AGE [y] &lt; 13</span></span>
 <span><span class="co">#&gt;   k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16</span></span>
+<span><span class="co">#&gt; Warning: There was 1 warning in `mutate()`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> In argument: `EGFR_CHILD = calculate_egfr_child(age = AGE, htcm = HTCM, scr =</span></span>
+<span><span class="co">#&gt;   SCR, sexf = SEXF)`.</span></span>
+<span><span class="co">#&gt; Caused by warning:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 16 were detected. This formula is intended for children.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID      HTCM   SCR   AGE  SEXF EGFR_CHILD</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE  HTCM   SCR  SEXF EGFR_CHILD</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.   0.9    63     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.   1.4    64     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.   1.4    71     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.   1.5    74     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.   1      77     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.   1      85     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.   1.4    68     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.   0.9    81     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.   1.3    84     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.   1      52     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  147.   0.9     1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  163.   1.4     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  178.   1.4     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  175.   1.5     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  155.   1       1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  149.   1       1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  169.   1.4     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  158.   0.9     1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  182.   1.3     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  180.   1       0         <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -1083,10 +1099,10 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    EGFR_CHILD <span class="op">=</span> <span class="fu"><a href="../reference/calculate_egfr_child.html">calculate_egfr_child</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">HTCM</span>, <span class="va">SCR</span>, <span class="va">AGE</span>, <span class="va">SEXF</span>, <span class="va">EGFR_CHILD</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">AGE</span>, <span class="va">HTCM</span>, <span class="va">SCR</span>, <span class="va">SEXF</span>, <span class="va">EGFR_CHILD</span><span class="op">)</span></span>
+<span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
 <span><span class="co">#&gt; HTCM variable found and used for the htcm argument.</span></span>
 <span><span class="co">#&gt; SCR variable found and used for the scr argument.</span></span>
-<span><span class="co">#&gt; AGE variable found and used for the age argument.</span></span>
 <span><span class="co">#&gt; SEXF variable found and used for the sexf argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate EGFR_CHILD: </span></span>
 <span><span class="co">#&gt;   Children (AGE [y] &lt;= 16), where:</span></span>
@@ -1095,19 +1111,23 @@ environment:</p>
 <span><span class="co">#&gt;   k = 0.55 for girls 1 &lt; AGE [y] &lt;= 16</span></span>
 <span><span class="co">#&gt;   k = 0.55 for boys 1 &lt; AGE [y] &lt; 13</span></span>
 <span><span class="co">#&gt;   k = 0.70 for boys 13 &lt;= AGE [y] &lt;= 16</span></span>
+<span><span class="co">#&gt; Warning: There was 1 warning in `mutate()`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> In argument: `EGFR_CHILD = calculate_egfr_child()`.</span></span>
+<span><span class="co">#&gt; Caused by warning:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Cases where AGE &gt; 16 were detected. This formula is intended for children.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 6</span></span></span>
-<span><span class="co">#&gt;    USUBJID      HTCM   SCR   AGE  SEXF EGFR_CHILD</span></span>
+<span><span class="co">#&gt;    USUBJID       AGE  HTCM   SCR  SEXF EGFR_CHILD</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015  147.   0.9    63     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023  163.   1.4    64     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028  178.   1.4    71     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033  175.   1.5    74     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034  155.   1      77     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047  149.   1      85     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097  169.   1.4    68     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111  158.   0.9    81     1         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115  182.   1.3    84     0         <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118  180.   1      52     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015    63  147.   0.9     1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023    64  163.   1.4     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028    71  178.   1.4     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033    74  175.   1.5     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034    77  155.   1       1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047    85  149.   1       1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097    68  169.   1.4     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111    81  158.   0.9     1         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115    84  182.   1.3     0         <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118    52  180.   1       0         <span style="color: #BB0000;">NA</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
@@ -1141,10 +1161,10 @@ Following is the input:</p>
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    EGFR <span class="op">=</span> <span class="fu"><a href="../reference/calculate_egfr.html">calculate_egfr</a></span><span class="op">(</span></span>
-<span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
 <span>      age <span class="op">=</span> <span class="va">AGE</span>,</span>
-<span>      sexf <span class="op">=</span> <span class="va">SEXF</span>,</span>
-<span>      racen <span class="op">=</span> <span class="va">RACEN</span></span>
+<span>      racen <span class="op">=</span> <span class="va">RACEN</span>,</span>
+<span>      scr <span class="op">=</span> <span class="va">SCR</span>,</span>
+<span>      sexf <span class="op">=</span> <span class="va">SEXF</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    RFCAT <span class="op">=</span> <span class="fu"><a href="../reference/calculate_rfcat.html">calculate_rfcat</a></span><span class="op">(</span>egfr <span class="op">=</span> <span class="va">EGFR</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -1400,10 +1420,10 @@ if TBILCAT = 3 then NCILIV = 4
 Following are the inputs:</p>
 <ul>
 <li>
-<code>tbilcat</code>: Total Bilirubin Category. Numeric vector.</li>
-<li>
 <code>astcat</code>: Aspartate Aminotransferase Category. Numeric
 vector.</li>
+<li>
+<code>tbilcat</code>: Total Bilirubin Category. Numeric vector.</li>
 </ul>
 <div class="section level4">
 <h4 id="examples-12">Examples<a class="anchor" aria-label="anchor" href="#examples-12"></a>
@@ -1415,9 +1435,9 @@ vector.</li>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    NCILIV <span class="op">=</span> <span class="fu"><a href="../reference/calculate_nciliv.html">calculate_nciliv</a></span><span class="op">(</span>tbilcat <span class="op">=</span> <span class="va">TBILCAT</span>, astcat <span class="op">=</span> <span class="va">ASTCAT</span><span class="op">)</span></span>
+<span>    NCILIV <span class="op">=</span> <span class="fu"><a href="../reference/calculate_nciliv.html">calculate_nciliv</a></span><span class="op">(</span>astcat <span class="op">=</span> <span class="va">ASTCAT</span>, tbilcat <span class="op">=</span> <span class="va">TBILCAT</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">TBILCAT</span>, <span class="va">ASTCAT</span>, <span class="va">NCILIV</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">ASTCAT</span>, <span class="va">TBILCAT</span>, <span class="va">NCILIV</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Formula to calculate NCILIV: </span></span>
 <span><span class="co">#&gt;   if TBILCAT = 0 and ASTCAT = 0 then NCILIV = 0</span></span>
 <span><span class="co">#&gt;   if TBILCAT = 0 and ASTCAT = 1 then NCILIV = 1</span></span>
@@ -1425,18 +1445,18 @@ vector.</li>
 <span><span class="co">#&gt;   if TBILCAT = 2 then NCILIV = 3</span></span>
 <span><span class="co">#&gt;   if TBILCAT = 3 then NCILIV = 4</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
-<span><span class="co">#&gt;    USUBJID     TBILCAT ASTCAT NCILIV</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015       0      1      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118       0      0      0</span></span>
+<span><span class="co">#&gt;    USUBJID     ASTCAT TBILCAT NCILIV</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015      1       0      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118      0       0      0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -1450,9 +1470,9 @@ environment:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    NCILIV <span class="op">=</span> <span class="fu"><a href="../reference/calculate_nciliv.html">calculate_nciliv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">TBILCAT</span>, <span class="va">ASTCAT</span>, <span class="va">NCILIV</span><span class="op">)</span></span>
-<span><span class="co">#&gt; TBILCAT variable found and used for the tbilcat argument.</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">ASTCAT</span>, <span class="va">TBILCAT</span>, <span class="va">NCILIV</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ASTCAT variable found and used for the astcat argument.</span></span>
+<span><span class="co">#&gt; TBILCAT variable found and used for the tbilcat argument.</span></span>
 <span><span class="co">#&gt; Formula to calculate NCILIV: </span></span>
 <span><span class="co">#&gt;   if TBILCAT = 0 and ASTCAT = 0 then NCILIV = 0</span></span>
 <span><span class="co">#&gt;   if TBILCAT = 0 and ASTCAT = 1 then NCILIV = 1</span></span>
@@ -1460,18 +1480,18 @@ environment:</p>
 <span><span class="co">#&gt;   if TBILCAT = 2 then NCILIV = 3</span></span>
 <span><span class="co">#&gt;   if TBILCAT = 3 then NCILIV = 4</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 254 × 4</span></span></span>
-<span><span class="co">#&gt;    USUBJID     TBILCAT ASTCAT NCILIV</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015       0      1      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115       0      0      0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118       0      0      0</span></span>
+<span><span class="co">#&gt;    USUBJID     ASTCAT TBILCAT NCILIV</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 01-701-1015      1       0      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 01-701-1023      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 01-701-1028      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 01-701-1033      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 01-701-1034      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 01-701-1047      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 01-701-1097      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 01-701-1111      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 01-701-1115      0       0      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 01-701-1118      0       0      0</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 244 more rows</span></span></span></code></pre></div>
 </div>
 </div>
