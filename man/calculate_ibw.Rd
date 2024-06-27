@@ -4,12 +4,12 @@
 \alias{calculate_ibw}
 \title{Calculate Ideal Body Weight}
 \usage{
-calculate_ibw(sexf, htcm)
+calculate_ibw(htcm, sexf)
 }
 \arguments{
-\item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
-
 \item{htcm}{Height (cm). Numeric vector.}
+
+\item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -27,7 +27,7 @@ Calculate Ideal Body Weight (IBW), a measure of potential body fat based on heig
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(IBW = calculate_ibw(sexf = SEXF, htcm = HTCM))
+  mutate(IBW = calculate_ibw(htcm = HTCM, sexf = SEXF))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

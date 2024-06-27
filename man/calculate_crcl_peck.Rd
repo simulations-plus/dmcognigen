@@ -4,12 +4,10 @@
 \alias{calculate_crcl_peck}
 \title{Calculate Creatinine Clearance using the Peck Formula}
 \usage{
-calculate_crcl_peck(age, wtkg, crcl, ibw, scr, sexf)
+calculate_crcl_peck(age, crcl, ibw, scr, sexf, wtkg)
 }
 \arguments{
 \item{age}{Age (y). Numeric vector.}
-
-\item{wtkg}{Weight (kg). Numeric vector.}
 
 \item{crcl}{Creatinine Clearance (mL/min)}
 
@@ -18,6 +16,8 @@ calculate_crcl_peck(age, wtkg, crcl, ibw, scr, sexf)
 \item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
 
 \item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
+
+\item{wtkg}{Weight (kg). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -39,11 +39,11 @@ library(dplyr)
 dmcognigen_cov \%>\% 
   mutate(CRCLP = calculate_crcl_peck(
     age = AGE, 
-    wtkg = WTKG, 
     crcl = CRCL, 
     ibw = IBW, 
     scr = SCR, 
-    sexf = SEXF
+    sexf = SEXF,
+    wtkg = WTKG
   ))
 
 # Below will also work if the dataset contains expected variables

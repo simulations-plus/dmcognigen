@@ -395,9 +395,9 @@ warn_about_pediatrics <- function(age, age_min, age_max) {
 #' ```
 #' @references `r get_from_calculations_table("crcl", "reference")`
 #' @param age `r describe_param("age")`
-#' @param wtkg `r describe_param("wtkg")`
 #' @param scr `r describe_param("scr")`
 #' @param sexf `r describe_param("sexf")`
+#' @param wtkg `r describe_param("wtkg")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -412,9 +412,9 @@ warn_about_pediatrics <- function(age, age_min, age_max) {
 #' dmcognigen_cov %>% 
 #'   mutate(CRCL = calculate_crcl(
 #'     age = AGE, 
-#'     wtkg = WTKG, 
 #'     scr = SCR, 
-#'     sexf = SEXF
+#'     sexf = SEXF,
+#'     wtkg = WTKG 
 #'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
@@ -425,9 +425,9 @@ warn_about_pediatrics <- function(age, age_min, age_max) {
 #' dmcognigen_cov %>% 
 #'   mutate(CRCL = pmin(calculate_crcl(), 160))
 calculate_crcl <- function(age, 
-                           wtkg, 
                            scr, 
-                           sexf){
+                           sexf,
+                           wtkg){
 
   # get all arguments
   all_args <- as.list(environment())
@@ -446,9 +446,9 @@ calculate_crcl <- function(age,
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
   admiraldev::assert_numeric_vector(age)
-  admiraldev::assert_numeric_vector(wtkg)
   admiraldev::assert_numeric_vector(scr)
   admiraldev::assert_numeric_vector(sexf)
+  admiraldev::assert_numeric_vector(wtkg)
   
   warn_about_pediatrics(age, age_min = 18)
 
@@ -468,11 +468,11 @@ calculate_crcl <- function(age,
 #' ```
 #' @references `r get_from_calculations_table("crcl_peck", "reference")`
 #' @param age `r describe_param("age")`
-#' @param wtkg `r describe_param("wtkg")`
 #' @param crcl `r describe_param("crcl")`
 #' @param ibw `r describe_param("ibw")`
 #' @param scr `r describe_param("scr")`
 #' @param sexf `r describe_param("sexf")`
+#' @param wtkg `r describe_param("wtkg")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -486,22 +486,22 @@ calculate_crcl <- function(age,
 #' dmcognigen_cov %>% 
 #'   mutate(CRCLP = calculate_crcl_peck(
 #'     age = AGE, 
-#'     wtkg = WTKG, 
 #'     crcl = CRCL, 
 #'     ibw = IBW, 
 #'     scr = SCR, 
-#'     sexf = SEXF
+#'     sexf = SEXF,
+#'     wtkg = WTKG
 #'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(CRCLP = calculate_crcl_peck())
 calculate_crcl_peck <- function(age,
-                                wtkg,
                                 crcl,
                                 ibw,
                                 scr,
-                                sexf){
+                                sexf,
+                                wtkg){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -518,11 +518,11 @@ calculate_crcl_peck <- function(age,
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
   admiraldev::assert_numeric_vector(age)
-  admiraldev::assert_numeric_vector(wtkg)
   admiraldev::assert_numeric_vector(crcl)
   admiraldev::assert_numeric_vector(ibw)
   admiraldev::assert_numeric_vector(scr)
   admiraldev::assert_numeric_vector(sexf)
+  admiraldev::assert_numeric_vector(wtkg)
   
   warn_about_pediatrics(age, age_min = 18)
   
@@ -541,8 +541,8 @@ calculate_crcl_peck <- function(age,
 #' report_calculation("bmi")
 #' ```
 #' @references `r get_from_calculations_table("bmi", "reference")`
-#' @param wtkg `r describe_param("wtkg")`
 #' @param htcm `r describe_param("htcm")`
+#' @param wtkg `r describe_param("wtkg")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -551,12 +551,12 @@ calculate_crcl_peck <- function(age,
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(BMI = calculate_bmi(wtkg = WTKG, htcm = HTCM))
+#'   mutate(BMI = calculate_bmi(htcm = HTCM, wtkg = WTKG))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(BMI = calculate_bmi())
-calculate_bmi <- function(wtkg, htcm){
+calculate_bmi <- function(htcm, wtkg){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -572,8 +572,8 @@ calculate_bmi <- function(wtkg, htcm){
   
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
-  admiraldev::assert_numeric_vector(wtkg)
   admiraldev::assert_numeric_vector(htcm)
+  admiraldev::assert_numeric_vector(wtkg)
   
   evaluate_calculation(
     "bmi",
@@ -639,9 +639,9 @@ calculate_bsa <- function(htcm, wtkg){
 #' report_calculation("lbm")
 #' ```
 #' @references `r get_from_calculations_table("lbm", "reference")`
+#' @param htcm `r describe_param("htcm")`
 #' @param sexf `r describe_param("sexf")`
 #' @param wtkg `r describe_param("wtkg")`
-#' @param htcm `r describe_param("htcm")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -651,15 +651,15 @@ calculate_bsa <- function(htcm, wtkg){
 #' 
 #' dmcognigen_cov %>% 
 #'   mutate(LBM = calculate_lbm(
+#'     htcm = HTCM,
 #'     sexf = SEXF, 
-#'     wtkg = WTKG, 
-#'     htcm = HTCM
+#'     wtkg = WTKG 
 #'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(LBM = calculate_lbm())
-calculate_lbm <- function(sexf, wtkg, htcm){
+calculate_lbm <- function(htcm, sexf, wtkg){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -675,9 +675,9 @@ calculate_lbm <- function(sexf, wtkg, htcm){
   
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
+  admiraldev::assert_numeric_vector(htcm)
   admiraldev::assert_numeric_vector(sexf)
   admiraldev::assert_numeric_vector(wtkg)
-  admiraldev::assert_numeric_vector(htcm)
   
   evaluate_calculation(
     "lbm",
@@ -694,8 +694,8 @@ calculate_lbm <- function(sexf, wtkg, htcm){
 #' report_calculation("ibw")
 #' ```
 #' @references `r get_from_calculations_table("ibw", "reference")`
-#' @param sexf `r describe_param("sexf")`
 #' @param htcm `r describe_param("htcm")`
+#' @param sexf `r describe_param("sexf")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -707,12 +707,12 @@ calculate_lbm <- function(sexf, wtkg, htcm){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(IBW = calculate_ibw(sexf = SEXF, htcm = HTCM))
+#'   mutate(IBW = calculate_ibw(htcm = HTCM, sexf = SEXF))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(IBW = calculate_ibw())
-calculate_ibw <- function(sexf, htcm){
+calculate_ibw <- function(htcm, sexf){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -746,8 +746,8 @@ calculate_ibw <- function(sexf, htcm){
 #' report_calculation("ibw_child")
 #' ```
 #' @references `r get_from_calculations_table("ibw_child", "reference")`
-#' @param htcm `r describe_param("htcm")`
 #' @param age `r describe_param("age")`
+#' @param htcm `r describe_param("htcm")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -759,12 +759,12 @@ calculate_ibw <- function(sexf, htcm){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(IBWCHILD = calculate_ibw_child(htcm = HTCM, age = AGE))
+#'   mutate(IBWCHILD = calculate_ibw_child(age = AGE, htcm = HTCM))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(IBWCHILD = calculate_ibw_child())
-calculate_ibw_child <- function(htcm, age){
+calculate_ibw_child <- function(age, htcm){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -780,8 +780,8 @@ calculate_ibw_child <- function(htcm, age){
   
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
-  admiraldev::assert_numeric_vector(htcm)
   admiraldev::assert_numeric_vector(age)
+  admiraldev::assert_numeric_vector(htcm)
   
   # per reference
   warn_about_pediatrics(age, age_max = 18)
@@ -801,8 +801,8 @@ calculate_ibw_child <- function(htcm, age){
 #' report_calculation("egfr")
 #' ```
 #' @references `r get_from_calculations_table("egfr", "reference")`
-#' @param scr `r describe_param("scr")`
 #' @param age `r describe_param("age")`
+#' @param scr `r describe_param("scr")`
 #' @param sexf `r describe_param("sexf")`
 #' @param racen `r describe_param("racen")`
 #'
@@ -817,19 +817,19 @@ calculate_ibw_child <- function(htcm, age){
 #' 
 #' dmcognigen_cov %>% 
 #'   mutate(EGFR = calculate_egfr(
-#'     scr = SCR, 
 #'     age = AGE, 
-#'     sexf = SEXF, 
-#'     racen = RACEN
+#'     racen = RACEN,
+#'     scr = SCR, 
+#'     sexf = SEXF
 #'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(EGFR = calculate_egfr())
-calculate_egfr <- function(scr,
-                           age,
-                           sexf,
-                           racen){
+calculate_egfr <- function(age,
+                           racen,
+                           scr,
+                           sexf){
   # get all arguments
   all_args <- as.list(environment())
   
@@ -845,10 +845,10 @@ calculate_egfr <- function(scr,
   
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
-  admiraldev::assert_numeric_vector(scr)
   admiraldev::assert_numeric_vector(age)
-  admiraldev::assert_numeric_vector(sexf)
   admiraldev::assert_numeric_vector(racen)
+  admiraldev::assert_numeric_vector(scr)
+  admiraldev::assert_numeric_vector(sexf)
   
   warn_about_pediatrics(age, age_min = 16)
   
@@ -868,9 +868,9 @@ calculate_egfr <- function(scr,
 #' report_calculation("egfr_child")
 #' ```
 #' @references `r get_from_calculations_table("egfr_child", "reference")`
+#' @param age `r describe_param("age")`
 #' @param htcm `r describe_param("htcm")`
 #' @param scr `r describe_param("scr")`
-#' @param age `r describe_param("age")`
 #' @param sexf `r describe_param("sexf")`
 #'
 #' @return `r describe_param("return_num_vect")`
@@ -884,18 +884,18 @@ calculate_egfr <- function(scr,
 #' 
 #' dmcognigen_cov %>% 
 #'   mutate(EGFRSCHW = calculate_egfr_child(
+#'     age = AGE, 
 #'     htcm = HTCM, 
 #'     scr = SCR, 
-#'     age = AGE, 
 #'     sexf = SEXF
 #'   ))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(EGFRSCHW = calculate_egfr_child())
-calculate_egfr_child <- function(htcm,
+calculate_egfr_child <- function(age,
+                                 htcm,
                                  scr,
-                                 age,
                                  sexf){
   # get all arguments
   all_args <- as.list(environment())
@@ -912,9 +912,9 @@ calculate_egfr_child <- function(htcm,
   
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
+  admiraldev::assert_numeric_vector(age)
   admiraldev::assert_numeric_vector(htcm)
   admiraldev::assert_numeric_vector(scr)
-  admiraldev::assert_numeric_vector(age)
   admiraldev::assert_numeric_vector(sexf)
   
   warn_about_pediatrics(age, age_max = 16)
@@ -1097,8 +1097,8 @@ calculate_astcat <- function(ast, astuln){
 #' report_calculation("nciliv")
 #' ```
 #' @references `r get_from_calculations_table("nciliv", "reference")`
-#' @param tbilcat `r describe_param("tbilcat")`
 #' @param astcat `r describe_param("astcat")`
+#' @param tbilcat `r describe_param("tbilcat")`
 #'
 #' @return `r describe_param("return_num_vect")`
 #' @export
@@ -1107,12 +1107,12 @@ calculate_astcat <- function(ast, astuln){
 #' library(dplyr)
 #' 
 #' dmcognigen_cov %>% 
-#'   mutate(NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT))
+#'   mutate(NCILIV = calculate_nciliv(astcat = ASTCAT, tbilcat = TBILCAT))
 #'
 #' # Below will also work if the dataset contains expected variables
 #' dmcognigen_cov %>% 
 #'   mutate(NCILIV = calculate_nciliv())
-calculate_nciliv <- function(tbilcat, astcat){
+calculate_nciliv <- function(astcat, tbilcat){
   
   # get all arguments
   all_args <- as.list(environment())
@@ -1129,8 +1129,8 @@ calculate_nciliv <- function(tbilcat, astcat){
   
   # make sure all arguments are numeric
   list2env(args_list, envir = environment()) 
-  admiraldev::assert_numeric_vector(tbilcat)
   admiraldev::assert_numeric_vector(astcat)
+  admiraldev::assert_numeric_vector(tbilcat)
   
   evaluate_calculation(
     "nciliv",

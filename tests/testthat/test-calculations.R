@@ -86,7 +86,7 @@ test_that("get_variable_from_env() detects missing variables from parent environ
   
   expected_crcl <- dmcognigen_cov %>%
     mutate(
-      CRCL = calculate_crcl(AGE, WTKG, SCR, SEXF)
+      CRCL = calculate_crcl(age = AGE, wtkg = WTKG, scr = SCR, sexf = SEXF)
     ) %>% 
     select(USUBJID, AGE, WTKG, SCR, SEXF)
   

@@ -4,12 +4,12 @@
 \alias{calculate_nciliv}
 \title{Calculate NCI Liver Function Group}
 \usage{
-calculate_nciliv(tbilcat, astcat)
+calculate_nciliv(astcat, tbilcat)
 }
 \arguments{
-\item{tbilcat}{Total Bilirubin Category. Numeric vector.}
-
 \item{astcat}{Aspartate Aminotransferase Category. Numeric vector.}
+
+\item{tbilcat}{Total Bilirubin Category. Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -30,7 +30,7 @@ Calculate NCI Liver Function Group (NCILIV)
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT))
+  mutate(NCILIV = calculate_nciliv(astcat = ASTCAT, tbilcat = TBILCAT))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

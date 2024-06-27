@@ -4,16 +4,16 @@
 \alias{calculate_egfr}
 \title{Calculate Estimated Glomerular Filtration Rate (eGFR)}
 \usage{
-calculate_egfr(scr, age, sexf, racen)
+calculate_egfr(age, racen, scr, sexf)
 }
 \arguments{
-\item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
-
 \item{age}{Age (y). Numeric vector.}
 
-\item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
-
 \item{racen}{Race. Numeric vector where the value 2 is expected to correspond to Black/African American.}
+
+\item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
+
+\item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -31,10 +31,10 @@ library(dplyr)
 
 dmcognigen_cov \%>\% 
   mutate(EGFR = calculate_egfr(
-    scr = SCR, 
     age = AGE, 
-    sexf = SEXF, 
-    racen = RACEN
+    racen = RACEN,
+    scr = SCR, 
+    sexf = SEXF
   ))
 
 # Below will also work if the dataset contains expected variables

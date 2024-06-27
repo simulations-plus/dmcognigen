@@ -58,12 +58,12 @@ dmcognigen_cov %>%
   mutate(
     CRCL = calculate_crcl(
       age = AGE,
-      wtkg = WTKG,
       scr = SCR,
-      sexf = SEXF
+      sexf = SEXF,
+      wtkg = WTKG
     )
   ) %>%
-  select(USUBJID, AGE, WTKG, SCR, SEXF, CRCL)
+  select(USUBJID, AGE, SCR, SEXF, WTKG, CRCL)
 ```
 
 ## dmcognigen_cov
@@ -116,12 +116,12 @@ dmcognigen_cov %>%
   mutate(
     CRCL = calculate_crcl(
       age = AGE,
-      wtkg = WTKG,
       scr = SCR,
-      sexf = SEXF
+      sexf = SEXF,
+      wtkg = WTKG
     )
   ) %>% 
-  select(USUBJID, AGE, WTKG, SCR, SEXF, CRCL)
+  select(USUBJID, AGE, SCR, SEXF, WTKG, CRCL)
 ```
 
 #### Example 2
@@ -131,13 +131,13 @@ dmcognigen_cov %>%
   mutate(
     CRCL = calculate_crcl()
   ) %>% 
-  select(USUBJID, AGE, WTKG, SCR, SEXF, CRCL)
+  select(USUBJID, AGE, SCR, SEXF, WTKG, CRCL)
 
 dmcognigen_cov %>% 
   mutate(
     CRCL = calculate_crcl(age = AGE)
   ) %>% 
-  select(USUBJID, AGE, WTKG, SCR, SEXF, CRCL)
+  select(USUBJID, AGE, SCR, SEXF, WTKG, CRCL)
 ```
 
 
@@ -151,11 +151,11 @@ vignette_equation("crcl_peck")
 `r describe_param("return_num_vect")`. Following are the inputs:
 
 * `age`: `r describe_param("age")`
-* `wtkg`: `r describe_param("wtkg")`
 * `crcl`: `r describe_param("crcl")`
 * `ibw`: `r describe_param("ibw")`
 * `scr`: `r describe_param("scr")`
 * `sexf`: `r describe_param("sexf")`
+* `wtkg`: `r describe_param("wtkg")`
 
 ### Examples
 
@@ -166,14 +166,14 @@ dmcognigen_cov %>%
   mutate(
     CRCLP = calculate_crcl_peck(
       age = AGE,
-      wtkg = WTKG,
       crcl = CRCL,
       ibw = IBW,
       scr = SCR,
-      sexf = SEXF
+      sexf = SEXF,
+      wtkg = WTKG
     )
   ) %>% 
-  select(USUBJID, AGE, WTKG, CRCL, IBW, SCR, SEXF, CRCLP)
+  select(USUBJID, AGE, CRCL, IBW, SCR, SEXF, WTKG, CRCLP)
 ```
 
 #### Example 2
@@ -183,7 +183,7 @@ dmcognigen_cov %>%
   mutate(
     CRCLP = calculate_crcl_peck()
   ) %>% 
-  select(USUBJID, AGE, WTKG, CRCL, IBW, SCR, SEXF, CRCLP)
+  select(USUBJID, AGE, CRCL, IBW, SCR, SEXF, WTKG, CRCLP)
 ```
 
 ## calculate_bmi
@@ -195,8 +195,8 @@ vignette_equation("bmi")
 
 `r describe_param("return_num_vect")`. Following are the inputs:
 
-* `wtkg`: `r describe_param("wtkg")`
 * `htcm`: `r describe_param("htcm")`
+* `wtkg`: `r describe_param("wtkg")`
 
 ### Examples
 
@@ -206,11 +206,11 @@ vignette_equation("bmi")
 dmcognigen_cov %>% 
   mutate(
     BMI = calculate_bmi(
-      wtkg = WTKG, 
-      htcm = HTCM
+      htcm = HTCM,
+      wtkg = WTKG 
     )
   ) %>% 
-  select(USUBJID, WTKG, HTCM, BMI)
+  select(USUBJID, HTCM, WTKG, BMI)
 ```
 
 #### Example 2
@@ -220,7 +220,7 @@ dmcognigen_cov %>%
   mutate(
     BMI = calculate_bmi()
   ) %>% 
-  select(USUBJID, WTKG, HTCM, BMI)
+  select(USUBJID, HTCM, WTKG, BMI)
 ```
 
 ## calculate_bsa
@@ -269,9 +269,9 @@ vignette_equation("lbm")
 
 `r describe_param("return_num_vect")`. Following are the inputs:
 
+* `htcm`: `r describe_param("htcm")`
 * `sexf`: `r describe_param("sexf")`
 * `wtkg`: `r describe_param("wtkg")`
-* `htcm`: `r describe_param("htcm")`
 
 ### Examples
 
@@ -281,12 +281,12 @@ vignette_equation("lbm")
 dmcognigen_cov %>% 
   mutate(
     LBM = calculate_lbm(
+      htcm = HTCM,
       sexf = SEXF,
-      wtkg = WTKG,
-      htcm = HTCM
+      wtkg = WTKG
     )
   ) %>% 
-  select(USUBJID, SEXF, WTKG, HTCM, LBM)
+  select(USUBJID, HTCM, SEXF, WTKG, LBM)
 ```
 
 #### Example 2
@@ -296,7 +296,7 @@ dmcognigen_cov %>%
   mutate(
     LBM = calculate_lbm()
   ) %>% 
-  select(USUBJID, SEXF, WTKG, HTCM, LBM)
+  select(USUBJID, HTCM, SEXF, WTKG, LBM)
 ```
 
 ## calculate_ibw
@@ -308,8 +308,8 @@ vignette_equation("ibw")
 
 `r describe_param("return_num_vect")`. Following are the inputs:
 
-* `sexf`: `r describe_param("sexf")`
 * `htcm`: `r describe_param("htcm")`
+* `sexf`: `r describe_param("sexf")`
 
 ### Examples
 
@@ -319,11 +319,11 @@ vignette_equation("ibw")
 dmcognigen_cov %>% 
   mutate(
     IBW = calculate_ibw(
-      sexf = SEXF, 
-      htcm = HTCM
+      htcm = HTCM,
+      sexf = SEXF 
     )
   ) %>% 
-  select(USUBJID, SEXF, HTCM, IBW)
+  select(USUBJID, HTCM, SEXF, IBW)
 ```
 
 #### Example 2
@@ -333,7 +333,7 @@ dmcognigen_cov %>%
   mutate(
     IBW = calculate_ibw()
   ) %>% 
-  select(USUBJID, SEXF, HTCM, IBW)
+  select(USUBJID, HTCM, SEXF, IBW)
 ```
 
 ## calculate_ibw_child
@@ -345,6 +345,7 @@ vignette_equation("ibw_child")
 
 `r describe_param("return_num_vect")`. Following is the input:
 
+* `age`: `r describe_param("age")`
 * `htcm`: `r describe_param("htcm")`
 
 ### Examples
@@ -354,9 +355,9 @@ vignette_equation("ibw_child")
 ```{r}
 dmcognigen_cov %>% 
   mutate(
-    IBWCHILD = calculate_ibw_child(htcm = HTCM)
+    IBWCHILD = calculate_ibw_child(age = AGE, htcm = HTCM)
   ) %>% 
-  select(USUBJID, HTCM, IBWCHILD)
+  select(USUBJID, AGE, HTCM, IBWCHILD)
 ```
 
 #### Example 2
@@ -366,7 +367,7 @@ dmcognigen_cov %>%
   mutate(
     IBWCHILD = calculate_ibw_child()
   ) %>% 
-  select(USUBJID, HTCM, IBWCHILD)
+  select(USUBJID, AGE, HTCM, IBWCHILD)
 ```
 
 ## calculate_egfr
@@ -378,10 +379,10 @@ vignette_equation("egfr")
 
 `r describe_param("return_num_vect")`. Following are the inputs:
 
-* `scr`: `r describe_param("scr")`
 * `age`: `r describe_param("age")`
-* `sexf`: `r describe_param("sexf")`
 * `racen`: `r describe_param("racen")`
+* `scr`: `r describe_param("scr")`
+* `sexf`: `r describe_param("sexf")`
 
 ### Examples
 
@@ -391,13 +392,13 @@ vignette_equation("egfr")
 dmcognigen_cov %>% 
   mutate(
     EGFR = calculate_egfr(
-      scr = SCR,
       age = AGE,
-      sexf = SEXF,
-      racen = RACEN
+      racen = RACEN,
+      scr = SCR,
+      sexf = SEXF
     )
   ) %>% 
-  select(USUBJID, SCR, AGE, SEXF, RACEN, EGFR)
+  select(USUBJID, AGE, RACEN, SCR, SEXF, EGFR)
 ```
 
 #### Example 2
@@ -407,7 +408,7 @@ dmcognigen_cov %>%
   mutate(
     EGFR = calculate_egfr()
   ) %>% 
-  select(USUBJID, SCR, AGE, SEXF, RACEN, EGFR)
+  select(USUBJID, AGE, RACEN, SCR, SEXF, EGFR)
 ```
 
 ## calculate_egfr_child
@@ -419,9 +420,9 @@ vignette_equation("egfr_child")
 
 `r describe_param("return_num_vect")`. Following are the inputs:
 
+* `age`: `r describe_param("age")`
 * `htcm`: `r describe_param("htcm")`
 * `scr`: `r describe_param("scr")`
-* `age`: `r describe_param("age")`
 * `sexf`: `r describe_param("sexf")`
 
 ### Examples
@@ -432,13 +433,13 @@ vignette_equation("egfr_child")
 dmcognigen_cov %>% 
   mutate(
     EGFR_CHILD = calculate_egfr_child(
+      age = AGE, 
       htcm = HTCM,
       scr = SCR,
-      age = AGE, 
       sexf = SEXF
     )
   ) %>% 
-  select(USUBJID, HTCM, SCR, AGE, SEXF, EGFR_CHILD)
+  select(USUBJID, AGE, HTCM, SCR, SEXF, EGFR_CHILD)
 ```
 
 #### Example 2
@@ -448,7 +449,7 @@ dmcognigen_cov %>%
   mutate(
     EGFR_CHILD = calculate_egfr_child()
   ) %>% 
-  select(USUBJID, HTCM, SCR, AGE, SEXF, EGFR_CHILD)
+  select(USUBJID, AGE, HTCM, SCR, SEXF, EGFR_CHILD)
 ```
 
 ## calculate_rfcat
@@ -470,10 +471,10 @@ vignette_equation("rfcat")
 dmcognigen_cov %>% 
   mutate(
     EGFR = calculate_egfr(
-      scr = SCR,
       age = AGE,
-      sexf = SEXF,
-      racen = RACEN
+      racen = RACEN,
+      scr = SCR,
+      sexf = SEXF
     ),
     RFCAT = calculate_rfcat(egfr = EGFR)
   ) %>% 
@@ -573,8 +574,8 @@ vignette_equation("nciliv")
 
 `r describe_param("return_num_vect")`. Following are the inputs:
 
-* `tbilcat`: `r describe_param("tbilcat")`
 * `astcat`: `r describe_param("astcat")`
+* `tbilcat`: `r describe_param("tbilcat")`
 
 ### Examples
 
@@ -583,9 +584,9 @@ vignette_equation("nciliv")
 ```{r}
 dmcognigen_cov %>% 
   mutate(
-    NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT)
+    NCILIV = calculate_nciliv(astcat = ASTCAT, tbilcat = TBILCAT)
   ) %>% 
-  select(USUBJID, TBILCAT, ASTCAT, NCILIV)
+  select(USUBJID, ASTCAT, TBILCAT, NCILIV)
 ```
 
 #### Example 2
@@ -595,5 +596,5 @@ dmcognigen_cov %>%
   mutate(
     NCILIV = calculate_nciliv()
   ) %>% 
-  select(USUBJID, TBILCAT, ASTCAT, NCILIV)
+  select(USUBJID, ASTCAT, TBILCAT, NCILIV)
 ```

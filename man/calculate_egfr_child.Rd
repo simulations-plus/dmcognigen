@@ -5,14 +5,14 @@
 \title{Calculate Estimated Glomerular Filtration Rate for Children using the
 Schwartz Formula}
 \usage{
-calculate_egfr_child(htcm, scr, age, sexf)
+calculate_egfr_child(age, htcm, scr, sexf)
 }
 \arguments{
+\item{age}{Age (y). Numeric vector.}
+
 \item{htcm}{Height (cm). Numeric vector.}
 
 \item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
-
-\item{age}{Age (y). Numeric vector.}
 
 \item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
 }
@@ -37,9 +37,9 @@ library(dplyr)
 
 dmcognigen_cov \%>\% 
   mutate(EGFRSCHW = calculate_egfr_child(
+    age = AGE, 
     htcm = HTCM, 
     scr = SCR, 
-    age = AGE, 
     sexf = SEXF
   ))
 

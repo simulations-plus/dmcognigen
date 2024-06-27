@@ -4,16 +4,16 @@
 \alias{calculate_crcl}
 \title{Calculate Creatinine Clearance}
 \usage{
-calculate_crcl(age, wtkg, scr, sexf)
+calculate_crcl(age, scr, sexf, wtkg)
 }
 \arguments{
 \item{age}{Age (y). Numeric vector.}
 
-\item{wtkg}{Weight (kg). Numeric vector.}
-
 \item{scr}{Serum Creatinine (mg/dL). Numeric vector.}
 
 \item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
+
+\item{wtkg}{Weight (kg). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -33,9 +33,9 @@ library(dplyr)
 dmcognigen_cov \%>\% 
   mutate(CRCL = calculate_crcl(
     age = AGE, 
-    wtkg = WTKG, 
     scr = SCR, 
-    sexf = SEXF
+    sexf = SEXF,
+    wtkg = WTKG 
   ))
 
 # Below will also work if the dataset contains expected variables

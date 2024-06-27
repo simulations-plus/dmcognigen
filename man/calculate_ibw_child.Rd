@@ -4,12 +4,12 @@
 \alias{calculate_ibw_child}
 \title{Calculate Ideal Body Weight for Children}
 \usage{
-calculate_ibw_child(htcm, age)
+calculate_ibw_child(age, htcm)
 }
 \arguments{
-\item{htcm}{Height (cm). Numeric vector.}
-
 \item{age}{Age (y). Numeric vector.}
+
+\item{htcm}{Height (cm). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -26,7 +26,7 @@ Calculate Ideal Body Weight (for children), a measure of potential body fat base
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(IBWCHILD = calculate_ibw_child(HTCM))
+  mutate(IBWCHILD = calculate_ibw_child(age = AGE, htcm = HTCM))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

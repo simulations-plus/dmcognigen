@@ -4,12 +4,12 @@
 \alias{calculate_bmi}
 \title{Calculate Body Mass Index}
 \usage{
-calculate_bmi(wtkg, htcm)
+calculate_bmi(htcm, wtkg)
 }
 \arguments{
-\item{wtkg}{Weight (kg). Numeric vector.}
-
 \item{htcm}{Height (cm). Numeric vector.}
+
+\item{wtkg}{Weight (kg). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -26,7 +26,7 @@ Calculate Body Mass Index (BMI). BMI is a measure of body fat based on height an
 library(dplyr)
 
 dmcognigen_cov \%>\% 
-  mutate(BMI = calculate_bmi(wtkg = WTKG, htcm = HTCM))
+  mutate(BMI = calculate_bmi(htcm = HTCM, wtkg = WTKG))
 
 # Below will also work if the dataset contains expected variables
 dmcognigen_cov \%>\% 

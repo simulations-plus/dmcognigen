@@ -4,14 +4,14 @@
 \alias{calculate_lbm}
 \title{Calculate Lean Body Mass}
 \usage{
-calculate_lbm(sexf, wtkg, htcm)
+calculate_lbm(htcm, sexf, wtkg)
 }
 \arguments{
+\item{htcm}{Height (cm). Numeric vector.}
+
 \item{sexf}{Sex. Numeric vector including values of 0 and/or 1. 0=Male; 1=Female.}
 
 \item{wtkg}{Weight (kg). Numeric vector.}
-
-\item{htcm}{Height (cm). Numeric vector.}
 }
 \value{
 This function returns a numeric vector the same length as its inputs
@@ -30,9 +30,9 @@ library(dplyr)
 
 dmcognigen_cov \%>\% 
   mutate(LBM = calculate_lbm(
+    htcm = HTCM,
     sexf = SEXF, 
-    wtkg = WTKG, 
-    htcm = HTCM
+    wtkg = WTKG 
   ))
 
 # Below will also work if the dataset contains expected variables
