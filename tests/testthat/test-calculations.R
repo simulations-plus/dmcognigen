@@ -232,7 +232,7 @@ test_that("calculate_crcl() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      CRCL = calculate_crcl(AGE, WTKG, SCR, SEXF)
+      CRCL = calculate_crcl(age = AGE, wtkg = WTKG, scr = SCR, sexf = SEXF)
     ) %>% 
     select(USUBJID, AGE, WTKG, SCR, SEXF, CRCL)
   
@@ -253,7 +253,7 @@ test_that("calculate_crcl() returns exact match", {
   
   crcl_calculated <- dmcognigen_cov %>% 
     mutate(
-      CRCL = calculate_crcl(AGE, WTKG, SCR, SEXF)
+      CRCL = calculate_crcl(age = AGE, wtkg = WTKG, scr = SCR, sexf = SEXF)
     ) %>% 
     select(USUBJID, AGE, WTKG, SCR, SEXF, CRCL)
   
@@ -273,21 +273,21 @@ test_that("calculate_crcl() returns error", {
 
 test_that("calculate_crcl() works with rowwise method", {
 
-  vectorized_resul <- dmcognigen_cov %>%
+  vectorized_result <- dmcognigen_cov %>%
     head(200) %>% 
     mutate(
-      CRCL = calculate_crcl(AGE, WTKG, SCR, SEXF)
+      CRCL = calculate_crcl(age = AGE, wtkg = WTKG, scr = SCR, sexf = SEXF)
     ) %>% pull(CRCL)
   
   rowwise_result <- dmcognigen_cov %>%
     head(200) %>% 
     rowwise() %>% 
     mutate(
-      CRCL = suppressMessages(calculate_crcl(AGE, WTKG, SCR, SEXF))
+      CRCL = suppressMessages(calculate_crcl(age = AGE, wtkg = WTKG, scr = SCR, sexf = SEXF))
     ) %>% pull(CRCL)
   
   expect_equal(
-    object = vectorized_resul,
+    object = vectorized_result,
     expected = rowwise_result,
     ignore_attr = TRUE
   )
@@ -300,7 +300,7 @@ test_that("calculate_crcl_peck() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      CRCLP = calculate_crcl_peck(AGE, WTKG, CRCL, IBW, SCR, SEXF)
+      CRCLP = calculate_crcl_peck(age = AGE, wtkg = WTKG, crcl = CRCL, ibw = IBW, scr = SCR, sexf = SEXF)
     ) %>% 
     select(USUBJID, AGE, WTKG, CRCL, IBW, SCR, SEXF, CRCLP)
   
@@ -324,7 +324,7 @@ test_that("calculate_crcl_peck() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      CRCLP = calculate_crcl_peck(AGE, WTKG, CRCL, IBW, SCR, SEXF)
+      CRCLP = calculate_crcl_peck(age = AGE, wtkg = WTKG, crcl = CRCL, ibw = IBW, scr = SCR, sexf = SEXF)
     ) %>% 
     select(USUBJID, AGE, WTKG, CRCL, IBW, SCR, SEXF, CRCLP)
   
@@ -349,7 +349,7 @@ test_that("calculate_bmi() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      BMI = calculate_bmi(WTKG, HTCM)
+      BMI = calculate_bmi(wtkg = WTKG, htcm = HTCM)
     ) %>% 
     select(USUBJID, WTKG, HTCM, BMI)
   
@@ -370,7 +370,7 @@ test_that("calculate_bmi() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      BMI = calculate_bmi(WTKG, HTCM)
+      BMI = calculate_bmi(wtkg = WTKG, htcm = HTCM)
     ) %>% 
     select(USUBJID, WTKG, HTCM, BMI)
   
@@ -395,7 +395,7 @@ test_that("calculate_bsa() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      BSA = calculate_bsa(HTCM, WTKG)
+      BSA = calculate_bsa(htcm = HTCM, wtkg = WTKG)
     ) %>% 
     select(USUBJID, WTKG, HTCM, BSA)
   
@@ -416,7 +416,7 @@ test_that("calculate_bsa() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      BSA = calculate_bsa(HTCM, WTKG)
+      BSA = calculate_bsa(htcm = HTCM, wtkg = WTKG)
     ) %>% 
     select(USUBJID, WTKG, HTCM, BSA)
   
@@ -432,7 +432,7 @@ test_that("calculate_bsa() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      BSA = calculate_bsa(HTCM, WTKG)
+      BSA = calculate_bsa(htcm = HTCM, wtkg = WTKG)
     ) %>% 
     select(USUBJID, WTKG, HTCM, BSA)
   
@@ -463,7 +463,7 @@ test_that("calculate_lbm() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      LBM = calculate_lbm(SEXF, WTKG, HTCM)
+      LBM = calculate_lbm(sexf = SEXF, wtkg = WTKG, htcm = HTCM)
     ) %>% 
     select(USUBJID, SEXF, WTKG, HTCM, LBM)
   
@@ -485,7 +485,7 @@ test_that("calculate_lbm() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      LBM = calculate_lbm(SEXF, WTKG, HTCM)
+      LBM = calculate_lbm(sexf = SEXF, wtkg = WTKG, htcm = HTCM)
     ) %>% 
     select(USUBJID, SEXF, WTKG, HTCM, LBM)
   
@@ -501,7 +501,7 @@ test_that("calculate_lbm() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      LBM = calculate_lbm(SEXF, WTKG, HTCM)
+      LBM = calculate_lbm(sexf = SEXF, wtkg = WTKG, htcm = HTCM)
     ) %>% 
     select(USUBJID, SEXF, WTKG, HTCM, LBM)
   
@@ -532,7 +532,7 @@ test_that("calculate_ibw() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      IBW = calculate_ibw(SEXF, HTCM)
+      IBW = calculate_ibw(sexf = SEXF, htcm = HTCM)
     ) %>% 
     select(USUBJID, SEXF, WTKG, IBW)
   
@@ -554,7 +554,7 @@ test_that("calculate_ibw() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      IBW = calculate_ibw(SEXF, HTCM)
+      IBW = calculate_ibw(sexf = SEXF, htcm = HTCM)
     ) %>% 
     select(USUBJID, SEXF, HTCM, IBW)
   
@@ -570,7 +570,7 @@ test_that("calculate_ibw() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      IBW = calculate_ibw(SEXF, HTCM)
+      IBW = calculate_ibw(sexf = SEXF, htcm = HTCM)
     ) %>% 
     select(USUBJID, SEXF, HTCM, IBW)
   
@@ -694,7 +694,7 @@ test_that("calculate_egfr() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      EGFR = calculate_egfr(SCR, AGE, SEXF, RACEN)
+      EGFR = calculate_egfr(scr = SCR, age = AGE, sexf = SEXF, racen = RACEN)
     ) %>% 
     select(USUBJID, SCR, AGE, SEXF, RACEN, EGFR)
   
@@ -710,7 +710,7 @@ test_that("calculate_egfr() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      EGFR = calculate_egfr(SCR, AGE, SEXF, RACEN)
+      EGFR = calculate_egfr(scr = SCR, age = AGE, sexf = SEXF, racen = RACEN)
     ) %>% 
     select(USUBJID, SCR, AGE, SEXF, RACEN, EGFR)
   
@@ -856,7 +856,7 @@ test_that("calculate_rfcat() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      RFCAT = calculate_rfcat(EGFR)
+      RFCAT = calculate_rfcat(egfr = EGFR)
     ) %>% 
     select(USUBJID, EGFR, RFCAT)
   
@@ -872,7 +872,7 @@ test_that("calculate_rfcat() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      RFCAT = calculate_rfcat(EGFR)
+      RFCAT = calculate_rfcat(egfr = EGFR)
     ) %>% 
     select(USUBJID, EGFR, RFCAT)
   
@@ -903,7 +903,7 @@ test_that("calculate_tbilcat() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      TBILCAT = calculate_tbilcat(TBIL, TBILULN)
+      TBILCAT = calculate_tbilcat(tbil = TBIL, tbiluln = TBILULN)
     ) %>% 
     select(USUBJID, TBIL, TBILULN, TBILCAT)
   
@@ -929,7 +929,7 @@ test_that("calculate_tbilcat() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      TBILCAT = calculate_tbilcat(TBIL, TBILULN)
+      TBILCAT = calculate_tbilcat(tbil = TBIL, tbiluln = TBILULN)
     ) %>% 
     select(USUBJID, TBIL, TBILULN, TBILCAT)
   
@@ -945,7 +945,7 @@ test_that("calculate_tbilcat() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      TBILCAT = calculate_tbilcat(TBIL, TBILULN)
+      TBILCAT = calculate_tbilcat(tbil = TBIL, tbiluln = TBILULN)
     ) %>% 
     select(USUBJID, TBIL, TBILULN, TBILCAT)
   
@@ -976,7 +976,7 @@ test_that("calculate_astcat() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      ASTCAT = calculate_astcat(AST, ASTULN)
+      ASTCAT = calculate_astcat(ast = AST, astuln = ASTULN)
     ) %>% 
     select(USUBJID, AST, ASTULN, ASTCAT)
   
@@ -1000,7 +1000,7 @@ test_that("calculate_astcat() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      ASTCAT = calculate_astcat(AST, ASTULN)
+      ASTCAT = calculate_astcat(ast = AST, astuln = ASTULN)
     ) %>% 
     select(USUBJID, AST, ASTULN, ASTCAT)
   
@@ -1016,7 +1016,7 @@ test_that("calculate_astcat() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      ASTCAT = calculate_astcat(AST, ASTULN)
+      ASTCAT = calculate_astcat(ast = AST, astuln = ASTULN)
     ) %>% 
     select(USUBJID, AST, ASTULN, ASTCAT)
   
@@ -1047,7 +1047,7 @@ test_that("calculate_nciliv() returns numeric value", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      NCILIV = calculate_nciliv(TBILCAT, ASTCAT)
+      NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT)
     ) %>% 
     select(USUBJID, TBILCAT, ASTCAT, NCILIV)
   
@@ -1074,7 +1074,7 @@ test_that("calculate_nciliv() returns exact match", {
   
   returned_result <- dmcognigen_cov %>% 
     mutate(
-      NCILIV = calculate_nciliv(TBILCAT, ASTCAT)
+      NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT)
     ) %>% 
     select(USUBJID, TBILCAT, ASTCAT, NCILIV)
   
@@ -1090,7 +1090,7 @@ test_that("calculate_nciliv() works with missing variables", {
   
   expected_result <- dmcognigen_cov %>% 
     mutate(
-      NCILIV = calculate_nciliv(TBILCAT, ASTCAT)
+      NCILIV = calculate_nciliv(tbilcat = TBILCAT, astcat = ASTCAT)
     ) %>% 
     select(USUBJID, TBILCAT, ASTCAT, NCILIV)
   
