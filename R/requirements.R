@@ -42,7 +42,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#' # read the latest requirements file in the working directory, based on Cognigen defaults
+#' # read the latest requirements file in the working directory, based on CPP defaults
 #' reqs <- read_requirements()
 #' 
 #' # specify a particular file and sheet
@@ -155,7 +155,7 @@ read_requirements <- function(
     janitor::clean_names()
   
   # variables to drop from the requirements. 
-  # (based on Cognigen experience, some historical)
+  # (based on internal experience, some historical)
   requirements_drop_vars <- c("values_used_for_the_dynamic_print_area")
   
   requirements <- requirements %>% 

@@ -75,7 +75,7 @@ This family of functions allows the user to explore, import, and
 }
 \examples{
 \dontrun{
-# read the latest requirements file in the working directory, based on Cognigen defaults
+# read the latest requirements file in the working directory, based on CPP defaults
 reqs <- read_requirements()
 
 # specify a particular file and sheet

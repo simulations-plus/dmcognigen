@@ -1,6 +1,6 @@
 Package: dmcognigen
 Type: Package
-Title: Cognigen Data Management Functions
+Title: Data management functions for the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc
 Version: 0.0.9000
 Date: $date$
 Authors@R: c(person("Nash", "Delcamp", email = "nash.delcamp@simulations-plus.com", role = c("aut", "cre")),
@@ -10,7 +10,7 @@ Authors@R: c(person("Nash", "Delcamp", email = "nash.delcamp@simulations-plus.co
              person("Simulations Plus", role = "cph"))
 URL: https://simulations-plus.github.io/dmcognigen/, https://github.com/simulations-plus/dmcognigen
 BugReports: https://github.com/simulations-plus/dmcognigen/issues
-Description: dmcognigen provides functions for data management tasks at Cognigen.
+Description: dmcognigen provides functions for data management tasks at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
