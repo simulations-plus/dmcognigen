@@ -110,7 +110,7 @@ read_requirements <- function(
     }
     
     # set path to latest file. 
-    # if available, the date in the filename is preferred. then modified time.
+    # if available, the max date in the filename is preferred. then max modified time.
     if(all(is.na(requirements_table$path_date))) {
       cli::cli_warn("No dates were detected in filenames matching {.arg pattern}. Using modified date to select latest file.")
       path <- requirements_table %>% 
