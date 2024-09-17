@@ -114,11 +114,11 @@ read_requirements <- function(
     if(all(is.na(requirements_table$path_date))) {
       cli::cli_warn("No dates were detected in filenames matching {.arg pattern}. Using modified date to select latest file.")
       path <- requirements_table %>% 
-        dplyr::slice_max(modified,with_ties=FALSE) %>%
+        dplyr::slice_max(modified, with_ties = FALSE) %>%
         dplyr::pull(path)
     } else {
       path <- requirements_table %>% 
-        dplyr::arrange(desc(date),desc(modified),path) %>%
+        dplyr::arrange(dplyr::desc(date), dplyr::desc(modified), path) %>%
         dplyr::slice(1) %>% 
         dplyr::pull(path)
     }
@@ -275,7 +275,6 @@ read_requirements <- function(
   attr(requirements, "path") <- path
   
   structure(requirements, class = unique(c("requirements", class(requirements))))
-  
   
 }
 
@@ -454,4 +453,3 @@ example_requirements <- tibble::tribble(
   "SEXF",         "Sex",                       "x",     "x",     "0=Male\n1=Female",
   "FED",          "Fed",                       "x",     "x",     "0=Fasted\n1=Fed"
 )
-
