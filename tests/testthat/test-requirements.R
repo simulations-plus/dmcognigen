@@ -120,7 +120,6 @@ test_that("set_labels() works with requirements", {
   
 })
 
-
 test_that("read_requirements() sorts dates properly", {
   
   requirements <- read_requirements(dummy_dir)
