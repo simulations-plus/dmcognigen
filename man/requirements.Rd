@@ -56,7 +56,7 @@ marked for inclusion in the PK Analysis Ready Dataset.}
 column names in the data requirements that describe the variable names,
 their labels, and their decodes.}
 
-\item{...}{optional arguments passed to \code{\link[openxlsx]{read.xlsx}}}
+\item{...}{optional arguments passed to \code{\link[openxlsx]{read.xlsx}}.}
 
 \item{drop_qc}{\code{logical} indicating whether to remove versions of the
 data requirements that are used for QC. These are identified by patterns of

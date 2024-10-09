@@ -5,7 +5,7 @@
 #'   the result of \code{read_requirements()} can be used directly.
 #'
 #' @return object with the same structure as \code{data}, with label attributes
-#'   assigned to variables provided in \code{labels}
+#'   assigned to variables provided in \code{labels}.
 #' 
 #' @export
 #'

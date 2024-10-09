@@ -7,13 +7,13 @@
 in_which(x, envir = .GlobalEnv, ignore_case = TRUE)
 }
 \arguments{
-\item{x}{a \code{character} vector where matches to any elements are sought}
+\item{x}{a \code{character} vector where matches to any elements are sought.}
 
 \item{envir}{which environment to use in listing the available objects.
 Defaults to the global environment. This can also be a \code{list}
 containing objects to check.}
 
-\item{ignore_case}{\code{logical} representing whether to ignore case}
+\item{ignore_case}{\code{logical} representing whether to ignore case.}
 }
 \value{
 returns a named \code{list} of \code{character} vectors containing

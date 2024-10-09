@@ -3,11 +3,11 @@
 #' Find \code{list} objects whose names contain any elements of \code{x}. Note
 #' that \code{data.frame} objects are considered \code{list} objects.
 #'
-#' @param x a \code{character} vector where matches to any elements are sought
+#' @param x a \code{character} vector where matches to any elements are sought.
 #' @param envir which environment to use in listing the available objects.
 #'   Defaults to the global environment. This can also be a \code{list}
 #'   containing objects to check.
-#' @param ignore_case \code{logical} representing whether to ignore case
+#' @param ignore_case \code{logical} representing whether to ignore case.
 #'
 #' @return returns a named \code{list} of \code{character} vectors containing
 #'   the names of \code{list} objects with some names matching to \code{x} or

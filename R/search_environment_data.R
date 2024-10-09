@@ -10,7 +10,7 @@
 #' @return a \code{search_result} object.
 #' @export
 #' 
-#' @seealso [cnt_search_result()]
+#' @seealso \code{\link{cnt_search_result}}
 #'
 #' @examples
 #' data(mtcars)
@@ -20,7 +20,9 @@
 #' study_search <- search_environment_data(
 #'   stringr::regex("study", ignore_case = TRUE)
 #' )
-#' cnt_search_result(study_search)
+#' study_search
+#' 
+#' cnt_search_result(study_search, n_distinct_vars = "SUBJID")
 search_environment_data <- function(pattern, envir = .GlobalEnv) {
   
   if(!inherits(pattern, c("fixed", "stringr_fixed", "regex", "stringr_fixed"))) {
@@ -202,17 +204,17 @@ print.search_result <- function(x, ...) {
 #' data.frames are subset to rows where some variable matches the pattern.
 #' 
 #' @param search_result a \code{search_result} object obtained from
-#'   [search_environment_data()].
+#'   \code{\link{search_environment_data}}.
 #' @param df_names an optional character vector of data.frame names to subset
 #'   to.
 #' @param extra_vars,ignore_vars optional character vectors of variables to
-#'   include/exclude in [cnt()] results.
+#'   include/exclude in \code{\link{cnt}} results.
 #' @inheritParams cnt
 #'
-#' @return a named list of [cnt()] results.
+#' @return a named list of \code{\link{cnt}} results.
 #' @export
 #' 
-#' @seealso [search_environment_data()]
+#' @seealso \code{\link{search_environment_data}}
 #'
 #' @examples
 #' data(dmcognigen_cov)
@@ -221,7 +223,7 @@ print.search_result <- function(x, ...) {
 #' )
 #' cnt_search_result(
 #'   study_search, 
-#'   n_distinct_vars = "USUBJID", 
+#'   n_distinct_vars = c("USUBJID", "SUBJID"), 
 #'   extra_vars = "ACTARM"
 #' )
 cnt_search_result <- function(
@@ -231,7 +233,7 @@ cnt_search_result <- function(
     df_names = NULL, 
     extra_vars = NULL, 
     ignore_vars = NULL
-  ) {
+) {
   
   if(!inherits(search_result, "search_result")) {
     cli::cli_abort("{.arg search_result} must be a {.cls search_result} object.")
