@@ -23,6 +23,7 @@
 <url><loc>/reference/calculate_rfcat.html</loc></url>
 <url><loc>/reference/calculate_tbilcat.html</loc></url>
 <url><loc>/reference/cnt.html</loc></url>
+<url><loc>/reference/cnt_search_result.html</loc></url>
 <url><loc>/reference/decode_tbls.html</loc></url>
 <url><loc>/reference/describe_param.html</loc></url>
 <url><loc>/reference/dmcognigen_conc.html</loc></url>
@@ -35,7 +36,9 @@
 <url><loc>/reference/join_decodes.html</loc></url>
 <url><loc>/reference/pipe.html</loc></url>
 <url><loc>/reference/print.decode_tbls.html</loc></url>
+<url><loc>/reference/print.search_result.html</loc></url>
 <url><loc>/reference/requirements.html</loc></url>
+<url><loc>/reference/search_environment_data.html</loc></url>
 <url><loc>/reference/set_labels.html</loc></url>
 </urlset>
 
