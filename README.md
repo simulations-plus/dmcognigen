@@ -4,6 +4,11 @@
 
 `dmcognigen` provides functions for data management tasks at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
 
+Install it with:
+```r
+remotes::install_github("simulations-plus/dmcognigen")
+```
+
 Load it with:
 ```r
 library(dmcognigen)
@@ -36,3 +41,4 @@ library(dmcognigen)
 ## Search Datasets
 
 - Find datasets where variables exist with `in_which()`.
+- Search for patterns in variable names, variable labels, and variable content across all datasets in an environment with `search_environment_data()` then summarize the results with `cnt_searched_content()`.
