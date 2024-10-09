@@ -4,6 +4,11 @@
 
 `dmcognigen` provides functions for data management tasks at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
 
+Install it with:
+```r
+remotes::install_github("simulations-plus/dmcognigen")
+```
+
 Load it with:
 ```r
 library(dmcognigen)
