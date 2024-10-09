@@ -89,16 +89,16 @@ data.frames are subset to rows where some variable matches the pattern.</p>
 
 <dl><dt id="arg-search-result">search_result<a class="anchor" aria-label="anchor" href="#arg-search-result"></a></dt>
 <dd><p>a <code>search_result</code> object obtained from
-[search_environment_data()].</p></dd>
+<code><a href="search_environment_data.html">search_environment_data</a></code>.</p></dd>
 
 
 <dt id="arg-n-distinct-vars">n_distinct_vars<a class="anchor" aria-label="anchor" href="#arg-n-distinct-vars"></a></dt>
-<dd><p>variables to count the unique values of</p></dd>
+<dd><p>variables to count the unique values of.</p></dd>
 
 
 <dt id="arg-n-distinct-combined">n_distinct_combined<a class="anchor" aria-label="anchor" href="#arg-n-distinct-combined"></a></dt>
 <dd><p>logical indicating whether to count the unique
-values of the combinations of <code>n_distinct_vars</code></p></dd>
+values of the combinations of <code>n_distinct_vars</code>.</p></dd>
 
 
 <dt id="arg-df-names">df_names<a class="anchor" aria-label="anchor" href="#arg-df-names"></a></dt>
@@ -108,16 +108,16 @@ to.</p></dd>
 
 <dt id="arg-extra-vars-ignore-vars">extra_vars, ignore_vars<a class="anchor" aria-label="anchor" href="#arg-extra-vars-ignore-vars"></a></dt>
 <dd><p>optional character vectors of variables to
-include/exclude in [cnt()] results.</p></dd>
+include/exclude in <code><a href="cnt.html">cnt</a></code> results.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a named list of [cnt()] results.</p>
+    <p>a named list of <code><a href="cnt.html">cnt</a></code> results.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>[search_environment_data()]</p></div>
+    <div class="dont-index"><p><code><a href="search_environment_data.html">search_environment_data</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -128,24 +128,16 @@ include/exclude in [cnt()] results.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">cnt_search_result</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">study_search</span>, </span></span>
-<span class="r-in"><span>  n_distinct_vars <span class="op">=</span> <span class="st">"USUBJID"</span>, </span></span>
+<span class="r-in"><span>  n_distinct_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"USUBJID"</span>, <span class="st">"SUBJID"</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>  extra_vars <span class="op">=</span> <span class="st">"ACTARM"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dmcognigen_cov</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 254 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID      SUBJID ACTARM               n_USUBJID     n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> CDISCPILOT01 1001   Placebo                      1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> CDISCPILOT01 1002   Xanomeline Low Dose          1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> CDISCPILOT01 1004   Xanomeline Low Dose          1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> CDISCPILOT01 1006   Xanomeline High Dose         1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> CDISCPILOT01 1007   Xanomeline Low Dose          1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CDISCPILOT01 1008   Xanomeline High Dose         1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> CDISCPILOT01 1009   Xanomeline Low Dose          1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> CDISCPILOT01 1010   Placebo                      1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> CDISCPILOT01 1012   Xanomeline High Dose         1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> CDISCPILOT01 1015   Placebo                      1     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 244 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   STUDYID      ACTARM               n_USUBJID n_SUBJID n_USUBJID_SUBJID     n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CDISCPILOT01 Placebo                     86       86               86    86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> CDISCPILOT01 Xanomeline High Dose        72       72               72    72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> CDISCPILOT01 Xanomeline Low Dose         96       96               96    96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
