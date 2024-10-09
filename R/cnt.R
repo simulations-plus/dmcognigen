@@ -6,17 +6,17 @@
 #' percentages, and cumulative counts. If any \code{n_distinct_vars} are
 #' provided, counts of the unique values are produced for each.
 #'
-#' @param .data data frame
-#' @param ... variables to group by
-#' @param n_distinct_vars variables to count the unique values of
+#' @param .data data frame.
+#' @param ... variables to group by.
+#' @param n_distinct_vars variables to count the unique values of.
 #' @param n_distinct_combined logical indicating whether to count the unique
-#'   values of the combinations of \code{n_distinct_vars}
+#'   values of the combinations of \code{n_distinct_vars}.
 #' @param n_cumulative logical indicating whether to include a cumulative sum
-#'   variable named "n_cumulative"
+#'   variable named "n_cumulative".
 #' @param prop logical indicating whether to include a proportion variable named
-#'   "prop"
+#'   "prop".
 #' @param pct logical indicating whether to include a percentage variable named
-#'   "pct"
+#'   "pct".
 #'
 #' @return data frame
 #' @export

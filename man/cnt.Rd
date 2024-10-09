@@ -15,23 +15,23 @@ cnt(
 )
 }
 \arguments{
-\item{.data}{data frame}
+\item{.data}{data frame.}
 
-\item{...}{variables to group by}
+\item{...}{variables to group by.}
 
-\item{n_distinct_vars}{variables to count the unique values of}
+\item{n_distinct_vars}{variables to count the unique values of.}
 
 \item{n_distinct_combined}{logical indicating whether to count the unique
-values of the combinations of \code{n_distinct_vars}}
+values of the combinations of \code{n_distinct_vars}.}
 
 \item{n_cumulative}{logical indicating whether to include a cumulative sum
-variable named "n_cumulative"}
+variable named "n_cumulative".}
 
 \item{prop}{logical indicating whether to include a proportion variable named
-"prop"}
+"prop".}
 
 \item{pct}{logical indicating whether to include a percentage variable named
-"pct"}
+"pct".}
 }
 \value{
 data frame

@@ -26,8 +26,10 @@ data(dmcognigen_cov)
 study_search <- search_environment_data(
   stringr::regex("study", ignore_case = TRUE)
 )
-cnt_search_result(study_search)
+study_search
+
+cnt_search_result(study_search, n_distinct_vars = "SUBJID")
 }
 \seealso{
-[cnt_search_result()]
+\code{\link{cnt_search_result}}
 }

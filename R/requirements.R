@@ -36,7 +36,7 @@
 #' @param variable_name_col,variable_label_col,decode_col \code{character}
 #'   column names in the data requirements that describe the variable names,
 #'   their labels, and their decodes.
-#' @param ... optional arguments passed to \code{\link[openxlsx]{read.xlsx}}
+#' @param ... optional arguments passed to \code{\link[openxlsx]{read.xlsx}}.
 #' 
 #' @name requirements
 #' 

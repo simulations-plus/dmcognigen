@@ -15,21 +15,21 @@ cnt_search_result(
 }
 \arguments{
 \item{search_result}{a \code{search_result} object obtained from
-[search_environment_data()].}
+\code{\link{search_environment_data}}.}
 
-\item{n_distinct_vars}{variables to count the unique values of}
+\item{n_distinct_vars}{variables to count the unique values of.}
 
 \item{n_distinct_combined}{logical indicating whether to count the unique
-values of the combinations of \code{n_distinct_vars}}
+values of the combinations of \code{n_distinct_vars}.}
 
 \item{df_names}{an optional character vector of data.frame names to subset
 to.}
 
 \item{extra_vars, ignore_vars}{optional character vectors of variables to
-include/exclude in [cnt()] results.}
+include/exclude in \code{\link{cnt}} results.}
 }
 \value{
-a named list of [cnt()] results.
+a named list of \code{\link{cnt}} results.
 }
 \description{
 When patterns are matched in variable names or labels, no subset is
@@ -43,10 +43,10 @@ study_search <- search_environment_data(
 )
 cnt_search_result(
   study_search, 
-  n_distinct_vars = "USUBJID", 
+  n_distinct_vars = c("USUBJID", "SUBJID"), 
   extra_vars = "ACTARM"
 )
 }
 \seealso{
-[search_environment_data()]
+\code{\link{search_environment_data}}
 }
