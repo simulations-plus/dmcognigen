@@ -119,3 +119,14 @@ test_that("set_labels() works with requirements", {
   )
   
 })
+
+test_that("read_requirements() sorts dates properly", {
+  
+  requirements <- read_requirements(dummy_dir)
+  
+  expect_equal(
+    basename(attr(requirements, "path")),
+    "100103-d1pk-req-2023-01-18.xlsm"
+  )
+  
+})
