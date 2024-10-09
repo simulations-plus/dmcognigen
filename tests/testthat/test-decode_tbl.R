@@ -25,6 +25,12 @@ complete_decode_tbl <- data.frame(
   lbl = c("Male", "Female")
 )
 
+complete_decode_tbl_different_order <- data.frame(
+  var = "SEXF",
+  lvl = c(1, 0),
+  lbl = c("Female", "Male")
+)
+
 bad_decode_tbl <- complete_decode_tbl
 names(bad_decode_tbl)[[1]] <- "notvar"
 
@@ -86,7 +92,14 @@ test_that("as_decode_tbl() validates and returns a data.frame of class decode_tb
 # print.decode_tbl --------------------------------------------------------
 
 test_that("print methods execute", {
-  expect_invisible(print(decode_tbl(complete_decode_tbl)))
-  # empty decode_tbl has no print output
-  expect_output(print(decode_tbl()), regexp = NA)
+  expect_snapshot(decode_tbl(complete_decode_tbl))
+})
+
+test_that("empty decode_tbl has no print output", {
+  expect_snapshot(decode_tbl())
+})
+
+test_that("printed decode_tbl is consistently arranged", {
+  expect_snapshot(decode_tbl(complete_decode_tbl))
+  expect_snapshot(decode_tbl(complete_decode_tbl_different_order))
 })

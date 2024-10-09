@@ -220,7 +220,8 @@ print.decode_tbl <- function(x, align = c("left", "center", "right"), ...) {
       )[[align]]
       
     ) %>% 
-    dplyr::ungroup()
+    dplyr::ungroup() %>% 
+    dplyr::arrange(var, lvl)
   
   x_format_list <- x_format %>% 
     split(~ var)
