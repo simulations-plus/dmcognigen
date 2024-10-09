@@ -36,3 +36,4 @@ library(dmcognigen)
 ## Search Datasets
 
 - Find datasets where variables exist with `in_which()`.
+- Search for patterns in variable names, variable labels, and variable content across all datasets in an environment with `search_environment_data()` then summarize the results with `cnt_searched_content()`.
