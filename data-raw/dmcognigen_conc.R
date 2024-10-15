@@ -9,7 +9,8 @@ new_variable_labels <- c(
   DV = "Xanomeline Concentration (ug/mL)",
   LOGDV = "Ln Transformed Xanomeline Conc (ug/mL)",
   BLQFN = "BLQ Flag",
-  LLOQ = "Lower Limit of Quantitation"
+  LLOQ = "Lower Limit of Quantitation",
+  DTTM = "Date/Time",
 )
 
 
@@ -30,6 +31,7 @@ admiral.test::admiral_pc %>%
 dmcognigen_conc <- admiral.test::admiral_pc %>% 
   mutate(
     LLOQ = PCLLOQ,
+    DTTM = lubridate::ymd_hms(PCDTC),
     BLQFN = as.numeric(stringr::str_detect(PCORRES, "<")),
     DV = case_when(
       BLQFN == 1 ~ LLOQ / 2,
@@ -40,6 +42,8 @@ dmcognigen_conc <- admiral.test::admiral_pc %>%
   relocate(DV, LOGDV, BLQFN, LLOQ, .after = USUBJID)
 
 
+dmcognigen_conc %>%
+  cnt(is.na(DTTM))
 
 # combine -----------------------------------------------------------------
 

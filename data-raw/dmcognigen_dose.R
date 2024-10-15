@@ -45,6 +45,7 @@ dose <- admiral.test::admiral_ex %>%
     EDDTTM = max(DTTM),
     EVID=1,
     DVID=1,
+    DVIDC="Dose",
     MDV=1
   ) %>%
   ungroup() %>%
