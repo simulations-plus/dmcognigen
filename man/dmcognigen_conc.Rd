@@ -5,16 +5,16 @@
 \alias{dmcognigen_conc}
 \title{PK Concentrations Dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 24 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 29 columns.
 }
 \usage{
 dmcognigen_conc
 }
 \description{
-A dataset generated from \code{admiral.test} example datasets, which are
+A dataset generated from \code{pharmaversesdtm} example datasets, which are
 updated SDTM datasets that use data from the CDISC pilot project.
 }
 \seealso{
-\code{\link[admiral.test]{admiral_pc}}
+\code{\link[pharmaversesdtm]{pc}}
 }
 \keyword{datasets}
