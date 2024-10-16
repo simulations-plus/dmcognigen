@@ -23,36 +23,42 @@ new_variable_labels <- c(
   )
 
 
-admiral.test::admiral_ex %>% 
+pharmaversesdtm::ex %>% 
   cnt(VISIT,EXTRT,EXDOSE,EXROUTE,EXDOSFRQ)
 
+# Missing end times
+pharmaversesdtm::ex %>% 
+  group_by(USUBJID) %>%
+  filter(any(is.na(EXENDTC))) %>%
+  select(USUBJID,VISIT,VISITNUM,EXSTDTC,EXENDTC,EXDOSE) %>%
+  split(~USUBJID)
 
-dose <- admiral.test::admiral_ex %>%
+# Missing end dates imputed to start dates 
+
+dose <- pharmaversesdtm::ex %>%
   mutate(
-    DTTM = lubridate::ymd_hms(EXSTDTC, truncated = 4),
-    ENDTTM = lubridate::ymd_hms(EXENDTC, truncated = 4),
+    start_date= lubridate::date(EXSTDTC),
+    end_date = if_else(is.na(EXENDTC),start_date,lubridate::date(EXENDTC)),
     TRT01A = EXTRT,
     DOSE = EXDOSE,
     ROUTE = EXROUTE,
     DREG = c(QD = 1)[EXDOSFRQ],
     DREGC = EXDOSFRQ,
-    VISIT
-  ) %>%
-  group_by(USUBJID) %>%
-  mutate(
     DOSENUM = 1:n(),
-    FDDTTM = min(DTTM),
-    EDDTTM = max(DTTM),
     EVID=1,
     DVID=1,
     DVIDC="Dose",
     MDV=1
   ) %>%
   ungroup() %>%
-  arrange(STUDYID, USUBJID, DTTM)
+  arrange(STUDYID, USUBJID, start_date)
 
 
-
+dose %>% 
+  group_by(USUBJID) %>%
+  filter(any(is.na(EXENDTC))) %>%
+  select(USUBJID,VISIT,VISITNUM,start_date,end_date) %>%
+  split(~USUBJID)
 
 dose %>% 
   cnt(STUDYID,DREGC)
@@ -67,24 +73,44 @@ dose %>%
 
 # FDDTTM always BASELINE
 dose %>%
-  filter(FDDTTM==DTTM) %>%
+  filter(start_date==end_date) %>%
   cnt(VISIT,DOSENUM)
 
-# One dose
-# EDDTTM sometimes BASELINE
-dose %>%
-  filter(EDDTTM==DTTM) %>%
-  cnt(VISIT,DOSENUM)
-   
+# expand to daily records -------------------------------------------------
 
-dose %>%
+# Missing times set to midnight
+dose_expanded <- dose %>%
+  rowwise() %>%
+  mutate(seq_of_dates = list(seq.Date(start_date, end_date, by = "day"))) %>%
+  unnest(cols = c(seq_of_dates)) %>%
+  mutate(DTTM = lubridate::ymd_hms(seq_of_dates, truncated = 4)) %>%
+  group_by(USUBJID) %>%
+  mutate(FDDTTM = min(DTTM),
+         EDDTTM = max(DTTM)) %>%
+  ungroup() %>%
+  select(-c(seq_of_dates,start_date,end_date))
+
+
+dose_expanded %>%
+  select(where(~any(is.na(.)))) %>%
+  names()
+
+dose_expanded %>%
   cnt(EDDTTM==FDDTTM,VISIT,DOSENUM,
       DOSE,n_distinct_vars = USUBJID)
 
+dose_expanded %>% 
+  filter(USUBJID=="01-701-1148") %>%
+  select(USUBJID,VISIT,VISITNUM,DTTM,EXSTDTC,EXENDTC,DOSE)%>%
+  print(n=500)
 
-dmcognigen_dose <- dmcognigen::set_labels(dose, new_variable_labels)
+
+dmcognigen_dose <- dmcognigen::set_labels(dose_expanded, new_variable_labels)
 
 glimpse(dmcognigen_dose)
+
+
+
 
 lapply(
   purrr::set_names(names(dmcognigen_dose)), 
