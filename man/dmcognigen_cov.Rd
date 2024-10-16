@@ -11,12 +11,12 @@ An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) w
 dmcognigen_cov
 }
 \description{
-A dataset generated from \code{admiral.test} example datasets, which are
+A dataset generated from \code{pharmaversesdtm} example datasets, which are
 updated SDTM datasets that use data from the CDISC pilot project.
 }
 \seealso{
-\code{\link[admiral.test]{admiral_dm}}, 
-\code{\link[admiral.test]{admiral_lb}}, 
-\code{\link[admiral.test]{admiral_vs}}
+\code{\link[pharmaversesdtm]{dm}}, 
+\code{\link[pharmaversesdtm]{lb}}, 
+\code{\link[pharmaversesdtm]{vs}}
 }
 \keyword{datasets}
