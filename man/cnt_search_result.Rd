@@ -9,6 +9,7 @@ cnt_search_result(
   n_distinct_vars = NULL,
   n_distinct_combined = TRUE,
   df_names = NULL,
+  ignore_df_names = NULL,
   extra_vars = NULL,
   ignore_vars = NULL
 )
@@ -22,8 +23,8 @@ cnt_search_result(
 \item{n_distinct_combined}{logical indicating whether to count the unique
 values of the combinations of \code{n_distinct_vars}.}
 
-\item{df_names}{an optional character vector of data.frame names to subset
-to.}
+\item{df_names, ignore_df_names}{optional character vectors of data.frame
+names to subset to/exclude.}
 
 \item{extra_vars, ignore_vars}{optional character vectors of variables to
 include/exclude in \code{\link{cnt}} results.}

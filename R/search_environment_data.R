@@ -31,7 +31,7 @@ search_environment_data <- function(
     search_variable_names = TRUE, 
     search_variable_labels = TRUE, 
     search_variable_content = TRUE
-  ) {
+) {
   
   if(!inherits(pattern, c("fixed", "stringr_fixed", "regex", "stringr_fixed"))) {
     if(length(pattern) != 1) {
@@ -242,8 +242,8 @@ print.search_result <- function(x, ...) {
 #' 
 #' @param search_result a \code{search_result} object obtained from
 #'   \code{\link{search_environment_data}}.
-#' @param df_names an optional character vector of data.frame names to subset
-#'   to.
+#' @param df_names,ignore_df_names optional character vectors of data.frame
+#'   names to subset to/exclude.
 #' @param extra_vars,ignore_vars optional character vectors of variables to
 #'   include/exclude in \code{\link{cnt}} results.
 #' @inheritParams cnt
@@ -268,6 +268,7 @@ cnt_search_result <- function(
     n_distinct_vars = NULL,
     n_distinct_combined = TRUE,
     df_names = NULL, 
+    ignore_df_names = NULL, 
     extra_vars = NULL, 
     ignore_vars = NULL
 ) {
@@ -282,6 +283,11 @@ cnt_search_result <- function(
   if(!is.null(df_names)) {
     stopifnot(is.character(df_names))
     search_result <- search_result[df_names]
+  }
+  
+  if(!is.null(ignore_df_names)) {
+    stopifnot(is.character(ignore_df_names))
+    search_result <- search_result[setdiff(names(search_result), ignore_df_names)]
   }
   
   no_unquoted <- function(x, name) {
