@@ -142,8 +142,8 @@ that exist in the data assembly directory.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">asmbdat_directory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"asmbdat"</span><span class="op">)</span></span>
 <span><span class="va">asmbdat_directory</span></span>
-<span><span class="co">#&gt; [1] "/tmp/RtmpYTbrtQ/asmbdat"</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpYTbrtQ/asmbdat</span></span></span>
+<span><span class="co">#&gt; [1] "/tmp/RtmpKJEsc9/asmbdat"</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpKJEsc9/asmbdat</span></span></span>
 <span><span class="co">#&gt; ├── data-requirements-2019-12-01.xlsx</span></span>
 <span><span class="co">#&gt; ├── data-requirements-2020-01-01.xlsx</span></span>
 <span><span class="co">#&gt; ├── data-requirements-2020-01-10.xlsx</span></span>
@@ -161,13 +161,13 @@ required sheet name is <code>"specs"</code>.</p>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.dataframe.html" class="external-link">print.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                                        path  path_date</span></span>
-<span><span class="co">#&gt; 1 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
-<span><span class="co">#&gt; 2 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
-<span><span class="co">#&gt; 3 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
+<span><span class="co">#&gt; 1 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
+<span><span class="co">#&gt; 2 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
+<span><span class="co">#&gt; 3 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
 <span><span class="co">#&gt;               created            modified       date</span></span>
-<span><span class="co">#&gt; 1 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-01</span></span>
-<span><span class="co">#&gt; 2 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-10</span></span>
-<span><span class="co">#&gt; 3 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-20</span></span>
+<span><span class="co">#&gt; 1 2024-12-05 19:55:37 2024-12-05 19:55:37 2020-01-01</span></span>
+<span><span class="co">#&gt; 2 2024-12-05 19:55:37 2024-12-05 19:55:37 2020-01-10</span></span>
+<span><span class="co">#&gt; 3 2024-12-05 19:55:38 2024-12-05 19:55:38 2020-01-20</span></span>
 <span><span class="co">#&gt;                                 sheets is_qc</span></span>
 <span><span class="co">#&gt; 1                                specs FALSE</span></span>
 <span><span class="co">#&gt; 2              specs, unit_conversions FALSE</span></span>
@@ -181,15 +181,15 @@ required sheet name is <code>"specs"</code>.</p>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.dataframe.html" class="external-link">print.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                                        path  path_date</span></span>
-<span><span class="co">#&gt; 1 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
-<span><span class="co">#&gt; 2 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
-<span><span class="co">#&gt; 3 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
-<span><span class="co">#&gt; 4 /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
+<span><span class="co">#&gt; 1 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
+<span><span class="co">#&gt; 2 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
+<span><span class="co">#&gt; 3 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
+<span><span class="co">#&gt; 4 /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
 <span><span class="co">#&gt;               created            modified       date</span></span>
-<span><span class="co">#&gt; 1 2024-12-05 19:31:12 2024-12-05 19:31:12 2019-12-01</span></span>
-<span><span class="co">#&gt; 2 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-01</span></span>
-<span><span class="co">#&gt; 3 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-10</span></span>
-<span><span class="co">#&gt; 4 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-20</span></span>
+<span><span class="co">#&gt; 1 2024-12-05 19:55:37 2024-12-05 19:55:37 2019-12-01</span></span>
+<span><span class="co">#&gt; 2 2024-12-05 19:55:37 2024-12-05 19:55:37 2020-01-01</span></span>
+<span><span class="co">#&gt; 3 2024-12-05 19:55:37 2024-12-05 19:55:37 2020-01-10</span></span>
+<span><span class="co">#&gt; 4 2024-12-05 19:55:38 2024-12-05 19:55:38 2020-01-20</span></span>
 <span><span class="co">#&gt;                                 sheets is_qc</span></span>
 <span><span class="co">#&gt; 1                              Sheet 1 FALSE</span></span>
 <span><span class="co">#&gt; 2                                specs FALSE</span></span>
@@ -206,17 +206,17 @@ requirements used for QC. These files are ignored otherwise.</p>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.dataframe.html" class="external-link">print.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                                           path  path_date</span></span>
-<span><span class="co">#&gt; 1    /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
-<span><span class="co">#&gt; 2    /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
-<span><span class="co">#&gt; 3    /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
-<span><span class="co">#&gt; 4    /tmp/RtmpYTbrtQ/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
-<span><span class="co">#&gt; 5 /tmp/RtmpYTbrtQ/asmbdat/qc-data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
+<span><span class="co">#&gt; 1    /tmp/RtmpKJEsc9/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
+<span><span class="co">#&gt; 2    /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
+<span><span class="co">#&gt; 3    /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
+<span><span class="co">#&gt; 4    /tmp/RtmpKJEsc9/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
+<span><span class="co">#&gt; 5 /tmp/RtmpKJEsc9/asmbdat/qc-data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
 <span><span class="co">#&gt;               created            modified       date</span></span>
-<span><span class="co">#&gt; 1 2024-12-05 19:31:12 2024-12-05 19:31:12 2019-12-01</span></span>
-<span><span class="co">#&gt; 2 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-01</span></span>
-<span><span class="co">#&gt; 3 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-10</span></span>
-<span><span class="co">#&gt; 4 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-20</span></span>
-<span><span class="co">#&gt; 5 2024-12-05 19:31:12 2024-12-05 19:31:12 2020-01-20</span></span>
+<span><span class="co">#&gt; 1 2024-12-05 19:55:37 2024-12-05 19:55:37 2019-12-01</span></span>
+<span><span class="co">#&gt; 2 2024-12-05 19:55:37 2024-12-05 19:55:37 2020-01-01</span></span>
+<span><span class="co">#&gt; 3 2024-12-05 19:55:37 2024-12-05 19:55:37 2020-01-10</span></span>
+<span><span class="co">#&gt; 4 2024-12-05 19:55:38 2024-12-05 19:55:38 2020-01-20</span></span>
+<span><span class="co">#&gt; 5 2024-12-05 19:55:38 2024-12-05 19:55:38 2020-01-20</span></span>
 <span><span class="co">#&gt;                                              sheets is_qc</span></span>
 <span><span class="co">#&gt; 1                                           Sheet 1 FALSE</span></span>
 <span><span class="co">#&gt; 2                                             specs FALSE</span></span>
@@ -239,7 +239,7 @@ selected.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">requirements</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/requirements.html">read_requirements</a></span><span class="op">(</span><span class="va">asmbdat_directory</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Detected requirements file: <span style="color: #0000BB;">data-requirements-2020-01-20.xlsx</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-05 19:31:12.376883</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-05 19:55:38.002937</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Sheet name: <span style="color: #0000BB;">"specs"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"labels_named_list"</span> attribute</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"decode_tbls"</span> attribute</span></span>
@@ -259,7 +259,7 @@ criteria:</p>
 <span>  subset <span class="op">=</span> <span class="va">pk_mif</span> <span class="op">==</span> <span class="st">"x"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Detected requirements file: <span style="color: #0000BB;">data-requirements-2020-01-20.xlsx</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-05 19:31:12.376883</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-05 19:55:38.002937</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Sheet name: <span style="color: #0000BB;">"specs"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied requested subset: `pk_mif == "x"`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"labels_named_list"</span> attribute</span></span>
@@ -404,6 +404,7 @@ or the imported requirements can be used:</p>
 <span><span class="co">#&gt;   ..- attr(*, "label")= chr ""</span></span>
 <span><span class="co">#&gt;  $ RACEN  : num [1:254] 1 1 1 1 1 1 1 1 1 1 ...</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "label")= chr ""</span></span>
+<span><span class="co">#&gt;  - attr(*, "label")= chr "Demographics"</span></span>
 <span></span>
 <span><span class="co"># apply the labels</span></span>
 <span><span class="va">dmcognigen_cov_labels_removed</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -415,7 +416,8 @@ or the imported requirements can be used:</p>
 <span><span class="co">#&gt;  $ USUBJID: chr [1:254] "01-701-1015" "01-701-1023" "01-701-1028" "01-701-1033" ...</span></span>
 <span><span class="co">#&gt;   ..- attr(*, "label")= chr "Unique Subject Identifier"</span></span>
 <span><span class="co">#&gt;  $ RACEN  : num [1:254] 1 1 1 1 1 1 1 1 1 1 ...</span></span>
-<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Race"</span></span></code></pre></div>
+<span><span class="co">#&gt;   ..- attr(*, "label")= chr "Race"</span></span>
+<span><span class="co">#&gt;  - attr(*, "label")= chr "Demographics"</span></span></code></pre></div>
 </div>
 </div>
 </div>
