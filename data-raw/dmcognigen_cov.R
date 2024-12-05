@@ -42,13 +42,13 @@ new_variable_labels <- c(
 
 # from dm dataset ---------------------------------------------------------
 
-admiral.test::admiral_dm %>% 
+pharmaversesdtm::dm %>% 
   cnt(SEX)
 
-admiral.test::admiral_dm %>% 
+pharmaversesdtm::dm%>% 
   cnt(RACE, ETHNIC)
 
-dm <- admiral.test::admiral_dm %>% 
+dm <- pharmaversesdtm::dm %>% 
   select(STUDYID, USUBJID, SUBJID, AGE, SEX, RACE, ETHNIC, ARMCD, ARM, ACTARMCD, ACTARM, COUNTRY) %>% 
   mutate(
     SEXF = case_when(
@@ -81,17 +81,17 @@ glimpse(dm)
 
 # from vs dataset ---------------------------------------------------------
 
-admiral.test::admiral_vs %>% 
+pharmaversesdtm::vs %>% 
   cnt(VSTESTCD, VSTEST, VSPOS, VSLOC)
 
-admiral.test::admiral_vs %>% 
+pharmaversesdtm::vs %>% 
   filter(VSTESTCD %in% c("HEIGHT", "WEIGHT")) %>% 
   cnt(VSTESTCD, VSTEST, VSBLFL, VSORRESU, VSSTRESU, is.na(VSSTRESN))
 
-admiral.test::admiral_vs %>% 
+pharmaversesdtm::vs %>% 
   cnt(VISITNUM, VISIT)
 
-vs_bl_wide <- admiral.test::admiral_vs %>% 
+vs_bl_wide <- pharmaversesdtm::vs %>% 
   filter(VSTESTCD %in% c("HEIGHT", "WEIGHT")) %>% 
   group_by(STUDYID, USUBJID, VSTESTCD) %>% 
   # for each subject/testcd combination, keep the record flagged as baseline
@@ -120,7 +120,7 @@ glimpse(vs_bl_wide)
 
 # from lb dataset ---------------------------------------------------------
 
-admiral.test::admiral_lb %>% 
+pharmaversesdtm::lb %>% 
   cnt(LBTESTCD, LBTEST, LBORRESU, LBSTRESU) %>% 
   print(n = Inf)
 
@@ -129,33 +129,33 @@ admiral.test::admiral_lb %>%
 # AST (U/L)
 # SCR (mg/dL)
 # TBIL (mg/dL)
-admiral.test::admiral_lb %>% 
+pharmaversesdtm::lb %>% 
   filter(LBTESTCD %in% c("AST", "BILI", "CREAT")) %>% 
   cnt(LBTESTCD, LBTEST, LBORRESU, LBSTRESU)
 
 # lower/upper limits
-admiral.test::admiral_lb %>% 
+pharmaversesdtm::lb %>% 
   filter(LBTESTCD %in% c("AST", "BILI", "CREAT")) %>% 
   cnt(LBTESTCD, LBTEST, LBORRESU, LBORNRLO, LBORNRHI)
 
 # baseline flags
-admiral.test::admiral_lb %>% 
+pharmaversesdtm::lb %>% 
   filter(LBTESTCD %in% c("AST", "BILI", "CREAT")) %>% 
   cnt(LBTESTCD, LBTEST, LBBLFL)
 
-admiral.test::admiral_lb %>% 
+pharmaversesdtm::lb %>% 
   filter(
     LBTESTCD %in% c("AST", "BILI", "CREAT"),
     LBBLFL == "Y"
   ) %>% 
   cnt(VISITNUM, VISIT, LBBLFL)
 
-admiral.test::admiral_lb %>% 
+pharmaversesdtm::lb %>% 
   filter(LBTESTCD %in% c("AST", "BILI", "CREAT")) %>% 
   cnt(VISITNUM, VISIT) %>% 
   print(n = Inf)
 
-lb_bl_wide <- admiral.test::admiral_lb %>% 
+lb_bl_wide <- pharmaversesdtm::lb %>% 
   filter(LBTESTCD %in% c("AST", "BILI", "CREAT")) %>% 
   group_by(STUDYID, USUBJID, LBTESTCD) %>% 
   filter(

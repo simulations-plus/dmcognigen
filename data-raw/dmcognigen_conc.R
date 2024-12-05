@@ -9,37 +9,49 @@ new_variable_labels <- c(
   DV = "Xanomeline Concentration (ug/mL)",
   LOGDV = "Ln Transformed Xanomeline Conc (ug/mL)",
   BLQFN = "BLQ Flag",
-  LLOQ = "Lower Limit of Quantitation"
+  LLOQ = "Lower Limit of Quantitation",
+  DTTM = "Date/Time",
+  DVID="Observation Type",
+  DVIDC="Observation Type",
+  EVID="Event ID",
+  DAY="Day"
 )
 
 
 # from pc dataset ---------------------------------------------------------
 
-admiral.test::admiral_pc %>% 
+pharmaversesdtm::pc %>% 
   cnt(PCTESTCD, PCTEST, PCLLOQ, PCORRESU, PCSTRESU)
 
-admiral.test::admiral_pc %>% 
+pharmaversesdtm::pc %>% 
   cnt(VISITNUM, VISIT, PCTPTNUM, PCTPT)
 
 # non-numeric original results
-admiral.test::admiral_pc %>% 
+pharmaversesdtm::pc %>% 
   filter(suppressWarnings(is.na(as.numeric(PCORRES)))) %>% 
   cnt(PCORRES)
 
 
-dmcognigen_conc <- admiral.test::admiral_pc %>% 
+dmcognigen_conc <- pharmaversesdtm::pc %>% 
   mutate(
     LLOQ = PCLLOQ,
+    DTTM = lubridate::ymd_hms(PCDTC),
     BLQFN = as.numeric(stringr::str_detect(PCORRES, "<")),
     DV = case_when(
       BLQFN == 1 ~ LLOQ / 2,
       TRUE ~ PCSTRESN
     ),
-    LOGDV = log(DV)
+    LOGDV = log(DV),
+    DVIDC="Xanomeline in Plasma (ug/mL)",
+    DVID=2,
+    DAY=PCDY,
+    EVID=0,
   ) %>% 
   relocate(DV, LOGDV, BLQFN, LLOQ, .after = USUBJID)
 
 
+dmcognigen_conc %>%
+  cnt(is.na(DTTM))
 
 # combine -----------------------------------------------------------------
 
