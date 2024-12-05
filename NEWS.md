@@ -1,6 +1,7 @@
 # dmcognigen (development version)
 
 * Fixed bug in `search_environment_data()` where evaluating some objects that are not data frames resulted in an error.
+* Updated `search_environment_data()` so each search type is optional.
 
 # dmcognigen 0.1.1
 
