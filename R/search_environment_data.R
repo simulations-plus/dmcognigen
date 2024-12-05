@@ -71,7 +71,18 @@ search_environment_data <- function(pattern, envir = .GlobalEnv) {
   }
   
   df_objects <- objs %>% 
-    purrr::keep(~ is.data.frame(eval(parse(text = .x), envir = envir)))
+    purrr::keep(
+      function(.name) {
+        .x <- try(
+          eval(parse(text = .name), envir = envir),
+          silent = TRUE
+        )
+        if(inherits(.x, "try-error")) {
+          return(FALSE)
+        }
+        is.data.frame(.x)
+      }
+    )
   
   if (length(df_objects) == 0) {
     cli::cli_alert_info("No matches because there are no {.cls data.frame} objects in {.arg envir}.")
@@ -266,6 +277,7 @@ cnt_search_result <- function(
         df <- eval(parse(text = df_name), envir = envir)
         
         df <- df %>% 
+          dplyr::ungroup() %>% 
           dplyr::select(
             dplyr::any_of(search_result[[df_name]][["var_content"]]),
             dplyr::any_of(search_result[[df_name]][["var_names"]]),
