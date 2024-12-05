@@ -277,6 +277,7 @@ cnt_search_result <- function(
         df <- eval(parse(text = df_name), envir = envir)
         
         df <- df %>% 
+          dplyr::ungroup() %>% 
           dplyr::select(
             dplyr::any_of(search_result[[df_name]][["var_content"]]),
             dplyr::any_of(search_result[[df_name]][["var_names"]]),
