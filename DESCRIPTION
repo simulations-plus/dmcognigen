@@ -1,7 +1,7 @@
 Package: dmcognigen
 Type: Package
 Title: Data management functions for the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc
-Version: 0.1.1
+Version: 0.1.1.9000
 Date: $date$
 Authors@R: c(person("Nash", "Delcamp", email = "nash.delcamp@simulations-plus.com", role = c("aut", "cre")),
              person("Louis", "Penrod", email = "louis.penrod@simulations-plus.com", role = "aut"),

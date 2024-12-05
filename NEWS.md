@@ -1,3 +1,7 @@
+# dmcognigen (development version)
+
+* Fixed bug in `search_environment_data()` where evaluating some objects that are not data frames resulted in an error.
+
 # dmcognigen 0.1.1
 
 * Fixed bug in `read_requirements()` where the file with the oldest date was selected instead of the most recent date. 
