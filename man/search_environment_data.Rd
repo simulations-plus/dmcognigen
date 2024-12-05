@@ -4,13 +4,21 @@
 \alias{search_environment_data}
 \title{Search data in an environment for a pattern}
 \usage{
-search_environment_data(pattern, envir = .GlobalEnv)
+search_environment_data(
+  pattern,
+  envir = .GlobalEnv,
+  search_variable_names = TRUE,
+  search_variable_labels = TRUE,
+  search_variable_content = TRUE
+)
 }
 \arguments{
 \item{pattern}{A pattern to search for. Can be \code{\link[stringr]{regex}},
 \code{\link[stringr]{fixed}}, or a single character pattern.}
 
 \item{envir}{The environment or named list to search within.}
+
+\item{search_variable_names, search_variable_labels, search_variable_content}{\code{logical} values indicating whether to search that category.}
 }
 \value{
 a \code{search_result} object.

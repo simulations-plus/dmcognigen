@@ -6,6 +6,8 @@
 #' @param pattern A pattern to search for. Can be \code{\link[stringr]{regex}},
 #'   \code{\link[stringr]{fixed}}, or a single character pattern.
 #' @param envir The environment or named list to search within.
+#' @param search_variable_names,search_variable_labels,search_variable_content
+#'   \code{logical} values indicating whether to search that category.
 #'
 #' @return a \code{search_result} object.
 #' @export
@@ -23,7 +25,13 @@
 #' study_search
 #' 
 #' cnt_search_result(study_search, n_distinct_vars = "SUBJID")
-search_environment_data <- function(pattern, envir = .GlobalEnv) {
+search_environment_data <- function(
+    pattern, 
+    envir = .GlobalEnv,
+    search_variable_names = TRUE, 
+    search_variable_labels = TRUE, 
+    search_variable_content = TRUE
+  ) {
   
   if(!inherits(pattern, c("fixed", "stringr_fixed", "regex", "stringr_fixed"))) {
     if(length(pattern) != 1) {
@@ -42,6 +50,12 @@ search_environment_data <- function(pattern, envir = .GlobalEnv) {
       "{.arg pattern} can't be the empty string ({.code \"\"})."
     )
   }
+  
+  assertthat::assert_that(
+    is.logical(search_variable_names),
+    is.logical(search_variable_labels),
+    is.logical(search_variable_content)
+  )
   
   # name elements if needed
   if(!is.environment(envir)) {
@@ -89,58 +103,70 @@ search_environment_data <- function(pattern, envir = .GlobalEnv) {
     return(invisible(NULL))
   }
   
-  has_x_var_names <- df_objects %>% 
-    purrr::set_names() %>% 
-    purrr::map(
-      .f = function(.x) {
-        var_names <- names(eval(parse(text = .x), envir = envir))
-        stringr::str_subset(var_names, pattern = pattern)
-      }
-    ) %>% 
-    purrr::discard(~ length(.x) == 0)
+  if(isTRUE(search_variable_names)) {
+    has_x_var_names <- df_objects %>% 
+      purrr::set_names() %>% 
+      purrr::map(
+        .f = function(.x) {
+          var_names <- names(eval(parse(text = .x), envir = envir))
+          stringr::str_subset(var_names, pattern = pattern)
+        }
+      ) %>% 
+      purrr::discard(~ length(.x) == 0)
+  } else {
+    has_x_var_names <- list()
+  }
   
-  has_x_var_labels <- df_objects %>% 
-    purrr::set_names() %>% 
-    purrr::map(
-      .f = function(.x) {
-        df <- eval(parse(text = .x), envir = envir)
-        var_labels <- vapply(
-          names(df),
-          FUN = function(var_name) {
-            lbl <- attr(df[[var_name]], "label")
-            if(is.null(lbl)) {
-              lbl <- ""
-            }
-            lbl
-          },
-          FUN.VALUE = character(1)
-        )
-        names(var_labels)[stringr::str_which(var_labels, pattern = pattern)]
-      }
-    ) %>% 
-    purrr::discard(~ length(.x) == 0)
+  if(isTRUE(search_variable_labels)) {
+    has_x_var_labels <- df_objects %>% 
+      purrr::set_names() %>% 
+      purrr::map(
+        .f = function(.x) {
+          df <- eval(parse(text = .x), envir = envir)
+          var_labels <- vapply(
+            names(df),
+            FUN = function(var_name) {
+              lbl <- attr(df[[var_name]], "label")
+              if(is.null(lbl)) {
+                lbl <- ""
+              }
+              lbl
+            },
+            FUN.VALUE = character(1)
+          )
+          names(var_labels)[stringr::str_which(var_labels, pattern = pattern)]
+        }
+      ) %>% 
+      purrr::discard(~ length(.x) == 0)
+  } else {
+    has_x_var_labels <- list()
+  }
   
-  has_x_var_content <- df_objects %>% 
-    purrr::set_names() %>% 
-    purrr::map(
-      .f = function(df_name) {
-        df <- eval(parse(text = df_name), envir = envir) %>% 
-          dplyr::mutate(
-            dplyr::across(
-              .cols = dplyr::where(is.factor),
-              .fns = as.character
-            )
-          ) %>% 
-          dplyr::select(dplyr::where(is.character))
-        
-        df %>% 
-          purrr::keep(
-            .p = ~ isTRUE(any(stringr::str_detect(.x, pattern = pattern)))
-          ) %>% 
-          names()
-      }
-    ) %>% 
-    purrr::discard(~ length(.x) == 0)
+  if(isTRUE(search_variable_content)) {
+    has_x_var_content <- df_objects %>% 
+      purrr::set_names() %>% 
+      purrr::map(
+        .f = function(df_name) {
+          df <- eval(parse(text = df_name), envir = envir) %>% 
+            dplyr::mutate(
+              dplyr::across(
+                .cols = dplyr::where(is.factor),
+                .fns = as.character
+              )
+            ) %>% 
+            dplyr::select(dplyr::where(is.character))
+          
+          df %>% 
+            purrr::keep(
+              .p = ~ isTRUE(any(stringr::str_detect(.x, pattern = pattern)))
+            ) %>% 
+            names()
+        }
+      ) %>% 
+      purrr::discard(~ length(.x) == 0)
+  } else {
+    has_x_var_content <- list()
+  }
   
   return_list <- c(
     names(has_x_var_names), 
