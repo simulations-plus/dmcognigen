@@ -7,7 +7,7 @@ new_variable_labels <- c(
   ONUM = "Overall Sequence Number",
   NUM = "Sequence Number",
   TSFD = "Time Since First Dose (h)",
-  TSPD = "Nominal Time Since Previous Dose (h)",
+  TSPD = "Time Since Previous Dose (h)",
   NTSFD = "Nominal Time Since First Dose (h)",
   NTSPD = "Nominal Time Since Previous Dose (h)",
   DNCP = "Dose-Norm Xanomeline Conc (ug/mL/mg)"
