@@ -36,9 +36,9 @@
 #' updated SDTM datasets that use data from the CDISC pilot project.
 #' 
 #' @seealso 
-#' \code{\link[pharmaversesdtm]{ex}},
 #' \code{\link[pharmaversesdtm]{dm}}, 
+#' \code{\link[pharmaversesdtm]{ex}},
 #' \code{\link[pharmaversesdtm]{lb}}, 
-#' \code{\link[pharmaversesdtm]{vs}},
-#' \code{\link[pharmaversesdtm]{pc}}
+#' \code{\link[pharmaversesdtm]{pc}},
+#' \code{\link[pharmaversesdtm]{vs}}
 "dmcognigen_pk"

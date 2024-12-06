@@ -5,7 +5,7 @@
 \alias{dmcognigen_pk}
 \title{PK Dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4061 rows and 89 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 101 columns.
 }
 \usage{
 dmcognigen_pk
@@ -15,10 +15,10 @@ A dataset generated from \code{pharmaversesdtm} example datasets, which are
 updated SDTM datasets that use data from the CDISC pilot project.
 }
 \seealso{
-\code{\link[pharmaversesdtm]{ex}},
 \code{\link[pharmaversesdtm]{dm}}, 
+\code{\link[pharmaversesdtm]{ex}},
 \code{\link[pharmaversesdtm]{lb}}, 
-\code{\link[pharmaversesdtm]{vs}},
-\code{\link[pharmaversesdtm]{pc}}
+\code{\link[pharmaversesdtm]{pc}},
+\code{\link[pharmaversesdtm]{vs}}
 }
 \keyword{datasets}

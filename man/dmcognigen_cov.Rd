@@ -5,7 +5,7 @@
 \alias{dmcognigen_cov}
 \title{Covariate Dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 254 rows and 36 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 254 rows and 49 columns.
 }
 \usage{
 dmcognigen_cov

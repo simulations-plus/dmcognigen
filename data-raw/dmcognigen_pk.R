@@ -3,139 +3,273 @@
 library(dplyr)
 library(tidyr)
 
-new_variable_labels <- c(NTSFD = "Nominal Time Since First Dose (h)",
-                         TSFD = "Time Since First Dose (h)",
-                         TSPD = "Nominal Time Since Previous Dose (h)",
-                         ONUM = "Overall Sequence Number",
-                         NUM = "Sequence Number")
+new_variable_labels <- c(
+  ONUM = "Overall Sequence Number",
+  NUM = "Sequence Number",
+  TSFD = "Time Since First Dose (h)",
+  TSPD = "Nominal Time Since Previous Dose (h)",
+  NTSFD = "Nominal Time Since First Dose (h)",
+  NTSPD = "Nominal Time Since Previous Dose (h)",
+  DNCP = "Dose-Norm Xanomeline Conc (ug/mL/mg)"
+)
 
-# load datasets -----------------------------------------------------------
+
+# data --------------------------------------------------------------------
+
 cov <- dmcognigen_cov
+cov_labels <- purrr::map_chr(cov, attr, which = "label")
+
 conc <- dmcognigen_conc
+conc_labels <- purrr::map_chr(conc, attr, which = "label")
+
 dose <- dmcognigen_dose
-
-existing_labels <- c(cov,dose,conc) %>%
-  purrr::map(~attr(.x, "label")) 
-
-# one per subj
-cov %>%
-cnt(n_distinct_vars = USUBJID)
+dose_labels <- purrr::map_chr(dose, attr, which = "label")
 
 
-intersect(names(cov),names(conc))
+# doses -------------------------------------------------------------------
 
-setdiff(unique(cov$USUBJID),unique(conc$USUBJID))
-setdiff(y=unique(cov$USUBJID),unique(conc$USUBJID))
+dose %>% 
+  cnt(TRT, ROUTE, n_distinct_vars = USUBJID)
 
-set.seed(45)
-example_subj <- cov %>%
-  group_by(ACTARM) %>%
-  slice_sample(n=2) %>%
-  pull(USUBJID)
+dose %>% 
+  cnt(DVID, EVID, MDV, n_distinct_vars = USUBJID)
 
-
-cov %>%
-filter(USUBJID %in% example_subj) %>%
-cnt(USUBJID,ACTARM)
-
-# DVID,DVIDC
-# 1=Dose
-# 2= XANOMELINE Plasma (ug/mL)
-  
-conc_cov <- conc %>%
-  left_join(cov,by=c("STUDYID","USUBJID")) %>%
-  mutate(NTSFD=PCTPTNUM) %>%
-  arrange(USUBJID,DTTM,EVID,DVID)
+dose %>% 
+  cnt(DOSE, n_distinct_vars = USUBJID)
 
 
-conc_cov %>%
-  filter(USUBJID %in% example_subj) %>%
-  select(USUBJID, DTTM, VISIT, PCTPT, NTSFD, EVID, DVIDC, DV) %>%
-  split( ~ USUBJID)
+# concentrations ----------------------------------------------------------
+
+conc %>% 
+  cnt(DVID, PCTESTCD, PCTEST, n_distinct_vars = USUBJID)
 
 
+# combine pk concentrations and doses -------------------------------------
 
-# dose --------------------------------------------------------------------
-
-# looking at profiles- dose time should probably be imputed to midnight 
-dose <- dose %>%
+pk <- bind_rows(
+  conc,
+  dose
+) %>% 
+  # in the case of samples and doses at the same time, will sort sample first.
+  arrange(USUBJID, DTTM, EVID) %>% 
+  # fill dose variables
+  group_by(USUBJID) %>% 
+  fill(
+    DOSE, TRT, ROUTE, FDDTTM, EDDTTM, 
+    .direction = "downup"
+  ) %>% 
+  ungroup() %>% 
   mutate(
-    DAY = case_when(VISIT == "BASELINE" ~ 1,
-                    VISIT == "WEEK 2" ~ 14,
-                    VISIT == "WEEK 24" ~ 168),
+    # dose-normalized concentration
+    DNCP = case_when(
+      DOSE == 0 ~ NA_real_,
+      TRUE ~ DV / DOSE
+    )
+  ) %>% 
+  arrange(USUBJID, DTTM, EVID)
+
+pk %>% 
+  cnt(n_distinct_vars = USUBJID)
+
+pk %>% 
+  cnt(DVID, DVIDC, EVID, MDV, n_distinct_vars = USUBJID)
+
+pk %>% 
+  cnt(VISITNUM, VISIT, EVID)
+
+pk %>% 
+  cnt(DOSE, EVID, n_distinct_vars = USUBJID)
+
+
+# merge stationary covariates ---------------------------------------------
+
+# one per subject
+cov %>%
+  cnt(n_distinct_vars = USUBJID)
+
+intersect(names(cov), names(pk))
+
+setdiff(unique(cov$USUBJID), unique(pk$USUBJID))
+setdiff(y = unique(cov$USUBJID), unique(pk$USUBJID))
+
+pk <- pk %>% 
+  left_join(
+    cov %>% 
+      select(-c(DOMAIN)),
+    by = c("STUDYID", "USUBJID")
+  )
+
+pk %>% 
+  cnt(ACTARMCD, ACTARM, EVID, n_distinct_vars = USUBJID)
+
+pk %>% 
+  cnt(ACTARMCD, ACTARM, DOSE, n_distinct_vars = USUBJID)
+
+
+# time variables ----------------------------------------------------------
+
+
+## actual time ------------------------------------------------------------
+
+pk %>% 
+  filter(EVID == 0) %>% 
+  cnt(VISITNUM, VISIT, n_distinct_vars = PCTPT)
+
+pk %>% 
+  filter(EVID == 0) %>% 
+  cnt(PCTPTNUM, PCTPT, n_distinct_vars = VISIT)
+
+pk <- pk %>% 
+  arrange(USUBJID, DTTM, EVID) %>% 
+  group_by(USUBJID) %>% 
+  mutate(
+    # previous dose
+    PRVDDTTM = case_when(
+      EVID == 1 ~ DTTM,
+      TRUE ~ lubridate::NA_POSIXct_
+    ),
+    # next dose
+    NXTDDTTM = case_when(
+      EVID == 1 ~ DTTM,
+      TRUE ~ lubridate::NA_POSIXct_
+    )
+  ) %>% 
+  fill(PRVDDTTM, .direction = "downup") %>% 
+  fill(NXTDDTTM, .direction = "updown") %>% 
+  mutate(
+    # time from first dose
+    TSFD = as.numeric(difftime(DTTM, FDDTTM, units = "hours")),
+    # time since previous dose
+    TSPD = case_when(
+      EVID == 1 ~ 0,
+      TRUE ~ as.numeric(difftime(DTTM, PRVDDTTM, units = "hours"))
+    )
+  ) %>% 
+  ungroup()
+
+pk %>% 
+  select(TSFD, TSPD) %>% 
+  summary()
+
+
+## nominal times ----------------------------------------------------------
+
+pk %>% 
+  cnt(EVID, PCTPTNUM, PCTPT, n_distinct_vars = VISIT)
+
+pk %>% 
+  cnt(EVID, VISITNUM, VISIT, n_distinct_vars = PCTPT)
+
+pk %>% 
+  select(PCDY, EXSTDY) %>% 
+  summary()
+
+pk <- pk %>% 
+  mutate(
+    # nominal time since previous dose in hours
+    NTSPD = case_when(
+      # PCTPTNUM is already nominal time
+      EVID == 0 ~ PCTPTNUM,
+      EVID == 1 ~ 0
+    ),
+    
+    # nominal time since first dose in hours
     NTSFD = case_when(
-      VISIT == "BASELINE" ~ 0,
-      VISIT == "WEEK 2" ~ 2 * 7 * 24,
-      VISIT == "WEEK 24" ~ 24 * 7 * 24
+      # PCTPTNUM is already nominal time (working with post-first-dose, only)
+      EVID == 0 ~ PCTPTNUM,
+      EVID == 1 & VISIT == "BASELINE" ~ 0,
+      # these dose timepoints won't be included in the final dataset
+      EVID == 1 ~ 24 * 7 * as.numeric(stringr::str_replace(VISIT, "WEEK (\\d+)", "\\1"))
     )
   )
 
+pk %>% 
+  filter(is.na(NTSPD)) %>% 
+  cnt(PCTPTNUM, PCTPT)
 
-pk <- conc_cov %>%
-  bind_rows(dose) %>%
-  arrange(USUBJID,DTTM,EVID,DVID)
+pk %>% 
+  filter(is.na(NTSFD)) %>% 
+  cnt(VISITNUM, VISIT)
 
+pk %>% 
+  select(NTSFD, NTSPD) %>% 
+  summary()
 
-pk %>%
-  filter(USUBJID %in% example_subj) %>%
-  select(USUBJID,DTTM,VISIT,PCTPT,NTSFD,EVID,DVIDC,DVID,DV) %>%
-  split(~USUBJID)
-
-
-
-pk <- pk %>%
-  mutate(dose_times = if_else(EVID == 1, DTTM, NA_POSIXct_)) %>%
-  group_by(USUBJID) %>%
-  fill(FDDTTM, EDDTTM, !!!names(cov), ROUTE, DREG, DREGC, .direction = "downup") %>%
-  fill(dose_times, DOSENUM,DOSE,.direction = "down") %>%
-  mutate(
-    TSFD = as.numeric(difftime(DTTM, FDDTTM), units = "hours"),
-    TSPD = as.numeric(difftime(DTTM, dose_times), units = "hours"),
-    trailing_dose = if_else(EVID == 0, 1, NA_real_)
-  ) %>%
-  fill(trailing_dose, .direction = "up") %>%
-  mutate(trailing_dose = ifelse(is.na(trailing_dose) &
-                                  EVID == 1, 1, 0)) %>%
-  ungroup() %>%
-  arrange(USUBJID, DTTM, EVID, DVID)
+pk %>% 
+  cnt(NTSFD, NTSPD, VISITNUM, VISIT, EVID, PCTPTNUM, PCTPT)
 
 
-pk %>%
-  cnt(trailing_dose,DVID,DOSE,n_distinct_vars = USUBJID)
+# deletions ---------------------------------------------------------------
 
-# Remove trailing doses
-# all of the 81 mg doses are trailing 
+# normally, deletions are performed in a specific order with careful review.
 
-pk <- pk %>%
-  filter(trailing_dose==0) 
+pk %>% 
+  cnt(DVID, DVIDC, EVID, MDV, n_distinct_vars = USUBJID)
 
-pk %>%
-  cnt(trailing_dose,DVID,DOSE,n_distinct_vars = USUBJID)
+pk <- pk %>% 
+  filter(
+    # remove pre-first-dose PK concentrations
+    TSFD >= 0
+  )
 
+pk %>% 
+  cnt(DVID, DVIDC, EVID, MDV, n_distinct_vars = USUBJID)
+
+# remove trailing doses
+pk <- pk %>% 
+  group_by(USUBJID) %>% 
+  filter(
+    EVID == 0 | TSFD <= max(TSFD[EVID == 0])
+  ) %>% 
+  ungroup()
+
+pk %>% 
+  cnt(DVID, DVIDC, EVID, MDV, n_distinct_vars = USUBJID)
+
+
+# ONUM, NUM ---------------------------------------------------------------
 
 # add NUM and ONUM 
 pk <- pk %>%
   group_by(USUBJID) %>%
-  mutate(NUM=1:n())%>%
-  ungroup()%>%
-  mutate(ONUM=row_number(),
-         MDV=EVID) %>%
-  select(ONUM,NUM,any_of(names(cov)),TRT01A,
-         contains("TTM"),DAY,VISIT,PCTPT,NTSFD,TSFD,TSPD,DVID,DV,DOSE,everything(),
-         -c(trailing_dose,dose_times))
+  mutate(
+    NUM = 1:n()
+  ) %>%
+  ungroup() %>%
+  mutate(
+    ONUM = 1:n()
+  )
 
 
-pk %>%
-  filter(USUBJID %in% example_subj) %>%
-  select(ONUM,NUM,USUBJID,ACTARM,DTTM,DAY,VISIT,PCTPT,NTSFD,TSFD,TSPD,DVID,DV,DOSE) %>%
-  split(~USUBJID)
-
-
-# combine -----------------------------------------------------------------
+# labels and variable order -----------------------------------------------
 
 dmcognigen_pk <- pk %>%
-  set_labels(., existing_labels) %>%
-  set_labels(., new_variable_labels)
+  # ideally, the manual variable order below will be replaced based on data
+  # requirements designed for this example dataset.
+  relocate(any_of(stringr::str_subset(names(cov), "^DM", negate = TRUE)), .after = USUBJID) %>% 
+  relocate(any_of(stringr::str_subset(names(dose), "^EX", negate = TRUE)), .after = USUBJID) %>% 
+  relocate(any_of(stringr::str_subset(names(conc), "^PC", negate = TRUE)), .after = USUBJID) %>% 
+  relocate(
+    any_of(c(
+      "ONUM", "NUM", "STUDYID", "USUBJID", "TSFD", "TSPD", "NTSFD", "NTSPD"
+    )),
+    .before = 1
+  ) %>% 
+  set_labels(cov_labels) %>%
+  set_labels(conc_labels) %>%
+  set_labels(dose_labels) %>%
+  set_labels(new_variable_labels)
+
+# don't include variables without a label
+missing_labels <- purrr::map(dmcognigen_pk, attr, which = "label") %>% 
+  purrr::keep(is.null) %>% 
+  names()
+
+dmcognigen_pk <- dmcognigen_pk %>% 
+  select(-any_of(missing_labels))
+
+# dataset label
+attr(dmcognigen_pk, "label") <- "CDISCPILOT01 PK"
 
 glimpse(dmcognigen_pk)
 
