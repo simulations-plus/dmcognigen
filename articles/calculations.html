@@ -178,22 +178,13 @@ this dataset, so you don’t need to create it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">dmcognigen_cov</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 254</span></span>
-<span><span class="co">#&gt; Columns: 36</span></span>
+<span><span class="co">#&gt; Columns: 49</span></span>
 <span><span class="co">#&gt; $ STUDYID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01…</span></span>
+<span><span class="co">#&gt; $ DOMAIN   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "…</span></span>
 <span><span class="co">#&gt; $ USUBJID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "01-701-1015", "01-701-1023", "01-701-1028", "01-701-1033", "…</span></span>
-<span><span class="co">#&gt; $ SUBJID   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1015", "1023", "1028", "1033", "1034", "1047", "1097", "1111…</span></span>
-<span><span class="co">#&gt; $ AGE      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 63, 64, 71, 74, 77, 85, 68, 81, 84, 52, 84, 81, 75, 57, 79, 5…</span></span>
-<span><span class="co">#&gt; $ SEX      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "F", "M", "M", "M", "F", "F", "M", "F", "M", "M", "M", "F", "…</span></span>
 <span><span class="co">#&gt; $ SEXF     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1…</span></span>
 <span><span class="co">#&gt; $ SEXFC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Female", "Male", "Male", "Male", "Female", "Female", "Male",…</span></span>
-<span><span class="co">#&gt; $ RACE     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE"…</span></span>
 <span><span class="co">#&gt; $ RACEN    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1…</span></span>
-<span><span class="co">#&gt; $ ETHNIC   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "HISPANIC OR LATINO", "HISPANIC OR LATINO", "NOT HISPANIC OR …</span></span>
-<span><span class="co">#&gt; $ ARMCD    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pbo", "Pbo", "Xan_Hi", "Xan_Lo", "Xan_Hi", "Pbo", "Xan_Lo", …</span></span>
-<span><span class="co">#&gt; $ ARM      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Placebo", "Placebo", "Xanomeline High Dose", "Xanomeline Low…</span></span>
-<span><span class="co">#&gt; $ ACTARMCD <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pbo", "Pbo", "Xan_Hi", "Xan_Lo", "Xan_Hi", "Pbo", "Xan_Lo", …</span></span>
-<span><span class="co">#&gt; $ ACTARM   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Placebo", "Placebo", "Xanomeline High Dose", "Xanomeline Low…</span></span>
-<span><span class="co">#&gt; $ COUNTRY  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "USA", "USA", "USA", "USA", "USA", "USA", "USA", "USA", "USA"…</span></span>
 <span><span class="co">#&gt; $ HTCM     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 147.32, 162.56, 177.80, 175.26, 154.94, 148.59, 168.91, 158.2…</span></span>
 <span><span class="co">#&gt; $ WTKG     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 54.43, 80.29, 99.34, 88.45, 62.60, 67.13, 78.02, 59.88, 78.93…</span></span>
 <span><span class="co">#&gt; $ AST      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 40, 21, 24, 20, 23, 25, 19, 28, 26, 15, 24, 27, 14, 25, 24, 2…</span></span>
@@ -203,7 +194,6 @@ this dataset, so you don’t need to create it.</p>
 <span><span class="co">#&gt; $ TBIL     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.6, 0.7, 1.1, 0.8, 0.6, 0.4, 0.4, 0.4, 0.5, 0.7, 0.5, 0.9, 0…</span></span>
 <span><span class="co">#&gt; $ TBILULN  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1…</span></span>
 <span><span class="co">#&gt; $ ASTCAT   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
-<span><span class="co">#&gt; $ TBILCAT  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
 <span><span class="co">#&gt; $ BMI      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 25.07927, 30.38324, 31.42394, 28.79600, 26.07638, 30.40447, 2…</span></span>
 <span><span class="co">#&gt; $ BSA      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1.514484, 1.928392, 2.234674, 2.092314, 1.662531, 1.693187, 1…</span></span>
 <span><span class="co">#&gt; $ IBW      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 45.37000, 59.05000, 70.15000, 68.30000, 50.32000, 46.19500, 6…</span></span>
@@ -213,8 +203,31 @@ this dataset, so you don’t need to create it.</p>
 <span><span class="co">#&gt; $ EGFRSCHW <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
 <span><span class="co">#&gt; $ IBWCHILD <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 35.81025, 43.60249, 52.16119, 50.68151, 39.61057, 36.43033, 4…</span></span>
 <span><span class="co">#&gt; $ LBM      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 38.03714, 57.09378, 69.31683, 64.69332, 42.82276, 41.62153, 5…</span></span>
+<span><span class="co">#&gt; $ TBILCAT  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
 <span><span class="co">#&gt; $ RFCAT    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 3, 3, 3, NA, 2, 2, …</span></span>
-<span><span class="co">#&gt; $ NCILIV   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ NCILIV   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
+<span><span class="co">#&gt; $ SUBJID   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1015", "1023", "1028", "1033", "1034", "1047", "1097", "1111…</span></span>
+<span><span class="co">#&gt; $ RFSTDTC  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-01-02", "2012-08-05", "2013-07-19", "2014-03-18", "2014…</span></span>
+<span><span class="co">#&gt; $ RFENDTC  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-07-02", "2012-09-02", "2014-01-14", "2014-04-14", "2014…</span></span>
+<span><span class="co">#&gt; $ RFXSTDTC <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-01-02", "2012-08-05", "2013-07-19", "2014-03-18", "2014…</span></span>
+<span><span class="co">#&gt; $ RFXENDTC <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-07-02", "2012-09-01", "2014-01-14", "2014-03-31", "2014…</span></span>
+<span><span class="co">#&gt; $ RFICDTC  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span><span class="co">#&gt; $ RFPENDTC <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-07-02T11:45", "2013-02-18", "2014-01-14T11:10", "2014-0…</span></span>
+<span><span class="co">#&gt; $ DTHDTC   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span><span class="co">#&gt; $ DTHFL    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span><span class="co">#&gt; $ SITEID   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "701", "701", "701", "701", "701", "701", "701", "701", "701"…</span></span>
+<span><span class="co">#&gt; $ AGE      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 63, 64, 71, 74, 77, 85, 68, 81, 84, 52, 84, 81, 75, 57, 79, 5…</span></span>
+<span><span class="co">#&gt; $ AGEU     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "YEARS", "YEARS", "YEARS", "YEARS", "YEARS", "YEARS", "YEARS"…</span></span>
+<span><span class="co">#&gt; $ SEX      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "F", "M", "M", "M", "F", "F", "M", "F", "M", "M", "M", "F", "…</span></span>
+<span><span class="co">#&gt; $ RACE     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE"…</span></span>
+<span><span class="co">#&gt; $ ETHNIC   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "HISPANIC OR LATINO", "HISPANIC OR LATINO", "NOT HISPANIC OR …</span></span>
+<span><span class="co">#&gt; $ ARMCD    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pbo", "Pbo", "Xan_Hi", "Xan_Lo", "Xan_Hi", "Pbo", "Xan_Lo", …</span></span>
+<span><span class="co">#&gt; $ ARM      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Placebo", "Placebo", "Xanomeline High Dose", "Xanomeline Low…</span></span>
+<span><span class="co">#&gt; $ ACTARMCD <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pbo", "Pbo", "Xan_Hi", "Xan_Lo", "Xan_Hi", "Pbo", "Xan_Lo", …</span></span>
+<span><span class="co">#&gt; $ ACTARM   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Placebo", "Placebo", "Xanomeline High Dose", "Xanomeline Low…</span></span>
+<span><span class="co">#&gt; $ COUNTRY  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "USA", "USA", "USA", "USA", "USA", "USA", "USA", "USA", "USA"…</span></span>
+<span><span class="co">#&gt; $ DMDTC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2013-12-26", "2012-07-22", "2013-07-11", "2014-03-10", "2014…</span></span>
+<span><span class="co">#&gt; $ DMDY     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -7, -14, -8, -8, -7, -21, -9, -13, -7, -13, -6, -5, -13, -9, …</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dmcognigen_conc">dmcognigen_conc<a class="anchor" aria-label="anchor" href="#dmcognigen_conc"></a>
@@ -225,14 +238,20 @@ testing and practicing.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">dmcognigen_conc</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 3,556</span></span>
-<span><span class="co">#&gt; Columns: 29</span></span>
+<span><span class="co">#&gt; Columns: 30</span></span>
 <span><span class="co">#&gt; $ STUDYID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01…</span></span>
 <span><span class="co">#&gt; $ DOMAIN   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "PC", "PC", "PC", "PC", "PC", "PC", "PC", "PC", "PC", "PC", "…</span></span>
 <span><span class="co">#&gt; $ USUBJID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "01-701-1015", "01-701-1015", "01-701-1015", "01-701-1015", "…</span></span>
+<span><span class="co">#&gt; $ DTTM     <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2014-01-01 23:30:00, 2014-01-02 00:05:00, 2014-01-02 00:30:0…</span></span>
+<span><span class="co">#&gt; $ DVID     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
+<span><span class="co">#&gt; $ DVIDC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Xanomeline Concentration (ug/mL)", "Xanomeline Concentration…</span></span>
+<span><span class="co">#&gt; $ EVID     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
+<span><span class="co">#&gt; $ MDV      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
 <span><span class="co">#&gt; $ DV       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.005…</span></span>
 <span><span class="co">#&gt; $ LOGDV    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -5.298317, -5.298317, -5.298317, -5.298317, -5.298317, -5.298…</span></span>
 <span><span class="co">#&gt; $ BLQFN    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
 <span><span class="co">#&gt; $ LLOQ     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0…</span></span>
+<span><span class="co">#&gt; $ DAY      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, -1, 1, 1, 1, 1, 1,…</span></span>
 <span><span class="co">#&gt; $ PCSEQ    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 2, 3, 4, 5,…</span></span>
 <span><span class="co">#&gt; $ PCTESTCD <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "XAN", "XAN", "XAN", "XAN", "XAN", "XAN", "XAN", "XAN", "XAN"…</span></span>
 <span><span class="co">#&gt; $ PCTEST   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "XANOMELINE", "XANOMELINE", "XANOMELINE", "XANOMELINE", "XANO…</span></span>
@@ -249,12 +268,7 @@ testing and practicing.</p>
 <span><span class="co">#&gt; $ PCDTC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-01-01T23:30:00", "2014-01-02T00:05:00", "2014-01-02T00:…</span></span>
 <span><span class="co">#&gt; $ PCDY     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, -1, 1, 1, 1, 1, 1,…</span></span>
 <span><span class="co">#&gt; $ PCTPT    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pre-dose", "5 Min Post-dose", "30 Min Post-dose", "1h Post-d…</span></span>
-<span><span class="co">#&gt; $ PCTPTNUM <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -0.50, 0.08, 0.50, 1.00, 1.50, 2.00, 4.00, 6.00, 8.00, 12.00,…</span></span>
-<span><span class="co">#&gt; $ DTTM     <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2014-01-01 23:30:00, 2014-01-02 00:05:00, 2014-01-02 00:30:0…</span></span>
-<span><span class="co">#&gt; $ DVIDC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Xanomeline in Plasma (ug/mL)", "Xanomeline in Plasma (ug/mL)…</span></span>
-<span><span class="co">#&gt; $ DVID     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…</span></span>
-<span><span class="co">#&gt; $ DAY      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, -1, 1, 1, 1, 1, 1,…</span></span>
-<span><span class="co">#&gt; $ EVID     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ PCTPTNUM <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -0.50, 0.08, 0.50, 1.00, 1.50, 2.00, 4.00, 6.00, 8.00, 12.00,…</span></span></code></pre></div>
 <!-- This (Stationary vs Time varying variables) is explained in # Function section.  -->
 </div>
 </div>
