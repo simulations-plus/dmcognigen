@@ -1,5 +1,7 @@
 # dmcognigen (development version)
 
+* Updated example data sets `dmcognigen_cov` and `dmcognigen_conc` to use source data from the {pharmaversesdtm} package.
+* Added example data sets `dmcognigen_dose` and `dmcognigen_pk`.
 * Fixed bug in `search_environment_data()` where evaluating some objects that are not data frames resulted in an error.
 * Updated `search_environment_data()` so each search type is optional.
 * Updated `cnt_search_result()` to optionally ignore results by name.

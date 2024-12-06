@@ -5,7 +5,7 @@
 \alias{dmcognigen_conc}
 \title{PK Concentrations Dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 29 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 30 columns.
 }
 \usage{
 dmcognigen_conc

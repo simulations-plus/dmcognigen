@@ -4,17 +4,17 @@ library(dplyr)
 
 
 new_variable_labels <- c(
-  
   # derived from pc
+  DTTM = "Date/Time",
+  DVID = "Observation Type",
+  DVIDC = "Observation Type",
+  EVID = "Event ID",
+  MDV = "Missing Dependent Variable",
   DV = "Xanomeline Concentration (ug/mL)",
   LOGDV = "Ln Transformed Xanomeline Conc (ug/mL)",
   BLQFN = "BLQ Flag",
   LLOQ = "Lower Limit of Quantitation",
-  DTTM = "Date/Time",
-  DVID="Observation Type",
-  DVIDC="Observation Type",
-  EVID="Event ID",
-  DAY="Day"
+  DAY = "Day"
 )
 
 
@@ -31,7 +31,6 @@ pharmaversesdtm::pc %>%
   filter(suppressWarnings(is.na(as.numeric(PCORRES)))) %>% 
   cnt(PCORRES)
 
-
 dmcognigen_conc <- pharmaversesdtm::pc %>% 
   mutate(
     LLOQ = PCLLOQ,
@@ -42,20 +41,26 @@ dmcognigen_conc <- pharmaversesdtm::pc %>%
       TRUE ~ PCSTRESN
     ),
     LOGDV = log(DV),
-    DVIDC="Xanomeline in Plasma (ug/mL)",
-    DVID=2,
-    DAY=PCDY,
-    EVID=0,
+    EVID = 0,
+    DVID = 1,
+    DVIDC = "Xanomeline Concentration (ug/mL)",
+    MDV = 0,
+    DAY = PCDY
   ) %>% 
   relocate(DV, LOGDV, BLQFN, LLOQ, .after = USUBJID)
-
 
 dmcognigen_conc %>%
   cnt(is.na(DTTM))
 
+
 # combine -----------------------------------------------------------------
 
-dmcognigen_conc <- set_labels(dmcognigen_conc, new_variable_labels)
+dmcognigen_conc <- dmcognigen_conc %>% 
+  relocate(any_of(names(new_variable_labels)), .after = USUBJID) %>% 
+  set_labels(new_variable_labels)
+
+# dataset label
+attr(dmcognigen_conc, "label") <- "CDISCPILOT01 PK Concentrations"
 
 glimpse(dmcognigen_conc)
 

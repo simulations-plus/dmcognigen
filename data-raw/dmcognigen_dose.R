@@ -5,118 +5,107 @@ library(tidyr)
 library(lubridate)
 
 new_variable_labels <- c(
-  DUR = "Duration (d)",
-  FDDTTM =	"First Dose Date/Time",
-  EDDTTM = "Last Dose Date/Time",
   DTTM = "Date/Time",
-  ENDTTM="End Date/Time of Treatment",
-  DOSENUM="Dose Number",
-  DREG="Dosing Regimen",
-  DREGC="Dosing Regimen",
-  ROUTE="Route of Administration",
-  TRT01A="Treatment",
-  MDV="Missing Dependent Variable",
-  DVID="Observation Type",
-  DVIDC="Observation Type",
-  DOSE="Dose (mg)",
-  EVID="Event ID"
-  )
+  DVID = "Observation Type",
+  DVIDC = "Observation Type",
+  EVID = "Event ID",
+  MDV = "Missing Dependent Variable",
+  DOSE = "Dose (mg)",
+  TRT = "Treatment",
+  ROUTE = "Route of Administration",
+  AMT = "Amount (mg)",
+  FDDTTM = "First Dose Date/Time",
+  EDDTTM = "Last Dose Date/Time",
+  DAY = "Day"
+)
 
+
+# from ex -----------------------------------------------------------------
 
 pharmaversesdtm::ex %>% 
-  cnt(VISIT,EXTRT,EXDOSE,EXROUTE,EXDOSFRQ)
+  cnt(EXTRT, EXDOSE, EXROUTE, EXDOSFRQ, n_distinct_vars = USUBJID)
+
+pharmaversesdtm::ex %>% 
+  cnt(VISIT, n_distinct_vars = USUBJID)
 
 # Missing end times
 pharmaversesdtm::ex %>% 
   group_by(USUBJID) %>%
   filter(any(is.na(EXENDTC))) %>%
-  select(USUBJID,VISIT,VISITNUM,EXSTDTC,EXENDTC,EXDOSE) %>%
-  split(~USUBJID)
+  select(USUBJID, VISIT, VISITNUM, EXSTDTC, EXENDTC, EXDOSE) %>%
+  split(~ USUBJID)
 
 # Missing end dates imputed to start dates 
 
 dose <- pharmaversesdtm::ex %>%
   mutate(
     start_date= lubridate::date(EXSTDTC),
-    end_date = if_else(is.na(EXENDTC),start_date,lubridate::date(EXENDTC)),
-    TRT01A = EXTRT,
+    end_date = if_else(is.na(EXENDTC), start_date, lubridate::date(EXENDTC)),
     DOSE = EXDOSE,
+    AMT = EXDOSE,
     ROUTE = EXROUTE,
-    DREG = c(QD = 1)[EXDOSFRQ],
-    DREGC = EXDOSFRQ,
-    DOSENUM = 1:n(),
-    EVID=1,
-    DVID=1,
-    DVIDC="Dose",
-    MDV=1
+    TRT = EXTRT,
+    EVID = 1,
+    DVID = 0,
+    DVIDC = "Dose",
+    MDV = 1,
+    DAY = EXSTDY
   ) %>%
-  ungroup() %>%
   arrange(STUDYID, USUBJID, start_date)
 
 
 dose %>% 
   group_by(USUBJID) %>%
   filter(any(is.na(EXENDTC))) %>%
-  select(USUBJID,VISIT,VISITNUM,start_date,end_date) %>%
-  split(~USUBJID)
+  select(USUBJID, VISIT, VISITNUM, start_date, end_date) %>%
+  split(~ USUBJID)
 
 dose %>% 
-  cnt(STUDYID,DREGC)
-
-dose %>% 
-  cnt(DOSE,n_distinct_vars = USUBJID)
+  cnt(DOSE, n_distinct_vars = USUBJID)
 
 dose %>% 
   group_by(USUBJID) %>%
-  filter(n_distinct(DOSE)>1) %>%
+  filter(n_distinct(DOSE) > 1) %>%
   cnt(n_distinct_vars = USUBJID)
 
-# FDDTTM always BASELINE
-dose %>%
-  filter(start_date==end_date) %>%
-  cnt(VISIT,DOSENUM)
 
-# expand to daily records -------------------------------------------------
-
-# Missing times set to midnight
-dose_expanded <- dose %>%
-  rowwise() %>%
-  mutate(seq_of_dates = list(seq.Date(start_date, end_date, by = "day"))) %>%
-  unnest(cols = c(seq_of_dates)) %>%
-  mutate(DTTM = lubridate::ymd_hms(seq_of_dates, truncated = 4)) %>%
+# Missing times set to midnight (based on structure of concentration data)
+dose <- dose %>%
+  mutate(
+    DTTM = ymd_hms(start_date, truncated = 4)
+  ) %>%
   group_by(USUBJID) %>%
-  mutate(FDDTTM = min(DTTM),
-         EDDTTM = max(DTTM)) %>%
+  mutate(
+    FDDTTM = min(DTTM),
+    EDDTTM = max(DTTM)
+  ) %>%
   ungroup() %>%
-  select(-c(seq_of_dates,start_date,end_date))
+  select(-c(start_date, end_date))
 
 
-dose_expanded %>%
-  select(where(~any(is.na(.)))) %>%
+dose %>%
+  select(where(~ any(is.na(.x)))) %>%
   names()
 
-dose_expanded %>%
-  cnt(EDDTTM==FDDTTM,VISIT,DOSENUM,
-      DOSE,n_distinct_vars = USUBJID)
-
-dose_expanded %>% 
-  filter(USUBJID=="01-701-1148") %>%
-  select(USUBJID,VISIT,VISITNUM,DTTM,EXSTDTC,EXENDTC,DOSE)%>%
-  print(n=500)
+dose %>%
+  cnt(EDDTTM == FDDTTM, VISIT, DOSE, n_distinct_vars = USUBJID)
 
 
-dmcognigen_dose <- dmcognigen::set_labels(dose_expanded, new_variable_labels)
+# labels and variable order -----------------------------------------------
+
+dmcognigen_dose <- dose %>% 
+  relocate(any_of(names(new_variable_labels)), .after = USUBJID) %>% 
+  set_labels(new_variable_labels)
+
+# dataset label
+attr(dmcognigen_dose, "label") <- "CDISCPILOT01 Doses"
 
 glimpse(dmcognigen_dose)
-
-
-
 
 lapply(
   purrr::set_names(names(dmcognigen_dose)), 
   function(x) attr(dmcognigen_dose[[x]], "label")
 )
-
 
 
 # write -------------------------------------------------------------------

@@ -5,7 +5,7 @@
 \alias{dmcognigen_dose}
 \title{Dose Dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 29044 rows and 30 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 591 rows and 29 columns.
 }
 \usage{
 dmcognigen_dose

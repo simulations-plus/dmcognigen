@@ -42,6 +42,8 @@ new_variable_labels <- c(
 
 # from dm dataset ---------------------------------------------------------
 
+dm_labels <- purrr::map_chr(pharmaversesdtm::dm, attr, which = "label")
+
 pharmaversesdtm::dm %>% 
   cnt(SEX)
 
@@ -49,7 +51,6 @@ pharmaversesdtm::dm%>%
   cnt(RACE, ETHNIC)
 
 dm <- pharmaversesdtm::dm %>% 
-  select(STUDYID, USUBJID, SUBJID, AGE, SEX, RACE, ETHNIC, ARMCD, ARM, ACTARMCD, ACTARM, COUNTRY) %>% 
   mutate(
     SEXF = case_when(
       SEX == "F" ~ 1,
@@ -217,15 +218,6 @@ dmcognigen_cov <- dm %>%
     NCILIV = calculate_nciliv()
   )
 
-dmcognigen_cov <- set_labels(dmcognigen_cov, new_variable_labels)
-
-glimpse(dmcognigen_cov)
-
-lapply(
-  purrr::set_names(names(dmcognigen_cov)), 
-  function(x) attr(dmcognigen_cov[[x]], "label")
-)
-
 
 # drop screen failure subjects --------------------------------------------
 
@@ -248,6 +240,24 @@ dmcognigen_cov %>%
 
 dmcognigen_cov %>% 
   cnt(STUDYID, ACTARMCD, ACTARM, n_distinct_vars = c(USUBJID, SUBJID))
+
+
+# labels and variable order -----------------------------------------------
+
+dmcognigen_cov <- dmcognigen_cov %>%
+  relocate(any_of(names(new_variable_labels)), .after = USUBJID) %>% 
+  set_labels(dm_labels) %>%
+  set_labels(new_variable_labels)
+
+# dataset label
+attr(dmcognigen_cov, "label") <- "CDISCPILOT01 Covariates"
+
+glimpse(dmcognigen_cov)
+
+lapply(
+  purrr::set_names(names(dmcognigen_cov)), 
+  function(x) attr(dmcognigen_cov[[x]], "label")
+)
 
 
 # write -------------------------------------------------------------------

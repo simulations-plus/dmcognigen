@@ -17,7 +17,7 @@ LazyData: true
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Suggests: 
-    admiral.test,
+    pharmaversesdtm,
     knitr,
     haven,
     rmarkdown,
