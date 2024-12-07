@@ -1,27 +1,33 @@
 #' Get available and latest data requirements files
 #' 
 #' @description This family of functions allows the user to explore, import, and
-#'   leverage the contents of data requirements files.
+#'   leverage the contents of data requirements files. Supported files types are
+#'   Excel files (xlsx, xls, xlsm) and Word files (docx only). Note that \code{sheets
+#'   = NULL} must be used to include docx files in searches.
 #'
 #' \describe{
 #'   \item{\code{read_requirements}}{Read the latest data requirements file.}
+#'   \item{\code{as_requirements}}{Apply requirements attributes to a data frame.}
 #'   \item{\code{available_requirements_table}}{Get available data requirements
 #'   files. Returns a \code{tibble} including available data requirements paths
 #'   and other information.}
 #' }
 #'
-#' @param path a single directory path or the path to an Excel data requirements
-#'   file. For \code{read_requirements}, providing a directory path will result
-#'   in the latest Excel data requirements file being selected, while providing
-#'   a file path will result in that file being selected. Defaults to the
-#'   working directory.
+#' @param path a single directory path or the path to a data requirements file.
+#'   For \code{read_requirements}, providing a directory path will result in the
+#'   latest matching data requirements file being selected, while providing a
+#'   file path will result in that file being selected. Defaults to the working
+#'   directory.
 #' @param pattern \code{character} string containing a regular expression. Only
 #'   file names which match the regular expression will be returned. Defaults to
 #'   \code{"req"}.
 #' @param sheet either a \code{character} vector of required Excel sheet
-#'   name(s), the \code{numeric} index of the sheet position, or NULL (for no
-#'   required sheet names). Only one sheet name or index should be provided to
-#'   \code{read_requirements}. Defaults to \code{"specs"}.
+#'   name(s), the \code{numeric} index of the sheet position, or \code{NULL}
+#'   (for no required sheet names, and to include docx files). Only one sheet
+#'   name or index should be provided to \code{read_requirements}. Defaults to
+#'   \code{"specs"}, so `sheet = NULL` must be used to match the latest docx
+#'   file.
+#' @inheritParams read_docx_tables
 #' @param date_format \code{character} indicating the format of the date.
 #'   Defaults to the year-month-day format \code{"ymd"}.
 #' @param subset an expression that returns a logical value and is defined in
@@ -35,8 +41,13 @@
 #'   "qc" or "marked" in the filename.
 #' @param variable_name_col,variable_label_col,decode_col \code{character}
 #'   column names in the data requirements that describe the variable names,
-#'   their labels, and their decodes.
-#' @param ... optional arguments passed to \code{\link[openxlsx]{read.xlsx}}.
+#'   their labels, and their decodes. These should match results after
+#'   transformations performed by \code{make_clean_names_fn}.
+#' @param make_clean_names_fn a function/formula that cleans/transforms the
+#'   original variable names. Defaults to
+#'   \code{\link[janitor]{make_clean_names}}.
+#' @param ... optional arguments passed to either
+#'   \code{\link[openxlsx]{read.xlsx}} or \code{\link[docxtractr]{read_docx}}.
 #' 
 #' @name requirements
 #' 
@@ -48,8 +59,21 @@
 #' # specify a particular file and sheet
 #' reqs <- read_requirements(path = "requirements.xlsx", sheet = 1)
 #' 
+#' # read the latest docx requirements file
+#' reqs <- read_requirements(
+#'   pattern = "req.*docx",
+#'   sheet = NULL, 
+#'   docx_header_pattern = stringr::regex("variable", ignore_case = TRUE)
+#' )
+#' 
+#' # apply attributes to an existing data frame
+#' reqs <- as_requirements(reqs_df)
+#' 
 #' # get all available requirements files
 #' available_requirements_table()
+#' 
+#' # include docx files in search
+#' available_requirements_table(sheet = NULL)
 #' 
 #' # only include requirements with a specs sheet
 #' available_requirements_table(sheet = "specs")
@@ -69,11 +93,13 @@ read_requirements <- function(
     path = ".",
     pattern = "req",
     sheet = "specs",
+    docx_header_pattern = NULL,
     date_format = c("ymd", "mdy", "dmy"),
     subset = NULL,
     variable_name_col = "variable_name",
     variable_label_col = "variable_label",
     decode_col = "format_decode",
+    make_clean_names_fn = janitor::make_clean_names,
     ...
   ) {
   
@@ -84,18 +110,27 @@ read_requirements <- function(
     msg = "`path` should be a single existing file or directory."
   )
   
-  assertthat::assert_that(
-    length(sheet) == 1,
-    is.character(sheet) || is.numeric(sheet),
-    msg = "`sheet` should be a single sheet name or index."
-  )
-  
-  # set visible bindings
-  modified <- date <- NULL
+  if(!is.null(sheet)) {
+    assertthat::assert_that(
+      length(sheet) == 1,
+      is.character(sheet) || is.numeric(sheet),
+      msg = "`sheet` should be a single sheet name, numeric index, or NULL."
+    )
+  }
   
   # if a directory was provided, select the appropriate file.
   # this will update path from a directory to the latest requirements file.
   if(dir.exists(path)) {
+    
+    # set visible bindings
+    modified <- date <- NULL
+    
+    if(!is.null(docx_header_pattern) && !is.null(sheet)) {
+      cli::cli_alert_warning(c(
+        "Both {.arg docx_header_pattern} and {.arg sheet} are defined as not NULL. ",
+        "{.code sheet = NULL} is required to search for docx tables."
+      ))
+    }
     
     requirements_table <- available_requirements_table(
       path = path,
@@ -123,35 +158,69 @@ read_requirements <- function(
         dplyr::pull(path)
     }
     
-    # set sheet character version (for reporting)
-    sheet_names <- openxlsx::getSheetNames(path)
-    sheet_name <- ifelse(is.character(sheet), sheet, sheet_names[sheet])
-    
     # report information about detected file
     cli::cli_alert_success("Detected requirements file: {.file {basename(path)}}")
-    cli::cli_alert_info("Modification time: {file.mtime(path)}")
+    
+  } else {
+    cli::cli_alert_success("Requirements file: {.file {basename(path)}}")
+  }
+  
+  cli::cli_alert_info("Modification time: {file.mtime(path)}")
+  
+  path_is_docx <- identical(tolower(fs::path_ext(path)), "docx")
+  
+  if(isTRUE(path_is_docx)) {
+    sheet_name <- sheet_names <- NULL
+  } else {
+    sheet_names <- openxlsx::getSheetNames(path)
+    sheet_name <- ifelse(is.character(sheet), sheet, sheet_names[sheet])
     if(is.na(sheet_name)) {
       cli::cli_alert_info("Available sheet names: {.val {sheet_names}}")
     } else {
       cli::cli_alert_info("Sheet name: {.val {sheet_name}}")
     }
-    
   }
   
   assertthat::assert_that(
     length(path) == 1,
     is.character(path),
     file.exists(path),
-    stringr::str_detect(tolower(tools::file_ext(path)), "xls"),
-    msg = "`path` should be a single existing Excel file."
+    stringr::str_detect(tolower(fs::path_ext(path)), "xls|docx"),
+    msg = "`path` should be a single existing Excel file or docx file."
   )
   
-  requirements <- openxlsx::read.xlsx(
-    path,
-    sheet = sheet,
-    ...
-  ) %>% 
-    janitor::clean_names()
+  if(isTRUE(path_is_docx)) {
+    requirements <- read_docx_tables(
+      path = path,
+      docx_header_pattern = docx_header_pattern,
+      ...
+    )
+  } else {
+    requirements <- openxlsx::read.xlsx(
+      path,
+      sheet = sheet,
+      ...
+    )
+  }
+  
+  # apply naming function
+  if(!is.null(make_clean_names_fn)) {
+    if(inherits(make_clean_names_fn, "function")) {
+      # function: apply the function with the requirements data frame as input.
+      names(requirements) <- do.call(make_clean_names_fn, args = list(names(requirements)))
+    } else if(inherits(make_clean_names_fn, "formula")) {
+      # formula: convert to function then apply with requirements data frame as input.
+      names(requirements) <- do.call(
+        what = rlang::as_function(make_clean_names_fn),
+        args = list(names(requirements))
+      )
+    } else {
+      cli::cli_warn(c(
+        "No renaming method defined in {.fun read_requirements} for class {.class {class(make_clean_names_fn)}}.",
+        "Names will be returned as-is."
+      ))
+    }
+  }
   
   # variables to drop from the requirements. 
   # (based on internal experience, some historical)
@@ -187,13 +256,38 @@ read_requirements <- function(
   }
   rm(requirements_subset)
   
-  
   # attempt to apply various attributes
+  requirements <- as_requirements(
+    .data = requirements,
+    variable_name_col = variable_name_col,
+    variable_label_col = variable_label_col,
+    decode_col = decode_col
+  )
+  
+  attr(requirements, "path") <- path
+  
+  structure(requirements, class = unique(c("requirements", class(requirements))))
+  
+}
+
+
+#' @rdname requirements
+#' 
+#' @param .data data frame to apply requirements attributes to.
+#' 
+#' @export
+as_requirements <- function(
+    .data,
+    variable_name_col = "variable_name",
+    variable_label_col = "variable_label",
+    decode_col = "format_decode"
+) {
+  
   if(!is.null(variable_name_col)) {
-    variable_name <- requirements[[variable_name_col]]
+    variable_name <- .data[[variable_name_col]]
     if(is.null(variable_name)) {
       cli::cli_warn(
-        "The imported data requirements do not include a variable called {.var {variable_name_col}}"
+        "No variable called {.var {variable_name_col}}"
       )
     }
   } else {
@@ -201,10 +295,10 @@ read_requirements <- function(
   }
   
   if(!is.null(variable_label_col)) {
-    variable_label <- requirements[[variable_label_col]]
+    variable_label <- .data[[variable_label_col]]
     if(is.null(variable_label)) {
       cli::cli_warn(
-        "The imported data requirements do not include a variable called {.var {variable_label_col}}"
+        "No variable called {.var {variable_label_col}}"
       )
     }
   } else {
@@ -212,14 +306,27 @@ read_requirements <- function(
   }
   
   if(!is.null(decode_col)) {
-    decode <- requirements[[decode_col]]
+    decode <- .data[[decode_col]]
     if(is.null(decode)) {
       cli::cli_warn(
-        "The imported data requirements do not include a variable called {.var {decode_col}}"
+        "No variable called {.var {decode_col}}"
       )
     }
   } else {
     decode <- NULL
+  }
+  
+  # warn about long names.
+  if(!is.null(variable_name)) {
+    long_names <- nchar(variable_name) > 8
+    long_names[is.na(long_names)] <- FALSE
+    if(any(long_names)) {
+      cli::cli_warn(
+        c(
+          "{length(long_names)} variables with names longer than 8 characters: {.val {variable_name[long_names]}}"
+        )
+      )
+    }
   }
   
   # attempt to apply labels_named_list attribute
@@ -228,9 +335,10 @@ read_requirements <- function(
     long_labels <- nchar(variable_label) > 40
     long_labels[is.na(long_labels)] <- FALSE
     if(any(long_labels)) {
+      # warning provides variable names for the long labels.
       cli::cli_warn(
         c(
-          "Data requirements include variables with labels greater than 40 characters: {.val {variable_label[long_labels]}}"
+          "{length(long_labels)} variables with labels longer than 40 characters: {.val {variable_name[long_labels]}}"
         )
       )
     }
@@ -240,7 +348,7 @@ read_requirements <- function(
     labels_named_list <- as.list(variable_label[!remove_labels_lgl])
     names(labels_named_list) <- variable_name[!remove_labels_lgl]
     
-    attr(requirements, "labels_named_list") <- labels_named_list
+    attr(.data, "labels_named_list") <- labels_named_list
     cli::cli_alert_success("Applied the {.val labels_named_list} attribute")
   }
   
@@ -265,16 +373,14 @@ read_requirements <- function(
         )
       )
     } else {
-      attr(requirements, "decode_tbls") <- requirements_decode_tbls
+      attr(.data, "decode_tbls") <- requirements_decode_tbls
       cli::cli_alert_success("Applied the {.val decode_tbls} attribute")
     }
     rm(requirements_decode_tbls)
     
   }
   
-  attr(requirements, "path") <- path
-  
-  structure(requirements, class = unique(c("requirements", class(requirements))))
+  structure(.data, class = unique(c("requirements", class(.data))))
   
 }
 
@@ -343,15 +449,18 @@ available_requirements_table <- function(
   }
   
   # this function family is only designed to work with certain types of files.
-  # currently, only excel files are supported.
-  path_matches <- path_matches[stringr::str_detect(tolower(tools::file_ext(path_matches)), "xls")]
+  # currently, only excel and word (docx only) files are supported.
+  path_matches <- path_matches[stringr::str_detect(tolower(fs::path_ext(path_matches)), "xls|docx")]
   
   # remove 'tilde' files that start with '~' (indication that the file is or
   # has been open, but not the valid excel file we are looking for).
   path_matches <- path_matches[stringr::str_detect(basename(path_matches), "^~", negate = TRUE)]
   
+  # message when no matching files are found.
+  no_files_found_message <- "No matching requirements files were found. Supported file types are Excel files and docx files."
+  
   if(length(path_matches) == 0) {
-    cli::cli_warn("No matching Excel requirements files were found.")
+    cli::cli_warn(no_files_found_message)
     return(invisible(requirements_table))
   }
   
@@ -405,7 +514,9 @@ available_requirements_table <- function(
     dplyr::rowwise() %>%
     dplyr::mutate(
       date = dplyr::coalesce(path_date, lubridate::date(modified)),
-      sheets = list(openxlsx::getSheetNames(path)),
+      sheets = list(
+        if(stringr::str_detect(tolower(fs::path_ext(path)), "xls")) openxlsx::getSheetNames(path)
+      ),
       is_qc = stringr::str_detect(tolower(basename(path)), "qc|marked")
     ) %>% 
     dplyr::ungroup()
@@ -416,7 +527,8 @@ available_requirements_table <- function(
       dplyr::filter(!is_qc)
   }
   
-  # subset to requested sheets
+  # subset to requested sheets.
+  # user needs to intentionally pass `sheet = NULL` to include docx files.
   if(!is.null(sheet)) {
     
     if(is.character(sheet)) {
@@ -431,7 +543,7 @@ available_requirements_table <- function(
   }
   
   if(nrow(requirements_table) == 0) {
-    cli::cli_warn("No matching Excel requirements files were found.")
+    cli::cli_warn(no_files_found_message)
     return(invisible(requirements_table))
   }
   
@@ -443,13 +555,17 @@ available_requirements_table <- function(
 # example requirements ----------------------------------------------------
 
 # intended to be used for testing and in the vignette
-example_requirements <- tibble::tribble(
-  ~variable_name, ~variable_label,             ~pk_ard, ~pk_mif, ~format_decode, 
-  "STUDYID",      "Study Identifier",          "x",     NA,      NA,
-  "USUBJID",      "Unique Subject Identifier", "x",     NA,      NA,
-  "ID",           "Subject ID",                "x",     "x",     NA,
-  "AGECAT",       "Baseline Age Category",     "x",     "x",     "1=18-50\n2=51-69\n3=70+",
-  "RACEN",        "Race",                      "x",     "x",     "1=White/Caucasian\n2=Black/African American\n3=Asian-Japanese\n4=Asian-Korean\n5=Asian-other\n6=American Indian or Alaska Native\n7=Native Hawaiian or Other Pacific Islander\n8=Other",
-  "SEXF",         "Sex",                       "x",     "x",     "0=Male\n1=Female",
-  "FED",          "Fed",                       "x",     "x",     "0=Fasted\n1=Fed"
-)
+example_requirements <- suppressMessages({
+  as_requirements(
+    tibble::tribble(
+      ~variable_name, ~variable_label,             ~pk_ard, ~pk_mif, ~format_decode, 
+      "STUDYID",      "Study Identifier",          "x",     NA,      NA,
+      "USUBJID",      "Unique Subject Identifier", "x",     NA,      NA,
+      "ID",           "Subject ID",                "x",     "x",     NA,
+      "AGECAT",       "Baseline Age Category",     "x",     "x",     "1=18-50\n2=51-69\n3=70+",
+      "RACEN",        "Race",                      "x",     "x",     "1=White/Caucasian\n2=Black/African American\n3=Asian-Japanese\n4=Asian-Korean\n5=Asian-other\n6=American Indian or Alaska Native\n7=Native Hawaiian or Other Pacific Islander\n8=Other",
+      "SEXF",         "Sex",                       "x",     "x",     "0=Male\n1=Female",
+      "FED",          "Fed",                       "x",     "x",     "0=Fasted\n1=Fed"
+    )
+  )
+})

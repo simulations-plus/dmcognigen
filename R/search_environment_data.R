@@ -33,7 +33,7 @@ search_environment_data <- function(
     search_variable_content = TRUE
 ) {
   
-  if(!inherits(pattern, c("fixed", "stringr_fixed", "regex", "stringr_fixed"))) {
+  if(!inherits(pattern, c("fixed", "stringr_fixed", "regex", "stringr_regex"))) {
     if(length(pattern) != 1) {
       cli::cli_abort(
         "{.arg pattern} must be one of: {.fn stringr::regex}, {.fn stringr::fixed}, or a single character pattern."
