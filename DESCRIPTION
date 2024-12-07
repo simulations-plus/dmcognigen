@@ -28,6 +28,7 @@ Imports:
     admiraldev,
     assertthat,
     cli,
+    docxtractr,
     dplyr,
     glue,
     janitor,

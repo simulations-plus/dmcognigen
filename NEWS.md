@@ -2,6 +2,8 @@
 
 * Updated example data sets `dmcognigen_cov` and `dmcognigen_conc` to use source data from the {pharmaversesdtm} package.
 * Added example data sets `dmcognigen_dose` and `dmcognigen_pk`.
+* Added support for reading tables from Word files with `read_docx_tables()` and `read_requirements()`.
+* Added a method to apply requirements attributes to an existing data frame with `as_requirements()`.
 * Fixed bug in `search_environment_data()` where evaluating some objects that are not data frames resulted in an error.
 * Updated `search_environment_data()` so each search type is optional.
 * Updated `cnt_search_result()` to optionally ignore results by name.
