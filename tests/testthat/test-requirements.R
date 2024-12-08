@@ -1,4 +1,4 @@
-reqs_to_write <- example_requirements
+reqs_to_write <- dmcognigen_pk_requirements
 
 asmbdat_directory <- file.path(tempdir(), "asmbdat")
 dir.create(asmbdat_directory, showWarnings = FALSE)

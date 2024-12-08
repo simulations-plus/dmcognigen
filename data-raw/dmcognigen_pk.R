@@ -3,25 +3,29 @@
 library(dplyr)
 library(tidyr)
 
-new_variable_labels <- c(
-  ONUM = "Overall Sequence Number",
-  NUM = "Sequence Number",
-  TSFD = "Time Since First Dose (h)",
-  TSPD = "Time Since Previous Dose (h)",
-  NTSFD = "Nominal Time Since First Dose (h)",
-  NTSPD = "Nominal Time Since Previous Dose (h)",
-  DNCP = "Dose-Norm Xanomeline Conc (ug/mL/mg)"
-)
+
+# requirements ------------------------------------------------------------
+
+data("dmcognigen_pk_requirements")
+requirements <- dmcognigen_pk_requirements
+
+# for reference
+requirements_decode_tbls <- as_decode_tbls(requirements)
+
+requirements_decode_tbls
 
 
 # data --------------------------------------------------------------------
 
+data("dmcognigen_cov")
 cov <- dmcognigen_cov
 cov_labels <- purrr::map_chr(cov, attr, which = "label")
 
+data("dmcognigen_conc")
 conc <- dmcognigen_conc
 conc_labels <- purrr::map_chr(conc, attr, which = "label")
 
+data("dmcognigen_dose")
 dose <- dmcognigen_dose
 dose_labels <- purrr::map_chr(dose, attr, which = "label")
 
@@ -69,7 +73,7 @@ pk <- bind_rows(
   arrange(USUBJID, DTTM, EVID)
 
 pk %>% 
-  cnt(n_distinct_vars = USUBJID)
+  cnt(STUDYID, n_distinct_vars = USUBJID)
 
 pk %>% 
   cnt(DVID, DVIDC, EVID, MDV, n_distinct_vars = USUBJID)
@@ -98,6 +102,9 @@ pk <- pk %>%
       select(-c(DOMAIN)),
     by = c("STUDYID", "USUBJID")
   )
+
+pk %>% 
+  cnt(STUDYID, n_distinct_vars = c(USUBJID, ID))
 
 pk %>% 
   cnt(ACTARMCD, ACTARM, EVID, n_distinct_vars = USUBJID)
@@ -241,24 +248,31 @@ pk <- pk %>%
   )
 
 
+# join decodes ------------------------------------------------------------
+
+# not expecting many new variables because they were merged in interim data sets  
+
+pk <- pk %>%
+  join_decode_labels(
+    decode_tbls = requirements,
+    lvl_to_lbl = list(
+      "{var}C",
+      RACEN = "RACEC"
+    )
+  )
+
+
 # labels and variable order -----------------------------------------------
 
 dmcognigen_pk <- pk %>%
-  # ideally, the manual variable order below will be replaced based on data
-  # requirements designed for this example dataset.
-  relocate(any_of(stringr::str_subset(names(cov), "^DM", negate = TRUE)), .after = USUBJID) %>% 
-  relocate(any_of(stringr::str_subset(names(dose), "^EX", negate = TRUE)), .after = USUBJID) %>% 
-  relocate(any_of(stringr::str_subset(names(conc), "^PC", negate = TRUE)), .after = USUBJID) %>% 
   relocate(
-    any_of(c(
-      "ONUM", "NUM", "STUDYID", "USUBJID", "TSFD", "TSPD", "NTSFD", "NTSPD"
-    )),
+    any_of(requirements$variable_name),
     .before = 1
   ) %>% 
   set_labels(cov_labels) %>%
   set_labels(conc_labels) %>%
   set_labels(dose_labels) %>%
-  set_labels(new_variable_labels)
+  set_labels(requirements)
 
 # don't include variables without a label
 missing_labels <- purrr::map(dmcognigen_pk, attr, which = "label") %>% 

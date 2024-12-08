@@ -1,7 +1,8 @@
 # dmcognigen (development version)
 
+* Added `set_decode_factors()` function to modify or create new factor variables based on `decode_tbls`.
 * Updated example data sets `dmcognigen_cov` and `dmcognigen_conc` to use source data from the {pharmaversesdtm} package.
-* Added example data sets `dmcognigen_dose` and `dmcognigen_pk`.
+* Added example data sets `dmcognigen_dose`, `dmcognigen_pk`, and `dmcognigen_pk_requirements`.
 * Added support for reading tables from Word files with `read_docx_tables()` and `read_requirements()`.
 * Added a method to apply requirements attributes to an existing data frame with `as_requirements()`.
 * Fixed bug in `search_environment_data()` where evaluating some objects that are not data frames resulted in an error.

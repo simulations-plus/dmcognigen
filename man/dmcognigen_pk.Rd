@@ -5,7 +5,7 @@
 \alias{dmcognigen_pk}
 \title{PK Dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 101 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3556 rows and 105 columns.
 }
 \usage{
 dmcognigen_pk

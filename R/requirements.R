@@ -550,22 +550,3 @@ available_requirements_table <- function(
   requirements_table
   
 }
-
-
-# example requirements ----------------------------------------------------
-
-# intended to be used for testing and in the vignette
-example_requirements <- suppressMessages({
-  as_requirements(
-    tibble::tribble(
-      ~variable_name, ~variable_label,             ~pk_ard, ~pk_mif, ~format_decode, 
-      "STUDYID",      "Study Identifier",          "x",     NA,      NA,
-      "USUBJID",      "Unique Subject Identifier", "x",     NA,      NA,
-      "ID",           "Subject ID",                "x",     "x",     NA,
-      "AGECAT",       "Baseline Age Category",     "x",     "x",     "1=18-50\n2=51-69\n3=70+",
-      "RACEN",        "Race",                      "x",     "x",     "1=White/Caucasian\n2=Black/African American\n3=Asian-Japanese\n4=Asian-Korean\n5=Asian-other\n6=American Indian or Alaska Native\n7=Native Hawaiian or Other Pacific Islander\n8=Other",
-      "SEXF",         "Sex",                       "x",     "x",     "0=Male\n1=Female",
-      "FED",          "Fed",                       "x",     "x",     "0=Fasted\n1=Fed"
-    )
-  )
-})

@@ -24,6 +24,9 @@ NULL
 #' @keywords internal
 decode_tbl <- function(x = tibble::tibble()) {
   
+  # set visible bindings
+  var <- lvl <- NULL
+  
   required_var_names <- c("var", "lvl", "lbl")
   
   empty_decode_tbl <- function() {
@@ -57,7 +60,7 @@ decode_tbl <- function(x = tibble::tibble()) {
   }
   
   # retain original class of x
-  structure(xx, class = unique(c("decode_tbl", class(x))))
+  structure(dplyr::arrange(xx, var, lvl), class = unique(c("decode_tbl", class(x))))
 }
 
 
@@ -121,6 +124,12 @@ validate_decode_tbl <- function(x = tibble::tibble()) {
 #' @rdname decode_tbls
 #' @export
 as_decode_tbls <- function(x = list()) {
+  
+  if(inherits(x, "decode_tbl")) {
+    x <- list(x)
+  } else if(!is.null(attr(x, "decode_tbls"))) {
+    x <- attr(x, "decode_tbls")
+  }
   
   if(!is.list(x)) {
     cli::cli_abort(c("x" = "{.arg x} must be a list."))

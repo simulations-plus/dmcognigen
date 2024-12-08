@@ -22,7 +22,6 @@ Suggests:
     haven,
     rmarkdown,
     testthat (>= 3.0.0),
-    fs,
     htmltools
 Imports: 
     admiraldev,
@@ -30,6 +29,7 @@ Imports:
     cli,
     docxtractr,
     dplyr,
+    fs,
     glue,
     janitor,
     lubridate,

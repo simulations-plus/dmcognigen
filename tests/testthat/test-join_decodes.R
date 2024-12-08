@@ -1,8 +1,5 @@
 
-decodes <- extract_decode_tbls(
-  variable_name = example_requirements$variable_name, 
-  decode = example_requirements$format_decode
-)
+decodes <- as_decode_tbls(dmcognigen_pk_requirements)
 
 
 # join_decodes_labels -----------------------------------------------------

@@ -4,20 +4,16 @@ library(dplyr)
 library(tidyr)
 library(lubridate)
 
-new_variable_labels <- c(
-  DTTM = "Date/Time",
-  DVID = "Observation Type",
-  DVIDC = "Observation Type",
-  EVID = "Event ID",
-  MDV = "Missing Dependent Variable",
-  DOSE = "Dose (mg)",
-  TRT = "Treatment",
-  ROUTE = "Route of Administration",
-  AMT = "Amount (mg)",
-  FDDTTM = "First Dose Date/Time",
-  EDDTTM = "Last Dose Date/Time",
-  DAY = "Day"
-)
+
+# requirements ------------------------------------------------------------
+
+data("dmcognigen_pk_requirements")
+requirements <- dmcognigen_pk_requirements
+
+# for reference
+requirements_decode_tbls <- as_decode_tbls(requirements)
+
+requirements_decode_tbls[c("EVID", "DVID", "MDV")]
 
 
 # from ex -----------------------------------------------------------------
@@ -47,7 +43,6 @@ dose <- pharmaversesdtm::ex %>%
     TRT = EXTRT,
     EVID = 1,
     DVID = 0,
-    DVIDC = "Dose",
     MDV = 1,
     DAY = EXSTDY
   ) %>%
@@ -91,11 +86,28 @@ dose %>%
   cnt(EDDTTM == FDDTTM, VISIT, DOSE, n_distinct_vars = USUBJID)
 
 
+# join decodes ------------------------------------------------------------
+
+dose <- dose %>%
+  join_decode_labels(
+    decode_tbls = requirements,
+    lvl_to_lbl = "{var}C"
+  )
+
+
 # labels and variable order -----------------------------------------------
 
 dmcognigen_dose <- dose %>% 
-  relocate(any_of(names(new_variable_labels)), .after = USUBJID) %>% 
-  set_labels(new_variable_labels)
+  relocate(any_of(requirements$variable_name), .after = USUBJID) %>% 
+  set_labels(requirements)
+
+# don't include variables without a label
+missing_labels <- purrr::map(dmcognigen_dose, attr, which = "label") %>% 
+  purrr::keep(is.null) %>% 
+  names()
+
+dmcognigen_dose <- dmcognigen_dose %>% 
+  select(-any_of(missing_labels))
 
 # dataset label
 attr(dmcognigen_dose, "label") <- "CDISCPILOT01 Doses"
