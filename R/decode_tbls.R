@@ -125,6 +125,12 @@ validate_decode_tbl <- function(x = tibble::tibble()) {
 #' @export
 as_decode_tbls <- function(x = list()) {
   
+  if(inherits(x, "decode_tbl")) {
+    x <- list(x)
+  } else if(!is.null(attr(x, "decode_tbls"))) {
+    x <- attr(x, "decode_tbls")
+  }
+  
   if(!is.list(x)) {
     cli::cli_abort(c("x" = "{.arg x} must be a list."))
   }

@@ -68,7 +68,7 @@ join_decode_levels <- function(.data, decode_tbls, lvl_to_lbl = "{var}C", ...) {
   )
   
   if(inherits(decode_tbls, "requirements")) {
-    decode_tbls <- attr(decode_tbls, "decode_tbls")
+    decode_tbls <- as_decode_tbls(decode_tbls)
   } else if(inherits(decode_tbls, "decode_tbl")) {
     decode_tbls <- as_decode_tbls(list(decode_tbls))
   }
@@ -177,11 +177,7 @@ join_decode_levels <- function(.data, decode_tbls, lvl_to_lbl = "{var}C", ...) {
 #' @export
 decode_tbls_lvl_to_lbl <- function(decode_tbls, lvl_to_lbl = "{var}C") {
   
-  if(inherits(decode_tbls, "requirements")) {
-    decode_tbls <- attr(decode_tbls, "decode_tbls")
-  } else if(inherits(decode_tbls, "decode_tbl")) {
-    decode_tbls <- as_decode_tbls(list(decode_tbls))
-  }
+  decode_tbls <- as_decode_tbls(decode_tbls)
   
   assertthat::assert_that(
     inherits(decode_tbls, "decode_tbls")
