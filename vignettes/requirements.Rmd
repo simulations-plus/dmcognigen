@@ -1,8 +1,8 @@
 ---
-title: "Leverage data requirements"
+title: "Data requirements"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Leverage data requirements}
+  %\VignetteIndexEntry{Data requirements}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,32 +17,33 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(dmcognigen)
 library(dplyr)
+
+data("dmcognigen_pk_requirements")
+
+data("dmcognigen_cov")
+data("dmcognigen_pk")
 ```
 
 # Introduction
 
-Data requirements are specifications of a desired dataset, describing expected variables, their labels, and their content. Generally, we document the requirements for a dataset within an Excel file where one of the sheets provides information about desired variables.  Other sheets contain a variety of supporting information.
+Data requirements are specifications of a dataset.
+They describe required variables with varying details like variable label, type, description, source, formula, rounding specifications, and relationships to other variables. 
 
-For the purposes of this vignette, consider an Excel file that includes a sheet with the below table:
-```{r echo=FALSE}
-reqs_to_write <- dmcognigen:::example_requirements
+Generally, the requirements are maintained in a file. 
+These functions support gathering and applying this information from Excel files, Word (docx) tables, or a `data.frame`. 
 
-reqs_to_write
-```
-
-Where the variables names indicate:
+For the purposes of this vignette, consider files in a directory that include tables with these variables:
 ```{r echo=FALSE}
 tibble::tribble(
   ~name,             ~description,
   "variable_name",   "Variable Name",
   "variable_label",  "Variable Label",
-  "pk_ard",          "Whether to keep the variable in the Analysis Ready Dataset",
-  "pk_mif",          "Whether to keep the variable in the Model Input File",
-  "format_decode",   "Name/Value pairs of decodes, also referred to as formats"
+  "pk_ard",          "Whether the variable is in the Analysis Ready Dataset",
+  "pk_mif",          "Whether the variable is in the Model Input File",
+  "format_decode",   "Pairs of (generally) numeric values and descriptions"
 ) %>% 
-  print.data.frame()
+  print.data.frame(row.names = FALSE)
 ```
-
 
 # Identify data requirements files
 
@@ -60,32 +61,36 @@ dir.create(asmbdat_directory, showWarnings = FALSE)
 
 # pretend that a long time ago, we didn't name the specs tab
 openxlsx::write.xlsx(
-  reqs_to_write,
+  dmcognigen_pk_requirements,
   file = file.path(asmbdat_directory, "data-requirements-2019-12-01.xlsx")
 )
 
 openxlsx::write.xlsx(
-  list(specs = reqs_to_write),
+  list(specs = dmcognigen_pk_requirements),
   file = file.path(asmbdat_directory, "data-requirements-2020-01-01.xlsx")
 )
 
 # include additional sheet (empty)
 openxlsx::write.xlsx(
-  list(specs = reqs_to_write, unit_conversions = data.frame()),
+  list(specs = dmcognigen_pk_requirements, unit_conversions = data.frame()),
   file = file.path(asmbdat_directory, "data-requirements-2020-01-10.xlsx")
 )
 
 # include another additional sheet (empty)
+# this is intended to be the latest version.
 openxlsx::write.xlsx(
-  list(specs = reqs_to_write, unit_conversions = data.frame(), discussions = data.frame()),
-  file = file.path(asmbdat_directory, "data-requirements-2020-01-20.xlsx")
+  list(specs = dmcognigen_pk_requirements, unit_conversions = data.frame(), discussions = data.frame()),
+  file = file.path(asmbdat_directory, paste0("data-requirements-", lubridate::today(), ".xlsx"))
 )
 
 # copy of the requirements for QC purposes
 openxlsx::write.xlsx(
-  list(specs = reqs_to_write, unit_conversions = data.frame(), discussions = data.frame(), qc_findings = data.frame()),
-  file = file.path(asmbdat_directory, "qc-data-requirements-2020-01-20.xlsx")
+  list(specs = dmcognigen_pk_requirements, unit_conversions = data.frame(), discussions = data.frame(), qc_findings = data.frame()),
+  file = file.path(asmbdat_directory, paste0("qc-data-requirements-", lubridate::today(), ".xlsx"))
 )
+
+# empty docx file to demonstrate including docx in searches
+file.create(file.path(asmbdat_directory, "legacy-data-requirements-2000-01-01.docx"))
 ```
 
 ```{r echo=FALSE}
@@ -97,26 +102,35 @@ if(requireNamespace("fs", quietly = TRUE)) {
 }
 ```
 
-Use the `available_requirements_table()` function to collect information about multiple data requirements files. Excel files that match the `pattern` and have the required `sheet` names or positions will be kept. By default, the required sheet name is `"specs"`.
+Use the `available_requirements_table()` function to collect information about multiple data requirements files. 
+Supported files that match the `pattern` and have the required `sheet` names or positions will be kept. 
+By default, the required sheet name is `"specs"`.
+
+The resulting table can be used to identify the desired version of the data requirements file to pass to the `read_requirements()` function. 
+
 ```{r}
 available_requirements_table(
   path = asmbdat_directory,
   pattern = "req"
 ) %>% 
+  select(-c(created, modified)) %>% 
   print.data.frame()
 ```
 
-Use `sheet = NULL` for no required sheet names.
+Use `sheet = NULL` for no required sheet names. 
+This is required to include docx files in these searches.
 ```{r}
 available_requirements_table(
   path = asmbdat_directory,
   pattern = "req",
   sheet = NULL
-) %>% 
+) %>%
+  select(-c(created, modified)) %>% 
   print.data.frame()
 ```
 
-Use `drop_qc = FALSE` to include versions of the data requirements used for QC. These files are ignored otherwise.
+Use `drop_qc = FALSE` to include versions of the data requirements used for QC. 
+These files are ignored otherwise.
 ```{r}
 available_requirements_table(
   path = asmbdat_directory,
@@ -124,14 +138,15 @@ available_requirements_table(
   sheet = NULL,
   drop_qc = FALSE
 ) %>% 
+  select(-c(created, modified)) %>% 
   print.data.frame()
 ```
 
-The resulting table can be used to identify the desired version of the data requirements file to pass to the `read_requirements()` function. 
-
 # Read data requirements
 
-By default, `read_requirements()` will read the latest version of the matching data requirements files in the working directory. The latest version is selected as the file with the most recent date in the filename. If no dates are detected in the filenames, the matching file with the most recent modification time is selected.
+If no `path` is provided, `read_requirements()` will read the latest version of the matching data requirements files in the working directory. 
+The latest version is selected as the file with the most recent date in the filename. 
+If no dates are detected in the filenames, the matching file with the most recent modification time is selected. 
 ```{r}
 requirements <- read_requirements(asmbdat_directory)
 glimpse(requirements)
@@ -146,48 +161,59 @@ requirements_pk_mif <- read_requirements(
 glimpse(requirements_pk_mif)
 ```
 
+Use `as_requirements()` to apply requirements attributes to an existing data frame:
+```{r}
+requirements_pk_mif_with_as <- as_requirements(
+  as.data.frame(requirements_pk_mif)
+)
+identical(requirements_pk_mif_with_as, requirements_pk_mif)
+```
+
+
 ## Attributes
 
-When possible, additional attributes are assigned to the result of `read_requirements()`. These attributes have use-cases for various stages of data assembly.
+When possible, additional attributes are assigned to the result of `read_requirements()` and `as_requirements()`. 
+Resulting `requirements` objects can be used directly in other functions in this package to apply these attributes. 
 
 ### decode_tbls
 
-This attribute will be set if the `variable_name_col` and `decode_col` arguments are defined and variables with those names exist in the imported requirements. 
+This attribute will be set if the `variable_name_col` and `decode_col` arguments are defined and those variables are in requirements. 
+
+See more details on using `decode_tbls` in the [Decodes vignette](decodes.html).
 
 ```{r}
 attr(requirements, "decode_tbls")
 ```
 
-Or the `decode_tbls` can can be extracted:
+
+#### Join decodes
+
+To join new variables to a data set based on `decode_tbls` or `requirements` objects, use `join_decode_labels()` or `join_decode_levels()`.
 ```{r}
-extracted_requirements_decode_tbls <- extract_decode_tbls(
-  variable_name = requirements$variable_name, 
-  decode = requirements$format_decode
-)
-identical(attr(requirements, "decode_tbls"), extracted_requirements_decode_tbls)
+dmcognigen_pk %>% 
+  select(USUBJID, RACEN, SEXF) %>% 
+  join_decode_labels(dmcognigen_pk_requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
+  cnt(RACEN, RACEC, SEXF, SEXFC, n_distinct_vars = USUBJID)
 ```
 
-This attribute can be used to create new variables based on shared names between the data and `decode_tbls`.
-```{r}
-# shared variables
-variables_with_decodes <- intersect(names(extracted_requirements_decode_tbls), names(dmcognigen_cov))
-variables_with_decodes
-```
 
-The default new name will be the original name appended with a C. Or, use `lvl_to_lbl` to provide a named list that can include other glue specifications or functions to map the level names to the label names. One unnamed element can be included in `lvl_to_lbl` to provide default behavior.
+#### Create or modify variables as factors
+
+Use `set_decode_factors()` to either modify variables in-place or create new variables. 
 ```{r}
 dmcognigen_cov %>% 
-  select(USUBJID, RACEN, SEXF) %>% 
-  join_decode_labels(requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
-  cnt(RACEN, RACEC, SEXF, SEXFC)
+  set_decode_factors(requirements, new_names = list(RACEN = "RACEN", "{var}FCT")) %>% 
+  cnt(RACEN, across(ends_with("FCT")), n_cumulative = FALSE)
 ```
+
 
 ### labels_named_list
 
-This attribute will be set if the `variable_name_col` and `variable_label_col` arguments are defined and variables with those names exist in the imported requirements. 
-
+This attribute will be set if the `variable_name_col` and `variable_label_col` arguments are defined and those variables are in the `requirements`. 
+The `requirements` can be used directly in `set_labels()` or the attribute can be extracted and possibly modified.
 ```{r}
-attr(requirements, "labels_named_list")
+attr(requirements, "labels_named_list") %>% 
+  head()
 ```
 
 ```{r include=FALSE}
@@ -199,7 +225,7 @@ dmcognigen_cov_labels_removed <- dmcognigen_cov %>%
   select(STUDYID, USUBJID, RACEN)
 ```
 
-This attribute can be used in the `set_labels()` function, or the imported requirements can be used:
+Apply the labels to a data set:
 ```{r}
 dmcognigen_cov_labels_removed %>% 
   str()
@@ -209,4 +235,3 @@ dmcognigen_cov_labels_removed %>%
   set_labels(labels = requirements) %>% 
   str()
 ```
-
