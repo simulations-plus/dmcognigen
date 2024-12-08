@@ -94,12 +94,7 @@ file.create(file.path(asmbdat_directory, "legacy-data-requirements-2000-01-01.do
 ```
 
 ```{r echo=FALSE}
-# list the files, preferably with fs::dir_tree
-if(requireNamespace("fs", quietly = TRUE)) {
-  fs::dir_tree(asmbdat_directory)
-} else {
-  list.files(asmbdat_directory)
-}
+fs::dir_tree(asmbdat_directory)
 ```
 
 Use the `available_requirements_table()` function to collect information about multiple data requirements files. 
