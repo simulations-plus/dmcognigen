@@ -111,9 +111,7 @@ join_decode_levels <- function(.data, decode_tbls, lvl_to_lbl = "{var}C", ...) {
     # when joining labels, confirm level exists and label does not exist.
     # when joining levels, confirm label exists and level does not exist.
     if(!x_name %in% colnames(.data)) {
-      cli::cli_warn(
-        "{.var {x_name}} does not exist in {.arg .data}. Skipping join for {.var {x_name}}."
-      )
+      # not in the dataset, no need to report.
       next
     }
     
@@ -150,7 +148,10 @@ join_decode_levels <- function(.data, decode_tbls, lvl_to_lbl = "{var}C", ...) {
       cli::cli_alert_success("Joined {.var {y_name}} by {.var {x_name}}.")
       
       if(any(is.na(joined_data[[y_name]]))) {
-        missing_values_where <- sort(unique(joined_data[is.na(joined_data[[y_name]]), ][[x_name]]))
+        missing_values_where <- sort(
+          unique(joined_data[is.na(joined_data[[y_name]]), ][[x_name]]),
+          na.last = FALSE
+        )
         cli::cli_warn(
           "Missing values for {.var {y_name}} where {.var {x_name}} is: {.val {missing_values_where}}"
         )
@@ -158,7 +159,7 @@ join_decode_levels <- function(.data, decode_tbls, lvl_to_lbl = "{var}C", ...) {
       
       joined_data_decode_tbl <- extract_decode_tbls_from_data(
         joined_data,
-        lvl_to_lbl = purrr::set_names(y_name, x_name)
+        lvl_to_lbl = purrr::set_names(lbl_name, lvl_name)
       )
       
       print(joined_data_decode_tbl[[1]])
