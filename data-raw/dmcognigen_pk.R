@@ -73,7 +73,7 @@ pk <- bind_rows(
   arrange(USUBJID, DTTM, EVID)
 
 pk %>% 
-  cnt(STUDYID, n_distinct_vars = c(USUBJID, ID))
+  cnt(STUDYID, n_distinct_vars = USUBJID)
 
 pk %>% 
   cnt(DVID, DVIDC, EVID, MDV, n_distinct_vars = USUBJID)
@@ -102,6 +102,9 @@ pk <- pk %>%
       select(-c(DOMAIN)),
     by = c("STUDYID", "USUBJID")
   )
+
+pk %>% 
+  cnt(STUDYID, n_distinct_vars = c(USUBJID, ID))
 
 pk %>% 
   cnt(ACTARMCD, ACTARM, EVID, n_distinct_vars = USUBJID)
