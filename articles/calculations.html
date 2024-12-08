@@ -55,7 +55,7 @@
       <a href="../articles/decodes.html">Decodes</a>
     </li>
     <li>
-      <a href="../articles/requirements.html">Leverage data requirements</a>
+      <a href="../articles/requirements.html">Data requirements</a>
     </li>
   </ul>
 </li>
@@ -178,13 +178,15 @@ this dataset, so you don’t need to create it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">dmcognigen_cov</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 254</span></span>
-<span><span class="co">#&gt; Columns: 49</span></span>
-<span><span class="co">#&gt; $ STUDYID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01…</span></span>
+<span><span class="co">#&gt; Columns: 53</span></span>
 <span><span class="co">#&gt; $ DOMAIN   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "DM", "…</span></span>
+<span><span class="co">#&gt; $ STUDYID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01…</span></span>
 <span><span class="co">#&gt; $ USUBJID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "01-701-1015", "01-701-1023", "01-701-1028", "01-701-1033", "…</span></span>
+<span><span class="co">#&gt; $ ID       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 10101, 10102, 10103, 10104, 10105, 10106, 10108, 10109, 10110…</span></span>
+<span><span class="co">#&gt; $ RACEN    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1…</span></span>
+<span><span class="co">#&gt; $ RACEC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "White/Caucasian", "White/Caucasian", "White/Caucasian", "Whi…</span></span>
 <span><span class="co">#&gt; $ SEXF     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1…</span></span>
 <span><span class="co">#&gt; $ SEXFC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Female", "Male", "Male", "Male", "Female", "Female", "Male",…</span></span>
-<span><span class="co">#&gt; $ RACEN    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1…</span></span>
 <span><span class="co">#&gt; $ HTCM     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 147.32, 162.56, 177.80, 175.26, 154.94, 148.59, 168.91, 158.2…</span></span>
 <span><span class="co">#&gt; $ WTKG     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 54.43, 80.29, 99.34, 88.45, 62.60, 67.13, 78.02, 59.88, 78.93…</span></span>
 <span><span class="co">#&gt; $ AST      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 40, 21, 24, 20, 23, 25, 19, 28, 26, 15, 24, 27, 14, 25, 24, 2…</span></span>
@@ -205,7 +207,9 @@ this dataset, so you don’t need to create it.</p>
 <span><span class="co">#&gt; $ LBM      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 38.03714, 57.09378, 69.31683, 64.69332, 42.82276, 41.62153, 5…</span></span>
 <span><span class="co">#&gt; $ TBILCAT  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
 <span><span class="co">#&gt; $ RFCAT    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 2, 3, 3, 3, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2, 3, 3, 3, NA, 2, 2, …</span></span>
+<span><span class="co">#&gt; $ RFCATC   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Mild Impairment (60-89 mL/min)", "Moderate Impairment (30-59…</span></span>
 <span><span class="co">#&gt; $ NCILIV   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
+<span><span class="co">#&gt; $ NCILIVC  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Mild Group B1", "Normal Group A", "Normal Group A", "Normal …</span></span>
 <span><span class="co">#&gt; $ SUBJID   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1015", "1023", "1028", "1033", "1034", "1047", "1097", "1111…</span></span>
 <span><span class="co">#&gt; $ RFSTDTC  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-01-02", "2012-08-05", "2013-07-19", "2014-03-18", "2014…</span></span>
 <span><span class="co">#&gt; $ RFENDTC  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2014-07-02", "2012-09-02", "2014-01-14", "2014-04-14", "2014…</span></span>
@@ -239,10 +243,9 @@ testing and practicing.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">dmcognigen_conc</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 3,556</span></span>
 <span><span class="co">#&gt; Columns: 30</span></span>
-<span><span class="co">#&gt; $ STUDYID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01…</span></span>
 <span><span class="co">#&gt; $ DOMAIN   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "PC", "PC", "PC", "PC", "PC", "PC", "PC", "PC", "PC", "PC", "…</span></span>
+<span><span class="co">#&gt; $ STUDYID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01", "CDISCPILOT01…</span></span>
 <span><span class="co">#&gt; $ USUBJID  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "01-701-1015", "01-701-1015", "01-701-1015", "01-701-1015", "…</span></span>
-<span><span class="co">#&gt; $ DTTM     <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2014-01-01 23:30:00, 2014-01-02 00:05:00, 2014-01-02 00:30:0…</span></span>
 <span><span class="co">#&gt; $ DVID     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
 <span><span class="co">#&gt; $ DVIDC    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Xanomeline Concentration (ug/mL)", "Xanomeline Concentration…</span></span>
 <span><span class="co">#&gt; $ EVID     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span></span>
@@ -251,6 +254,7 @@ testing and practicing.</p>
 <span><span class="co">#&gt; $ LOGDV    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -5.298317, -5.298317, -5.298317, -5.298317, -5.298317, -5.298…</span></span>
 <span><span class="co">#&gt; $ BLQFN    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
 <span><span class="co">#&gt; $ LLOQ     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0…</span></span>
+<span><span class="co">#&gt; $ DTTM     <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2014-01-01 23:30:00, 2014-01-02 00:05:00, 2014-01-02 00:30:0…</span></span>
 <span><span class="co">#&gt; $ DAY      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, -1, 1, 1, 1, 1, 1,…</span></span>
 <span><span class="co">#&gt; $ PCSEQ    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1, 2, 3, 4, 5,…</span></span>
 <span><span class="co">#&gt; $ PCTESTCD <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "XAN", "XAN", "XAN", "XAN", "XAN", "XAN", "XAN", "XAN", "XAN"…</span></span>

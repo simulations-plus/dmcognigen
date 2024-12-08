@@ -55,7 +55,7 @@
       <a href="../articles/decodes.html">Decodes</a>
     </li>
     <li>
-      <a href="../articles/requirements.html">Leverage data requirements</a>
+      <a href="../articles/requirements.html">Data requirements</a>
     </li>
   </ul>
 </li>
@@ -103,161 +103,236 @@
 <span><span class="co">#&gt;     filter, lag</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dmcognigen_pk_requirements"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dmcognigen_cov"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dmcognigen_pk"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Decodes are defined by a variable along with its levels and labels.
-The level is generally a shorthand (or numeric) representation of the
-label. For example, below is a decode table for a variable AGECAT. The
-values on the left-hand-side are the levels and the values on the
+<p>Decode tables (<code>decode_tbls</code>) are defined based on
+variable names and their levels and labels. The level is generally a
+shorthand representation of the label and is ideally numeric. The label
+is intended to be a more detailed description, or the text to display on
+outputs like graphs and tables. These <code>decode_tbls</code> can be
+used to provide specifications to functions like
+<code><a href="../reference/set_decode_factors.html">set_decode_factors()</a></code>, <code><a href="../reference/join_decodes.html">join_decode_labels()</a></code>,
+and <code><a href="../reference/join_decodes.html">join_decode_levels()</a></code>.</p>
+<p>For example, below is a decode table for a variable
+<code>RFCAT</code> (Baseline Renal Fx Category). The values on the
+left-hand-side of the equal sign are the levels and the values on the
 right-hand-side are the labels.</p>
 <pre><code><span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">AGECAT</span> ──</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RFCAT</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1=18-50</span></span>
-<span><span class="co">#&gt; 2=51-69</span></span>
-<span><span class="co">#&gt; 3=70+</span></span></code></pre>
+<span><span class="co">#&gt; 1=Normal Function (&gt;=90 mL/min)</span></span>
+<span><span class="co">#&gt; 2=Mild Impairment (60-89 mL/min)</span></span>
+<span><span class="co">#&gt; 3=Moderate Impairment (30-59 mL/min)</span></span>
+<span><span class="co">#&gt; 4=Severe Impairment (15-29 mL/min)</span></span>
+<span><span class="co">#&gt; 5=End Stage Disease (&lt;15 mL/min or Dialysis)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="constructing-decode-tables">Constructing decode tables<a class="anchor" aria-label="anchor" href="#constructing-decode-tables"></a>
 </h2>
 <p>A decode table (<code>decode_tbl</code>) or a collection of decode
-tables (<code>decode_tbls</code>) can be constructed in 2 main ways:</p>
+tables (<code>decode_tbls</code>) can be constructed in 3 main ways:</p>
 <ol style="list-style-type: decimal">
 <li>Based on a character string that describes the levels and
 labels.</li>
 <li>Based on variables in data.</li>
+<li>By manually constructing data frame(s).</li>
 </ol>
+<p>While <code>decode_tbls</code> can be defined many ways, the primary
+intention is that <code><a href="../reference/requirements.html">read_requirements()</a></code> is used to define
+this and other attributes.</p>
 <div class="section level3">
 <h3 id="extracting-from-character-strings">Extracting from character strings<a class="anchor" aria-label="anchor" href="#extracting-from-character-strings"></a>
 </h3>
 <p>This method is expected to be used when variables and their decodes
-are presented together in a table, like the below table:</p>
-<pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 3</span></span></span>
-<span><span class="co">#&gt;   variable_name variable_label            format_decode                         </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> STUDYID       Study Identifier           <span style="color: #BB0000;">NA</span>                                   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> USUBJID       Unique Subject Identifier  <span style="color: #BB0000;">NA</span>                                   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ID            Subject ID                 <span style="color: #BB0000;">NA</span>                                   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AGECAT        Baseline Age Category     <span style="color: #949494;">"</span>1=18-50\n2=51-69\n3=70+<span style="color: #949494;">"</span>             </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> RACEN         Race                      <span style="color: #949494;">"</span>1=White/Caucasian\n2=Black/African A…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SEXF          Sex                       <span style="color: #949494;">"</span>0=Male\n1=Female<span style="color: #949494;">"</span>                    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> FED           Fed                       <span style="color: #949494;">"</span>0=Fasted\n1=Fed<span style="color: #949494;">"</span></span></span></code></pre>
-<p>The decodes themselves include one or more lines, where each line
-defines a level-to-label relationship separated by an equal sign.</p>
-<pre><code><span><span class="co">#&gt; AGECAT:</span></span>
-<span><span class="co">#&gt; 1=18-50</span></span>
-<span><span class="co">#&gt; 2=51-69</span></span>
-<span><span class="co">#&gt; 3=70+</span></span>
+are presented together in a table and is used in
+<code><a href="../reference/requirements.html">read_requirements()</a></code> to define the
+<code>"decode_tbls"</code> attribute.</p>
+<p>Like for the below variable descriptions:</p>
+<pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 3</span></span></span>
+<span><span class="co">#&gt;   variable_name variable_label              format_decode                       </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> DVID          Observation Type            <span style="color: #949494;">"</span>0=Dose\n1=Xanomeline Concentration…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> EVID          Event ID                    <span style="color: #949494;">"</span>0=PK or PD measure\n1=Dose\n2=Othe…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> MDV           Missing Dependent Variable  <span style="color: #949494;">"</span>0=PK or PD measure\n1=Dose or Othe…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> BLQFN         BLQ Flag                    <span style="color: #949494;">"</span>0=No\n1=Yes<span style="color: #949494;">"</span>                       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> FED           Fed                         <span style="color: #949494;">"</span>0=Fasted\n1=Fed<span style="color: #949494;">"</span>                   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> RACEN         Race                        <span style="color: #949494;">"</span>1=White/Caucasian\n2=Black/African…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> SEXF          Sex                         <span style="color: #949494;">"</span>0=Male\n1=Female<span style="color: #949494;">"</span>                  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> RFCAT         Baseline Renal Fx Category  <span style="color: #949494;">"</span>1=Normal Function (&gt;=90 mL/min)\n2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> NCILIV        Baseline NCI Liver Fx Group <span style="color: #949494;">"</span>0=Normal Group A\n1=Mild Group B1\…</span></span></code></pre>
+<p>For this method, the decodes are expected to be of type
+<code>character</code>. Each entry on a new line defines one
+level-to-label relationship separated by an equal sign. When an entry
+contains more than one equal sign, the first equal sign is considered
+the separator.</p>
+<pre><code><span><span class="co">#&gt; DVID:</span></span>
+<span><span class="co">#&gt; 0=Dose</span></span>
+<span><span class="co">#&gt; 1=Xanomeline Concentration (ug/mL)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; EVID:</span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose</span></span>
+<span><span class="co">#&gt; 2=Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; MDV:</span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose or Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; BLQFN:</span></span>
+<span><span class="co">#&gt; 0=No</span></span>
+<span><span class="co">#&gt; 1=Yes</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; FED:</span></span>
+<span><span class="co">#&gt; 0=Fasted</span></span>
+<span><span class="co">#&gt; 1=Fed</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; RACEN:</span></span>
 <span><span class="co">#&gt; 1=White/Caucasian</span></span>
 <span><span class="co">#&gt; 2=Black/African American</span></span>
-<span><span class="co">#&gt; 3=Asian-Japanese</span></span>
-<span><span class="co">#&gt; 4=Asian-Korean</span></span>
-<span><span class="co">#&gt; 5=Asian-other</span></span>
-<span><span class="co">#&gt; 6=American Indian or Alaska Native</span></span>
-<span><span class="co">#&gt; 7=Native Hawaiian or Other Pacific Islander</span></span>
-<span><span class="co">#&gt; 8=Other</span></span>
+<span><span class="co">#&gt; 3=Asian</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SEXF:</span></span>
 <span><span class="co">#&gt; 0=Male</span></span>
 <span><span class="co">#&gt; 1=Female</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; FED:</span></span>
-<span><span class="co">#&gt; 0=Fasted</span></span>
-<span><span class="co">#&gt; 1=Fed</span></span></code></pre>
-<p>We can extract the decode tables as below:</p>
+<span><span class="co">#&gt; RFCAT:</span></span>
+<span><span class="co">#&gt; 1=Normal Function (&gt;=90 mL/min)</span></span>
+<span><span class="co">#&gt; 2=Mild Impairment (60-89 mL/min)</span></span>
+<span><span class="co">#&gt; 3=Moderate Impairment (30-59 mL/min)</span></span>
+<span><span class="co">#&gt; 4=Severe Impairment (15-29 mL/min)</span></span>
+<span><span class="co">#&gt; 5=End Stage Disease (&lt;15 mL/min or Dialysis)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; NCILIV:</span></span>
+<span><span class="co">#&gt; 0=Normal Group A</span></span>
+<span><span class="co">#&gt; 1=Mild Group B1</span></span>
+<span><span class="co">#&gt; 2=Mild Group B2</span></span>
+<span><span class="co">#&gt; 3=Moderate Group C</span></span>
+<span><span class="co">#&gt; 4=Severe Group D</span></span></code></pre>
+<p>To extract the decode tables from these types of strings:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/extract_decode_tbls.html">extract_decode_tbls</a></span><span class="op">(</span></span>
-<span>  variable_name <span class="op">=</span> <span class="va">example_decodes</span><span class="op">$</span><span class="va">variable_name</span>,</span>
-<span>  decode <span class="op">=</span> <span class="va">example_decodes</span><span class="op">$</span><span class="va">format_decode</span></span>
+<span>  variable_name <span class="op">=</span> <span class="va">dmcognigen_pk_requirements</span><span class="op">$</span><span class="va">variable_name</span>,</span>
+<span>  decode <span class="op">=</span> <span class="va">dmcognigen_pk_requirements</span><span class="op">$</span><span class="va">format_decode</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">AGECAT</span> ──</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">DVID</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1=18-50</span></span>
-<span><span class="co">#&gt; 2=51-69</span></span>
-<span><span class="co">#&gt; 3=70+</span></span>
+<span><span class="co">#&gt; 0=Dose</span></span>
+<span><span class="co">#&gt; 1=Xanomeline Concentration (ug/mL)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">EVID</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose</span></span>
+<span><span class="co">#&gt; 2=Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">MDV</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose or Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">BLQFN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=No</span></span>
+<span><span class="co">#&gt; 1=Yes</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">FED</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Fasted</span></span>
+<span><span class="co">#&gt; 1=Fed</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 1=White/Caucasian</span></span>
 <span><span class="co">#&gt; 2=Black/African American</span></span>
-<span><span class="co">#&gt; 3=Asian-Japanese</span></span>
-<span><span class="co">#&gt; 4=Asian-Korean</span></span>
-<span><span class="co">#&gt; 5=Asian-other</span></span>
-<span><span class="co">#&gt; 6=American Indian or Alaska Native</span></span>
-<span><span class="co">#&gt; 7=Native Hawaiian or Other Pacific Islander</span></span>
-<span><span class="co">#&gt; 8=Other</span></span>
+<span><span class="co">#&gt; 3=Asian</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 0=Male</span></span>
 <span><span class="co">#&gt; 1=Female</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">FED</span> ──</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RFCAT</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 0=Fasted</span></span>
-<span><span class="co">#&gt; 1=Fed</span></span></code></pre></div>
+<span><span class="co">#&gt; 1=Normal Function (&gt;=90 mL/min)</span></span>
+<span><span class="co">#&gt; 2=Mild Impairment (60-89 mL/min)</span></span>
+<span><span class="co">#&gt; 3=Moderate Impairment (30-59 mL/min)</span></span>
+<span><span class="co">#&gt; 4=Severe Impairment (15-29 mL/min)</span></span>
+<span><span class="co">#&gt; 5=End Stage Disease (&lt;15 mL/min or Dialysis)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">NCILIV</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Normal Group A</span></span>
+<span><span class="co">#&gt; 1=Mild Group B1</span></span>
+<span><span class="co">#&gt; 2=Mild Group B2</span></span>
+<span><span class="co">#&gt; 3=Moderate Group C</span></span>
+<span><span class="co">#&gt; 4=Severe Group D</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extracting-from-a-dataset">Extracting from a dataset<a class="anchor" aria-label="anchor" href="#extracting-from-a-dataset"></a>
 </h3>
-<p>This method is expected to be used when a dataset includes variables
-and their decodes.</p>
-<p>Like RACEN and RACE below:</p>
+<p>This method is expected to be used when a data set already includes
+level and label variables.</p>
+<p>Like <code>RACEN</code> and <code>RACEC</code> below:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACEC</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 4</span></span></span>
-<span><span class="co">#&gt;   RACEN RACE                                 n n_cumulative</span></span>
+<span><span class="co">#&gt;   RACEN RACEC                                n n_cumulative</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 WHITE                              230          230</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 BLACK OR AFRICAN AMERICAN           23          253</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     4 AMERICAN INDIAN OR ALASKA NATIVE     1          254</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 White/Caucasian                    230          230</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 Black/African American              23          253</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     4 American Indian or Alaska Native     1          254</span></span>
 <span></span>
 <span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></span><span class="op">(</span></span>
-<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RACEN"</span> <span class="op">=</span> <span class="st">"RACE"</span><span class="op">)</span></span>
+<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEC"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1=WHITE</span></span>
-<span><span class="co">#&gt; 2=BLACK OR AFRICAN AMERICAN</span></span>
-<span><span class="co">#&gt; 4=AMERICAN INDIAN OR ALASKA NATIVE</span></span></code></pre></div>
-<p>The <code>lvl_to_lbl</code> argument maps the names of “level”
-variables to the names of “label” variables.</p>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span></code></pre></div>
+<p>The <code>lvl_to_lbl</code> argument maps the names of level
+variables to the names of label variables.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></span><span class="op">(</span></span>
-<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>      <span class="co"># map individual variables</span></span>
-<span>      <span class="st">"SEXF"</span> <span class="op">=</span> <span class="st">"SEXFC"</span>,</span>
-<span>      <span class="st">"RACEN"</span> <span class="op">=</span> <span class="st">"RACE"</span>,</span>
-<span>      <span class="co"># by default map lvl to lbl by removing CD at the end of variable names</span></span>
+<span>      SEXF <span class="op">=</span> <span class="st">"SEXFC"</span>,</span>
+<span>      RACEN <span class="op">=</span> <span class="st">"RACEC"</span>,</span>
+<span>      <span class="co"># map other lvl to lbl by removing CD at the end of variable names</span></span>
 <span>      <span class="op">~</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"CD$"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 0=Male</span></span>
 <span><span class="co">#&gt; 1=Female</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1=WHITE</span></span>
-<span><span class="co">#&gt; 2=BLACK OR AFRICAN AMERICAN</span></span>
-<span><span class="co">#&gt; 4=AMERICAN INDIAN OR ALASKA NATIVE</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">ARMCD</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -270,6 +345,318 @@ variables to the names of “label” variables.</p>
 <span><span class="co">#&gt; Pbo=Placebo</span></span>
 <span><span class="co">#&gt; Xan_Hi=Xanomeline High Dose</span></span>
 <span><span class="co">#&gt; Xan_Lo=Xanomeline Low Dose</span></span></code></pre></div>
+<p>Sometimes, more than one representation of a variable is in a data
+set. Like how this <code>dmcognigen_cov</code> data set includes the
+pair of variables <code>RACEN</code> &amp; <code>RACEC</code>, along
+with the original source variable <code>RACE</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></span><span class="op">(</span></span>
+<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      RACEN <span class="op">=</span> <span class="st">"RACE"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=WHITE</span></span>
+<span><span class="co">#&gt; 2=BLACK OR AFRICAN AMERICAN</span></span>
+<span><span class="co">#&gt; 4=AMERICAN INDIAN OR ALASKA NATIVE</span></span></code></pre></div>
+<p>Ideally, the level variable is numeric. But other data types are
+accepted. One way to review merged content would be to map a label
+variable to the original source variable it was derived from.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data</a></span><span class="op">(</span></span>
+<span>    lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      RACE <span class="op">=</span> <span class="st">"RACEC"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACE</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; AMERICAN INDIAN OR ALASKA NATIVE=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; BLACK OR AFRICAN AMERICAN=Black/African American</span></span>
+<span><span class="co">#&gt; WHITE=White/Caucasian</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="constructing-manually-from-a-data-frame">Constructing manually from a data frame<a class="anchor" aria-label="anchor" href="#constructing-manually-from-a-data-frame"></a>
+</h3>
+<p>This can be done many different ways. In general, use
+<code><a href="../reference/decode_tbls.html">as_decode_tbls()</a></code> with a named list of data frames that
+contain variables <code>var</code>, <code>lvl</code>, and
+<code>lbl</code>. One example is below, where decodes are defined for
+multiple variables, then the named list is generated with
+<code><a href="https://rdrr.io/r/base/split.html" class="external-link">split()</a></code>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">var</span>, <span class="op">~</span><span class="va">lvl</span>, <span class="op">~</span><span class="va">lbl</span>,</span>
+<span>  <span class="st">"RACEN"</span>, <span class="fl">1</span>, <span class="st">"White/Caucasian"</span>,</span>
+<span>  <span class="st">"RACEN"</span>, <span class="fl">2</span>, <span class="st">"Black/African American"</span>,</span>
+<span>  <span class="st">"RACEN"</span>, <span class="fl">3</span>, <span class="st">"Asian"</span>,</span>
+<span>  <span class="st">"RACEN"</span>, <span class="fl">4</span>, <span class="st">"American Indian or Alaska Native"</span>,</span>
+<span>  </span>
+<span>  <span class="st">"SEXF"</span>,  <span class="fl">0</span>, <span class="st">"Male"</span>,</span>
+<span>  <span class="st">"SEXF"</span>,  <span class="fl">1</span>, <span class="st">"Female"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="op">~</span> <span class="va">var</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/decode_tbls.html">as_decode_tbls</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 3=Asian</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; 1=Female</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="incorporating-decode_tbls-as-variables-in-data-sets">Incorporating <code>decode_tbls</code> as variables in data
+sets<a class="anchor" aria-label="anchor" href="#incorporating-decode_tbls-as-variables-in-data-sets"></a>
+</h2>
+<p>To demonstrate the automation features of these utilities, consider a
+data set that contains only numeric variables.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pk_numeric</span> <span class="op">&lt;-</span> <span class="va">dmcognigen_pk</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="set_decode_factors">
+<code>set_decode_factors()</code><a class="anchor" aria-label="anchor" href="#set_decode_factors"></a>
+</h3>
+<p>Modify or create new factor variables based on
+<code>decode_tbls</code> or <code>requirements</code> objects. The order
+of the levels is defined based on the sort order of the level in the
+decode definition. This is useful for other functions that consider the
+order of factor levels.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pk_numeric</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_decode_factors.html">set_decode_factors</a></span><span class="op">(</span><span class="va">dmcognigen_pk_requirements</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">SEXF</span>, <span class="va">RFCAT</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `BLQFN` as a factor of `BLQFN`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `DVID` as a factor of `DVID`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `EVID` as a factor of `EVID`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `MDV` as a factor of `MDV`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `NCILIV` as a factor of `NCILIV`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `RACEN` as a factor of `RACEN`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `RFCAT` as a factor of `RFCAT`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `SEXF` as a factor of `SEXF`.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 5</span></span></span>
+<span><span class="co">#&gt;    RACEN                            SEXF   RFCAT                  n n_cumulative</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> White/Caucasian                  Male   Mild Impairment (…   434          434</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> White/Caucasian                  Male   Moderate Impairme…   980         <span style="text-decoration: underline;">1</span>414</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> White/Caucasian                  Male   <span style="color: #BB0000;">NA</span>                    42         <span style="text-decoration: underline;">1</span>456</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> White/Caucasian                  Female Mild Impairment (…   504         <span style="text-decoration: underline;">1</span>960</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> White/Caucasian                  Female Moderate Impairme…  <span style="text-decoration: underline;">1</span>176         <span style="text-decoration: underline;">3</span>136</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> White/Caucasian                  Female <span style="color: #BB0000;">NA</span>                    84         <span style="text-decoration: underline;">3</span>220</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Black/African American           Male   Mild Impairment (…    56         <span style="text-decoration: underline;">3</span>276</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Black/African American           Male   Moderate Impairme…    14         <span style="text-decoration: underline;">3</span>290</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Black/African American           Male   <span style="color: #BB0000;">NA</span>                    14         <span style="text-decoration: underline;">3</span>304</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Black/African American           Female Mild Impairment (…   112         <span style="text-decoration: underline;">3</span>416</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Black/African American           Female Moderate Impairme…   126         <span style="text-decoration: underline;">3</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> American Indian or Alaska Native Male   Mild Impairment (…    14         <span style="text-decoration: underline;">3</span>556</span></span></code></pre></div>
+<p>The <code>new_names</code> argument works similarly to the
+<code>lvl_to_lbl</code> argument in joining functions, but mapping an
+existing variable to itself is allowed by
+<code><a href="../reference/set_decode_factors.html">set_decode_factors()</a></code>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pk_numeric</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_decode_factors.html">set_decode_factors</a></span><span class="op">(</span></span>
+<span>    decode_tbls <span class="op">=</span> <span class="va">dmcognigen_pk_requirements</span>, </span>
+<span>    new_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="st">"{var}FCT"</span>,</span>
+<span>      RACEN <span class="op">=</span> <span class="st">"RACEN"</span>, </span>
+<span>      SEXF <span class="op">=</span> <span class="st">"SEXFC"</span> </span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">SEXFC</span>, <span class="va">RFCATFCT</span>, n_distinct_vars <span class="op">=</span> <span class="va">ID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `BLQFNFCT` as a factor of `BLQFN`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `DVIDFCT` as a factor of `DVID`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `EVIDFCT` as a factor of `EVID`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `MDVFCT` as a factor of `MDV`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `NCILIVFCT` as a factor of `NCILIV`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `RACEN` as a factor of `RACEN`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `RFCATFCT` as a factor of `RFCAT`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `SEXFC` as a factor of `SEXF`.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 6</span></span></span>
+<span><span class="co">#&gt;    RACEN                            SEXFC  RFCATFCT      n_ID     n n_cumulative</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> White/Caucasian                  Male   Mild Impair…    31   434          434</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> White/Caucasian                  Male   Moderate Im…    70   980         <span style="text-decoration: underline;">1</span>414</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> White/Caucasian                  Male   <span style="color: #BB0000;">NA</span>               3    42         <span style="text-decoration: underline;">1</span>456</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> White/Caucasian                  Female Mild Impair…    36   504         <span style="text-decoration: underline;">1</span>960</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> White/Caucasian                  Female Moderate Im…    84  <span style="text-decoration: underline;">1</span>176         <span style="text-decoration: underline;">3</span>136</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> White/Caucasian                  Female <span style="color: #BB0000;">NA</span>               6    84         <span style="text-decoration: underline;">3</span>220</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Black/African American           Male   Mild Impair…     4    56         <span style="text-decoration: underline;">3</span>276</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Black/African American           Male   Moderate Im…     1    14         <span style="text-decoration: underline;">3</span>290</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Black/African American           Male   <span style="color: #BB0000;">NA</span>               1    14         <span style="text-decoration: underline;">3</span>304</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Black/African American           Female Mild Impair…     8   112         <span style="text-decoration: underline;">3</span>416</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Black/African American           Female Moderate Im…     9   126         <span style="text-decoration: underline;">3</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> American Indian or Alaska Native Male   Mild Impair…     1    14         <span style="text-decoration: underline;">3</span>556</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="join_decode_labels">
+<code>join_decode_labels()</code><a class="anchor" aria-label="anchor" href="#join_decode_labels"></a>
+</h3>
+<p>Create new label variables for variables with matching names in data
+and <code>decode_tbls</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pk_numeric_with_label_vars</span> <span class="op">&lt;-</span> <span class="va">pk_numeric</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/join_decodes.html">join_decode_labels</a></span><span class="op">(</span><span class="va">dmcognigen_pk_requirements</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `BLQFNC` by `BLQFN`.</span></span>
+<span><span class="co">#&gt; Warning: Missing values for `BLQFNC` where `BLQFN` is: <span style="color: #0000BB;">NA</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">BLQFN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=No</span></span>
+<span><span class="co">#&gt; 1=Yes</span></span>
+<span><span class="co">#&gt; NA=NA</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `DVIDC` by `DVID`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">DVID</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Dose</span></span>
+<span><span class="co">#&gt; 1=Xanomeline Concentration (ug/mL)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `EVIDC` by `EVID`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">EVID</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `MDVC` by `MDV`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">MDV</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose or Other</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `NCILIVC` by `NCILIV`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">NCILIV</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Normal Group A</span></span>
+<span><span class="co">#&gt; 1=Mild Group B1</span></span>
+<span><span class="co">#&gt; 2=Mild Group B2</span></span>
+<span><span class="co">#&gt; 3=Moderate Group C</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `RACENC` by `RACEN`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `RFCATC` by `RFCAT`.</span></span>
+<span><span class="co">#&gt; Warning: Missing values for `RFCATC` where `RFCAT` is: <span style="color: #0000BB;">NA</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RFCAT</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 2=Mild Impairment (60-89 mL/min)</span></span>
+<span><span class="co">#&gt; 3=Moderate Impairment (30-59 mL/min)</span></span>
+<span><span class="co">#&gt; NA=NA</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `SEXFC` by `SEXF`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; 1=Female</span></span></code></pre></div>
+<p>The default label name will be the level name appended with a C. Or,
+use <code>lvl_to_lbl</code> to provide a named list that can include
+other glue specifications or functions to map the level names to the
+label names. One unnamed element can be included in
+<code>lvl_to_lbl</code> to provide default behavior.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pk_numeric</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ID</span>, <span class="va">RACEN</span>, <span class="va">SEXF</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/join_decodes.html">join_decode_labels</a></span><span class="op">(</span><span class="va">dmcognigen_pk_requirements</span>, lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEC"</span>, <span class="st">"{var}C"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACEC</span>, <span class="va">SEXF</span>, <span class="va">SEXFC</span>, n_distinct_vars <span class="op">=</span> <span class="va">ID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `RACEC` by `RACEN`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `SEXFC` by `SEXF`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; 1=Female</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 7</span></span></span>
+<span><span class="co">#&gt;   RACEN RACEC                             SEXF SEXFC   n_ID     n n_cumulative</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 White/Caucasian                      0 Male     104  <span style="text-decoration: underline;">1</span>456         <span style="text-decoration: underline;">1</span>456</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1 White/Caucasian                      1 Female   126  <span style="text-decoration: underline;">1</span>764         <span style="text-decoration: underline;">3</span>220</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 Black/African American               0 Male       6    84         <span style="text-decoration: underline;">3</span>304</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 Black/African American               1 Female    17   238         <span style="text-decoration: underline;">3</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 American Indian or Alaska Native     0 Male       1    14         <span style="text-decoration: underline;">3</span>556</span></span></code></pre></div>
+<p>Variables will not be joined if they already exist.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_pk</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ID</span>, <span class="va">RACEN</span>, <span class="va">RACEC</span>, <span class="va">SEXF</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/join_decodes.html">join_decode_labels</a></span><span class="op">(</span><span class="va">dmcognigen_pk_requirements</span>, lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEC"</span>, <span class="st">"{var}C"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACEC</span>, <span class="va">SEXF</span>, <span class="va">SEXFC</span>, n_distinct_vars <span class="op">=</span> <span class="va">ID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `RACEC` already exists in `.data`. Skipping join for `RACEN`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `SEXFC` by `SEXF`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; 1=Female</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 7</span></span></span>
+<span><span class="co">#&gt;   RACEN RACEC                             SEXF SEXFC   n_ID     n n_cumulative</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 White/Caucasian                      0 Male     104  <span style="text-decoration: underline;">1</span>456         <span style="text-decoration: underline;">1</span>456</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1 White/Caucasian                      1 Female   126  <span style="text-decoration: underline;">1</span>764         <span style="text-decoration: underline;">3</span>220</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 Black/African American               0 Male       6    84         <span style="text-decoration: underline;">3</span>304</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 Black/African American               1 Female    17   238         <span style="text-decoration: underline;">3</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 American Indian or Alaska Native     0 Male       1    14         <span style="text-decoration: underline;">3</span>556</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="join_decode_levels">
+<code>join_decode_levels()</code><a class="anchor" aria-label="anchor" href="#join_decode_levels"></a>
+</h3>
+<p>For scenarios where a label variable is already defined in a data
+set, the corresponding levels can be joined with
+<code><a href="../reference/join_decodes.html">join_decode_levels()</a></code>.</p>
+<p>The <code>lvl_to_lbl</code> structure is identical whether joining
+labels or levels.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_pk</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ID</span>, <span class="va">RACEC</span>, <span class="va">SEXFC</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/join_decodes.html">join_decode_levels</a></span><span class="op">(</span><span class="va">dmcognigen_pk_requirements</span>, lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEC"</span>, <span class="st">"{var}C"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACEC</span>, <span class="va">SEXF</span>, <span class="va">SEXFC</span>, n_distinct_vars <span class="op">=</span> <span class="va">ID</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `RACEN` by `RACEC`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 1=White/Caucasian</span></span>
+<span><span class="co">#&gt; 2=Black/African American</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `SEXF` by `SEXFC`.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Male</span></span>
+<span><span class="co">#&gt; 1=Female</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 7</span></span></span>
+<span><span class="co">#&gt;   RACEN RACEC                             SEXF SEXFC   n_ID     n n_cumulative</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 White/Caucasian                      0 Male     104  <span style="text-decoration: underline;">1</span>456         <span style="text-decoration: underline;">1</span>456</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1 White/Caucasian                      1 Female   126  <span style="text-decoration: underline;">1</span>764         <span style="text-decoration: underline;">3</span>220</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 Black/African American               0 Male       6    84         <span style="text-decoration: underline;">3</span>304</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 Black/African American               1 Female    17   238         <span style="text-decoration: underline;">3</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 American Indian or Alaska Native     0 Male       1    14         <span style="text-decoration: underline;">3</span>556</span></span></code></pre></div>
 </div>
 </div>
   </div>

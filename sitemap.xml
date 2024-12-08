@@ -30,6 +30,7 @@
 <url><loc>/reference/dmcognigen_cov.html</loc></url>
 <url><loc>/reference/dmcognigen_dose.html</loc></url>
 <url><loc>/reference/dmcognigen_pk.html</loc></url>
+<url><loc>/reference/dmcognigen_pk_requirements.html</loc></url>
 <url><loc>/reference/extract_decode_tbls.html</loc></url>
 <url><loc>/reference/extract_decode_tbls_from_data.html</loc></url>
 <url><loc>/reference/get_from_calculations_table.html</loc></url>
@@ -42,6 +43,7 @@
 <url><loc>/reference/read_docx_tables.html</loc></url>
 <url><loc>/reference/requirements.html</loc></url>
 <url><loc>/reference/search_environment_data.html</loc></url>
+<url><loc>/reference/set_decode_factors.html</loc></url>
 <url><loc>/reference/set_labels.html</loc></url>
 </urlset>
 

@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leverage data requirements • dmcognigen</title>
+<title>Data requirements • dmcognigen</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Leverage data requirements">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Data requirements">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -55,7 +55,7 @@
       <a href="../articles/decodes.html">Decodes</a>
     </li>
     <li>
-      <a href="../articles/requirements.html">Leverage data requirements</a>
+      <a href="../articles/requirements.html">Data requirements</a>
     </li>
   </ul>
 </li>
@@ -83,7 +83,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Leverage data requirements</h1>
+      <h1 data-toc-skip>Data requirements</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/simulations-plus/dmcognigen/blob/main/vignettes/requirements.Rmd" class="external-link"><code>vignettes/requirements.Rmd</code></a></small>
@@ -103,34 +103,30 @@
 <span><span class="co">#&gt;     filter, lag</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dmcognigen_pk_requirements"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dmcognigen_cov"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"dmcognigen_pk"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Data requirements are specifications of a desired dataset, describing
-expected variables, their labels, and their content. Generally, we
-document the requirements for a dataset within an Excel file where one
-of the sheets provides information about desired variables. Other sheets
-contain a variety of supporting information.</p>
-<p>For the purposes of this vignette, consider an Excel file that
-includes a sheet with the below table:</p>
-<pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 5</span></span></span>
-<span><span class="co">#&gt;   variable_name variable_label            pk_ard pk_mif format_decode           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> STUDYID       Study Identifier          x      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>                     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> USUBJID       Unique Subject Identifier x      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>                     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ID            Subject ID                x      x       <span style="color: #BB0000;">NA</span>                     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> AGECAT        Baseline Age Category     x      x      <span style="color: #949494;">"</span>1=18-50\n2=51-69\n3=70…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> RACEN         Race                      x      x      <span style="color: #949494;">"</span>1=White/Caucasian\n2=B…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SEXF          Sex                       x      x      <span style="color: #949494;">"</span>0=Male\n1=Female<span style="color: #949494;">"</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> FED           Fed                       x      x      <span style="color: #949494;">"</span>0=Fasted\n1=Fed<span style="color: #949494;">"</span></span></span></code></pre>
-<p>Where the variables names indicate:</p>
-<pre><code><span><span class="co">#&gt;             name                                                description</span></span>
-<span><span class="co">#&gt; 1  variable_name                                              Variable Name</span></span>
-<span><span class="co">#&gt; 2 variable_label                                             Variable Label</span></span>
-<span><span class="co">#&gt; 3         pk_ard Whether to keep the variable in the Analysis Ready Dataset</span></span>
-<span><span class="co">#&gt; 4         pk_mif       Whether to keep the variable in the Model Input File</span></span>
-<span><span class="co">#&gt; 5  format_decode   Name/Value pairs of decodes, also referred to as formats</span></span></code></pre>
+<p>Data requirements are specifications of a dataset. They describe
+required variables with varying details like variable label, type,
+description, source, formula, rounding specifications, and relationships
+to other variables.</p>
+<p>Generally, the requirements are maintained in a file. These functions
+support gathering and applying this information from Excel files, Word
+(docx) tables, or a <code>data.frame</code>.</p>
+<p>For the purposes of this vignette, consider files in a directory that
+include tables with these variables:</p>
+<pre><code><span><span class="co">#&gt;            name                                           description</span></span>
+<span><span class="co">#&gt;   variable_name                                         Variable Name</span></span>
+<span><span class="co">#&gt;  variable_label                                        Variable Label</span></span>
+<span><span class="co">#&gt;          pk_ard Whether the variable is in the Analysis Ready Dataset</span></span>
+<span><span class="co">#&gt;          pk_mif       Whether the variable is in the Model Input File</span></span>
+<span><span class="co">#&gt;   format_decode  Pairs of (generally) numeric values and descriptions</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="identify-data-requirements-files">Identify data requirements files<a class="anchor" aria-label="anchor" href="#identify-data-requirements-files"></a>
@@ -139,239 +135,296 @@ includes a sheet with the below table:</p>
 the file, there might be multiple versions of the data requirements file
 that exist in the data assembly directory.</p>
 <p>Consider the data assembly directory below:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">asmbdat_directory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"asmbdat"</span><span class="op">)</span></span>
 <span><span class="va">asmbdat_directory</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmp8zrw3d/asmbdat"</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmp8zrw3d/asmbdat</span></span></span>
+<span><span class="co">#&gt; [1] "/tmp/RtmpAjRT9v/asmbdat"</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpAjRT9v/asmbdat</span></span></span>
 <span><span class="co">#&gt; ├── data-requirements-2019-12-01.xlsx</span></span>
 <span><span class="co">#&gt; ├── data-requirements-2020-01-01.xlsx</span></span>
 <span><span class="co">#&gt; ├── data-requirements-2020-01-10.xlsx</span></span>
-<span><span class="co">#&gt; ├── data-requirements-2020-01-20.xlsx</span></span>
-<span><span class="co">#&gt; └── qc-data-requirements-2020-01-20.xlsx</span></span></code></pre>
+<span><span class="co">#&gt; ├── data-requirements-2024-12-08.xlsx</span></span>
+<span><span class="co">#&gt; ├── legacy-data-requirements-2000-01-01.docx</span></span>
+<span><span class="co">#&gt; └── qc-data-requirements-2024-12-08.xlsx</span></span></code></pre>
 <p>Use the <code><a href="../reference/requirements.html">available_requirements_table()</a></code> function to
-collect information about multiple data requirements files. Excel files
-that match the <code>pattern</code> and have the required
+collect information about multiple data requirements files. Supported
+files that match the <code>pattern</code> and have the required
 <code>sheet</code> names or positions will be kept. By default, the
 required sheet name is <code>"specs"</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>The resulting table can be used to identify the desired version of
+the data requirements file to pass to the
+<code><a href="../reference/requirements.html">read_requirements()</a></code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/requirements.html">available_requirements_table</a></span><span class="op">(</span></span>
 <span>  path <span class="op">=</span> <span class="va">asmbdat_directory</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">"req"</span></span>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">created</span>, <span class="va">modified</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.dataframe.html" class="external-link">print.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                                        path  path_date</span></span>
-<span><span class="co">#&gt; 1 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
-<span><span class="co">#&gt; 2 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
-<span><span class="co">#&gt; 3 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
-<span><span class="co">#&gt;               created            modified       date</span></span>
-<span><span class="co">#&gt; 1 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-01</span></span>
-<span><span class="co">#&gt; 2 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-10</span></span>
-<span><span class="co">#&gt; 3 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-20</span></span>
-<span><span class="co">#&gt;                                 sheets is_qc</span></span>
-<span><span class="co">#&gt; 1                                specs FALSE</span></span>
-<span><span class="co">#&gt; 2              specs, unit_conversions FALSE</span></span>
-<span><span class="co">#&gt; 3 specs, unit_conversions, discussions FALSE</span></span></code></pre></div>
-<p>Use <code>sheet = NULL</code> for no required sheet names.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; 1 /tmp/RtmpAjRT9v/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
+<span><span class="co">#&gt; 2 /tmp/RtmpAjRT9v/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
+<span><span class="co">#&gt; 3 /tmp/RtmpAjRT9v/asmbdat/data-requirements-2024-12-08.xlsx 2024-12-08</span></span>
+<span><span class="co">#&gt;         date                               sheets is_qc</span></span>
+<span><span class="co">#&gt; 1 2020-01-01                                specs FALSE</span></span>
+<span><span class="co">#&gt; 2 2020-01-10              specs, unit_conversions FALSE</span></span>
+<span><span class="co">#&gt; 3 2024-12-08 specs, unit_conversions, discussions FALSE</span></span></code></pre></div>
+<p>Use <code>sheet = NULL</code> for no required sheet names. This is
+required to include docx files in these searches.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/requirements.html">available_requirements_table</a></span><span class="op">(</span></span>
 <span>  path <span class="op">=</span> <span class="va">asmbdat_directory</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">"req"</span>,</span>
 <span>  sheet <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">created</span>, <span class="va">modified</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.dataframe.html" class="external-link">print.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                                        path  path_date</span></span>
-<span><span class="co">#&gt; 1 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
-<span><span class="co">#&gt; 2 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
-<span><span class="co">#&gt; 3 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
-<span><span class="co">#&gt; 4 /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
-<span><span class="co">#&gt;               created            modified       date</span></span>
-<span><span class="co">#&gt; 1 2024-12-07 03:24:14 2024-12-07 03:24:14 2019-12-01</span></span>
-<span><span class="co">#&gt; 2 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-01</span></span>
-<span><span class="co">#&gt; 3 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-10</span></span>
-<span><span class="co">#&gt; 4 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-20</span></span>
-<span><span class="co">#&gt;                                 sheets is_qc</span></span>
-<span><span class="co">#&gt; 1                              Sheet 1 FALSE</span></span>
-<span><span class="co">#&gt; 2                                specs FALSE</span></span>
-<span><span class="co">#&gt; 3              specs, unit_conversions FALSE</span></span>
-<span><span class="co">#&gt; 4 specs, unit_conversions, discussions FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                               path  path_date</span></span>
+<span><span class="co">#&gt; 1        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
+<span><span class="co">#&gt; 2        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
+<span><span class="co">#&gt; 3        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
+<span><span class="co">#&gt; 4        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2024-12-08.xlsx 2024-12-08</span></span>
+<span><span class="co">#&gt; 5 /tmp/RtmpAjRT9v/asmbdat/legacy-data-requirements-2000-01-01.docx 2000-01-01</span></span>
+<span><span class="co">#&gt;         date                               sheets is_qc</span></span>
+<span><span class="co">#&gt; 1 2019-12-01                              Sheet 1 FALSE</span></span>
+<span><span class="co">#&gt; 2 2020-01-01                                specs FALSE</span></span>
+<span><span class="co">#&gt; 3 2020-01-10              specs, unit_conversions FALSE</span></span>
+<span><span class="co">#&gt; 4 2024-12-08 specs, unit_conversions, discussions FALSE</span></span>
+<span><span class="co">#&gt; 5 2000-01-01                                 NULL FALSE</span></span></code></pre></div>
 <p>Use <code>drop_qc = FALSE</code> to include versions of the data
 requirements used for QC. These files are ignored otherwise.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/requirements.html">available_requirements_table</a></span><span class="op">(</span></span>
 <span>  path <span class="op">=</span> <span class="va">asmbdat_directory</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">"req"</span>,</span>
 <span>  sheet <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop_qc <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">created</span>, <span class="va">modified</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.dataframe.html" class="external-link">print.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                                           path  path_date</span></span>
-<span><span class="co">#&gt; 1    /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
-<span><span class="co">#&gt; 2    /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
-<span><span class="co">#&gt; 3    /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
-<span><span class="co">#&gt; 4    /tmp/Rtmp8zrw3d/asmbdat/data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
-<span><span class="co">#&gt; 5 /tmp/Rtmp8zrw3d/asmbdat/qc-data-requirements-2020-01-20.xlsx 2020-01-20</span></span>
-<span><span class="co">#&gt;               created            modified       date</span></span>
-<span><span class="co">#&gt; 1 2024-12-07 03:24:14 2024-12-07 03:24:14 2019-12-01</span></span>
-<span><span class="co">#&gt; 2 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-01</span></span>
-<span><span class="co">#&gt; 3 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-10</span></span>
-<span><span class="co">#&gt; 4 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-20</span></span>
-<span><span class="co">#&gt; 5 2024-12-07 03:24:14 2024-12-07 03:24:14 2020-01-20</span></span>
-<span><span class="co">#&gt;                                              sheets is_qc</span></span>
-<span><span class="co">#&gt; 1                                           Sheet 1 FALSE</span></span>
-<span><span class="co">#&gt; 2                                             specs FALSE</span></span>
-<span><span class="co">#&gt; 3                           specs, unit_conversions FALSE</span></span>
-<span><span class="co">#&gt; 4              specs, unit_conversions, discussions FALSE</span></span>
-<span><span class="co">#&gt; 5 specs, unit_conversions, discussions, qc_findings  TRUE</span></span></code></pre></div>
-<p>The resulting table can be used to identify the desired version of
-the data requirements file to pass to the
-<code><a href="../reference/requirements.html">read_requirements()</a></code> function.</p>
+<span><span class="co">#&gt;                                                               path  path_date</span></span>
+<span><span class="co">#&gt; 1        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2019-12-01.xlsx 2019-12-01</span></span>
+<span><span class="co">#&gt; 2        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2020-01-01.xlsx 2020-01-01</span></span>
+<span><span class="co">#&gt; 3        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2020-01-10.xlsx 2020-01-10</span></span>
+<span><span class="co">#&gt; 4        /tmp/RtmpAjRT9v/asmbdat/data-requirements-2024-12-08.xlsx 2024-12-08</span></span>
+<span><span class="co">#&gt; 5 /tmp/RtmpAjRT9v/asmbdat/legacy-data-requirements-2000-01-01.docx 2000-01-01</span></span>
+<span><span class="co">#&gt; 6     /tmp/RtmpAjRT9v/asmbdat/qc-data-requirements-2024-12-08.xlsx 2024-12-08</span></span>
+<span><span class="co">#&gt;         date                                            sheets is_qc</span></span>
+<span><span class="co">#&gt; 1 2019-12-01                                           Sheet 1 FALSE</span></span>
+<span><span class="co">#&gt; 2 2020-01-01                                             specs FALSE</span></span>
+<span><span class="co">#&gt; 3 2020-01-10                           specs, unit_conversions FALSE</span></span>
+<span><span class="co">#&gt; 4 2024-12-08              specs, unit_conversions, discussions FALSE</span></span>
+<span><span class="co">#&gt; 5 2000-01-01                                              NULL FALSE</span></span>
+<span><span class="co">#&gt; 6 2024-12-08 specs, unit_conversions, discussions, qc_findings  TRUE</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="read-data-requirements">Read data requirements<a class="anchor" aria-label="anchor" href="#read-data-requirements"></a>
 </h2>
-<p>By default, <code><a href="../reference/requirements.html">read_requirements()</a></code> will read the latest
-version of the matching data requirements files in the working
-directory. The latest version is selected as the file with the most
-recent date in the filename. If no dates are detected in the filenames,
-the matching file with the most recent modification time is
+<p>If no <code>path</code> is provided, <code><a href="../reference/requirements.html">read_requirements()</a></code>
+will read the latest version of the matching data requirements files in
+the working directory. The latest version is selected as the file with
+the most recent date in the filename. If no dates are detected in the
+filenames, the matching file with the most recent modification time is
 selected.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">requirements</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/requirements.html">read_requirements</a></span><span class="op">(</span><span class="va">asmbdat_directory</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Detected requirements file: <span style="color: #0000BB;">data-requirements-2020-01-20.xlsx</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-07 03:24:14.974685</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Detected requirements file: <span style="color: #0000BB;">data-requirements-2024-12-08.xlsx</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-08 05:21:11.49589</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Sheet name: <span style="color: #0000BB;">"specs"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"labels_named_list"</span> attribute</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"decode_tbls"</span> attribute</span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">requirements</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 7</span></span>
+<span><span class="co">#&gt; Rows: 54</span></span>
 <span><span class="co">#&gt; Columns: 5</span></span>
-<span><span class="co">#&gt; $ variable_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "STUDYID", "USUBJID", "ID", "AGECAT", "RACEN", "SEXF", …</span></span>
-<span><span class="co">#&gt; $ variable_label <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Study Identifier", "Unique Subject Identifier", "Subje…</span></span>
-<span><span class="co">#&gt; $ pk_ard         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "x", "x", "x", "x", "x"</span></span>
-<span><span class="co">#&gt; $ pk_mif         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, "x", "x", "x", "x", "x"</span></span>
-<span><span class="co">#&gt; $ format_decode  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, NA, "1=18-50\n2=51-69\n3=70+", "1=White/Caucasi…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ variable_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ONUM", "NUM", "STUDYID", "USUBJID", "ID", "TSFD", "TSP…</span></span>
+<span><span class="co">#&gt; $ variable_label <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Overall Sequence Number", "Sequence Number", "Study Id…</span></span>
+<span><span class="co">#&gt; $ pk_ard         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", …</span></span>
+<span><span class="co">#&gt; $ pk_mif         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "", "", "x", "x", "x", "", "", "x", "", "x", …</span></span>
+<span><span class="co">#&gt; $ format_decode  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "", "", "", "", "", "", "", "", "", "0=Dose\n1=Xanomeli…</span></span></code></pre></div>
 <p>Use the <code>subset</code> argument to provide subset/filter
 criteria:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">requirements_pk_mif</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/requirements.html">read_requirements</a></span><span class="op">(</span></span>
 <span>  <span class="va">asmbdat_directory</span>,</span>
 <span>  subset <span class="op">=</span> <span class="va">pk_mif</span> <span class="op">==</span> <span class="st">"x"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Detected requirements file: <span style="color: #0000BB;">data-requirements-2020-01-20.xlsx</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-07 03:24:14.974685</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Detected requirements file: <span style="color: #0000BB;">data-requirements-2024-12-08.xlsx</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Modification time: 2024-12-08 05:21:11.49589</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Sheet name: <span style="color: #0000BB;">"specs"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied requested subset: `pk_mif == "x"`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"labels_named_list"</span> attribute</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"decode_tbls"</span> attribute</span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">requirements_pk_mif</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 5</span></span>
+<span><span class="co">#&gt; Rows: 16</span></span>
 <span><span class="co">#&gt; Columns: 5</span></span>
-<span><span class="co">#&gt; $ variable_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ID", "AGECAT", "RACEN", "SEXF", "FED"</span></span>
-<span><span class="co">#&gt; $ variable_label <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Subject ID", "Baseline Age Category", "Race", "Sex", "…</span></span>
-<span><span class="co">#&gt; $ pk_ard         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "x", "x", "x"</span></span>
-<span><span class="co">#&gt; $ pk_mif         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "x", "x", "x"</span></span>
-<span><span class="co">#&gt; $ format_decode  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, "1=18-50\n2=51-69\n3=70+", "1=White/Caucasian\n2=Bl…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ variable_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ONUM", "NUM", "ID", "TSFD", "TSPD", "DVID", "EVID", "M…</span></span>
+<span><span class="co">#&gt; $ variable_label <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Overall Sequence Number", "Sequence Number", "Subject …</span></span>
+<span><span class="co">#&gt; $ pk_ard         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", …</span></span>
+<span><span class="co">#&gt; $ pk_mif         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", …</span></span>
+<span><span class="co">#&gt; $ format_decode  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "", "", "", "", "", "0=Dose\n1=Xanomeline Concentration…</span></span></code></pre></div>
+<p>Use <code><a href="../reference/requirements.html">as_requirements()</a></code> to apply requirements attributes
+to an existing data frame:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">requirements_pk_mif_with_as</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/requirements.html">as_requirements</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">requirements_pk_mif</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"labels_named_list"</span> attribute</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied the <span style="color: #0000BB;">"decode_tbls"</span> attribute</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">requirements_pk_mif_with_as</span>, <span class="va">requirements_pk_mif</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
 </h3>
 <p>When possible, additional attributes are assigned to the result of
-<code><a href="../reference/requirements.html">read_requirements()</a></code>. These attributes have use-cases for
-various stages of data assembly.</p>
+<code><a href="../reference/requirements.html">read_requirements()</a></code> and <code><a href="../reference/requirements.html">as_requirements()</a></code>.
+Resulting <code>requirements</code> objects can be used directly in
+other functions in this package to apply these attributes.</p>
 <div class="section level4">
 <h4 id="decode_tbls">decode_tbls<a class="anchor" aria-label="anchor" href="#decode_tbls"></a>
 </h4>
 <p>This attribute will be set if the <code>variable_name_col</code> and
-<code>decode_col</code> arguments are defined and variables with those
-names exist in the imported requirements.</p>
+<code>decode_col</code> arguments are defined and those variables are in
+requirements.</p>
+<p>See more details on using <code>decode_tbls</code> in the <a href="decodes.html">Decodes vignette</a>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">requirements</span>, <span class="st">"decode_tbls"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Decode tables</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">AGECAT</span> ──</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">DVID</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1=18-50</span></span>
-<span><span class="co">#&gt; 2=51-69</span></span>
-<span><span class="co">#&gt; 3=70+</span></span>
+<span><span class="co">#&gt; 0=Dose</span></span>
+<span><span class="co">#&gt; 1=Xanomeline Concentration (ug/mL)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">EVID</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose</span></span>
+<span><span class="co">#&gt; 2=Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">MDV</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=PK or PD measure</span></span>
+<span><span class="co">#&gt; 1=Dose or Other</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">BLQFN</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=No</span></span>
+<span><span class="co">#&gt; 1=Yes</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">FED</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Fasted</span></span>
+<span><span class="co">#&gt; 1=Fed</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 1=White/Caucasian</span></span>
 <span><span class="co">#&gt; 2=Black/African American</span></span>
-<span><span class="co">#&gt; 3=Asian-Japanese</span></span>
-<span><span class="co">#&gt; 4=Asian-Korean</span></span>
-<span><span class="co">#&gt; 5=Asian-other</span></span>
-<span><span class="co">#&gt; 6=American Indian or Alaska Native</span></span>
-<span><span class="co">#&gt; 7=Native Hawaiian or Other Pacific Islander</span></span>
-<span><span class="co">#&gt; 8=Other</span></span>
+<span><span class="co">#&gt; 3=Asian</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 0=Male</span></span>
 <span><span class="co">#&gt; 1=Female</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">FED</span> ──</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">RFCAT</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 0=Fasted</span></span>
-<span><span class="co">#&gt; 1=Fed</span></span></code></pre></div>
-<p>Or the <code>decode_tbls</code> can can be extracted:</p>
+<span><span class="co">#&gt; 1=Normal Function (&gt;=90 mL/min)</span></span>
+<span><span class="co">#&gt; 2=Mild Impairment (60-89 mL/min)</span></span>
+<span><span class="co">#&gt; 3=Moderate Impairment (30-59 mL/min)</span></span>
+<span><span class="co">#&gt; 4=Severe Impairment (15-29 mL/min)</span></span>
+<span><span class="co">#&gt; 5=End Stage Disease (&lt;15 mL/min or Dialysis)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">NCILIV</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 0=Normal Group A</span></span>
+<span><span class="co">#&gt; 1=Mild Group B1</span></span>
+<span><span class="co">#&gt; 2=Mild Group B2</span></span>
+<span><span class="co">#&gt; 3=Moderate Group C</span></span>
+<span><span class="co">#&gt; 4=Severe Group D</span></span></code></pre></div>
+<div class="section level5">
+<h5 id="join-decodes">Join decodes<a class="anchor" aria-label="anchor" href="#join-decodes"></a>
+</h5>
+<p>To join new variables to a data set based on <code>decode_tbls</code>
+or <code>requirements</code> objects, use
+<code><a href="../reference/join_decodes.html">join_decode_labels()</a></code> or
+<code><a href="../reference/join_decodes.html">join_decode_levels()</a></code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">extracted_requirements_decode_tbls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_decode_tbls.html">extract_decode_tbls</a></span><span class="op">(</span></span>
-<span>  variable_name <span class="op">=</span> <span class="va">requirements</span><span class="op">$</span><span class="va">variable_name</span>, </span>
-<span>  decode <span class="op">=</span> <span class="va">requirements</span><span class="op">$</span><span class="va">format_decode</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">requirements</span>, <span class="st">"decode_tbls"</span><span class="op">)</span>, <span class="va">extracted_requirements_decode_tbls</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p>This attribute can be used to create new variables based on shared
-names between the data and <code>decode_tbls</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># shared variables</span></span>
-<span><span class="va">variables_with_decodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">extracted_requirements_decode_tbls</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dmcognigen_cov</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">variables_with_decodes</span></span>
-<span><span class="co">#&gt; [1] "RACEN" "SEXF"</span></span></code></pre></div>
-<p>The default new name will be the original name appended with a C. Or,
-use <code>lvl_to_lbl</code> to provide a named list that can include
-other glue specifications or functions to map the level names to the
-label names. One unnamed element can be included in
-<code>lvl_to_lbl</code> to provide default behavior.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">dmcognigen_pk</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">USUBJID</span>, <span class="va">RACEN</span>, <span class="va">SEXF</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/join_decodes.html">join_decode_labels</a></span><span class="op">(</span><span class="va">requirements</span>, lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEC"</span>, <span class="st">"{var}C"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACEC</span>, <span class="va">SEXF</span>, <span class="va">SEXFC</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `AGECAT` does not exist in `.data`. Skipping join for `AGECAT`.</span></span>
-<span><span class="co">#&gt; Warning: `FED` does not exist in `.data`. Skipping join for `FED`.</span></span>
+<span>  <span class="fu"><a href="../reference/join_decodes.html">join_decode_labels</a></span><span class="op">(</span><span class="va">dmcognigen_pk_requirements</span>, lvl_to_lbl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEC"</span>, <span class="st">"{var}C"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="va">RACEC</span>, <span class="va">SEXF</span>, <span class="va">SEXFC</span>, n_distinct_vars <span class="op">=</span> <span class="va">USUBJID</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `RACEC` by `RACEN`.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">RACEN</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 1=White/Caucasian</span></span>
 <span><span class="co">#&gt; 2=Black/African American</span></span>
-<span><span class="co">#&gt; 4=Asian-Korean</span></span>
+<span><span class="co">#&gt; 4=American Indian or Alaska Native</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Joined `SEXFC` by `SEXF`.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">SEXF</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 0=Male</span></span>
 <span><span class="co">#&gt; 1=Female</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
-<span><span class="co">#&gt;   RACEN RACEC                   SEXF SEXFC      n n_cumulative</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 White/Caucasian            0 Male     104          104</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1 White/Caucasian            1 Female   126          230</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 Black/African American     0 Male       6          236</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 Black/African American     1 Female    17          253</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 Asian-Korean               0 Male       1          254</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 7</span></span></span>
+<span><span class="co">#&gt;   RACEN RACEC                            SEXF SEXFC n_USUBJID     n n_cumulative</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 White/Caucasian                     0 Male        104  <span style="text-decoration: underline;">1</span>456         <span style="text-decoration: underline;">1</span>456</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1 White/Caucasian                     1 Fema…       126  <span style="text-decoration: underline;">1</span>764         <span style="text-decoration: underline;">3</span>220</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     2 Black/African American              0 Male          6    84         <span style="text-decoration: underline;">3</span>304</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     2 Black/African American              1 Fema…        17   238         <span style="text-decoration: underline;">3</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4 American Indian or Alaska Nati…     0 Male          1    14         <span style="text-decoration: underline;">3</span>556</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="create-or-modify-variables-as-factors">Create or modify variables as factors<a class="anchor" aria-label="anchor" href="#create-or-modify-variables-as-factors"></a>
+</h5>
+<p>Use <code><a href="../reference/set_decode_factors.html">set_decode_factors()</a></code> to either modify variables
+in-place or create new variables.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dmcognigen_cov</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/set_decode_factors.html">set_decode_factors</a></span><span class="op">(</span><span class="va">requirements</span>, new_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>RACEN <span class="op">=</span> <span class="st">"RACEN"</span>, <span class="st">"{var}FCT"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/cnt.html">cnt</a></span><span class="op">(</span><span class="va">RACEN</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">ends_with</a></span><span class="op">(</span><span class="st">"FCT"</span><span class="op">)</span><span class="op">)</span>, n_cumulative <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `NCILIVFCT` as a factor of `NCILIV`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Modified variable `RACEN` as a factor of `RACEN`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `RFCATFCT` as a factor of `RFCAT`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Created new variable `SEXFFCT` as a factor of `SEXF`.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 22 × 5</span></span></span>
+<span><span class="co">#&gt;    RACEN           NCILIVFCT      RFCATFCT                         SEXFFCT     n</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> White/Caucasian Normal Group A Mild Impairment (60-89 mL/min)   Male       26</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> White/Caucasian Normal Group A Mild Impairment (60-89 mL/min)   Female     30</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> White/Caucasian Normal Group A Moderate Impairment (30-59 mL/m… Male       65</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> White/Caucasian Normal Group A Moderate Impairment (30-59 mL/m… Female     78</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> White/Caucasian Normal Group A <span style="color: #BB0000;">NA</span>                               Male        3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> White/Caucasian Normal Group A <span style="color: #BB0000;">NA</span>                               Female      5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> White/Caucasian Mild Group B1  Mild Impairment (60-89 mL/min)   Male        3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> White/Caucasian Mild Group B1  Mild Impairment (60-89 mL/min)   Female      3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> White/Caucasian Mild Group B1  Moderate Impairment (30-59 mL/m… Male        1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> White/Caucasian Mild Group B1  Moderate Impairment (30-59 mL/m… Female      6</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more rows</span></span></span></code></pre></div>
+</div>
 </div>
 <div class="section level4">
 <h4 id="labels_named_list">labels_named_list<a class="anchor" aria-label="anchor" href="#labels_named_list"></a>
 </h4>
 <p>This attribute will be set if the <code>variable_name_col</code> and
-<code>variable_label_col</code> arguments are defined and variables with
-those names exist in the imported requirements.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">requirements</span>, <span class="st">"labels_named_list"</span><span class="op">)</span></span>
+<code>variable_label_col</code> arguments are defined and those
+variables are in the <code>requirements</code>. The
+<code>requirements</code> can be used directly in
+<code><a href="../reference/set_labels.html">set_labels()</a></code> or the attribute can be extracted and possibly
+modified.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">requirements</span>, <span class="st">"labels_named_list"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $ONUM</span></span>
+<span><span class="co">#&gt; [1] "Overall Sequence Number"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $NUM</span></span>
+<span><span class="co">#&gt; [1] "Sequence Number"</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $STUDYID</span></span>
 <span><span class="co">#&gt; [1] "Study Identifier"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -381,20 +434,10 @@ those names exist in the imported requirements.</p>
 <span><span class="co">#&gt; $ID</span></span>
 <span><span class="co">#&gt; [1] "Subject ID"</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $AGECAT</span></span>
-<span><span class="co">#&gt; [1] "Baseline Age Category"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $RACEN</span></span>
-<span><span class="co">#&gt; [1] "Race"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $SEXF</span></span>
-<span><span class="co">#&gt; [1] "Sex"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $FED</span></span>
-<span><span class="co">#&gt; [1] "Fed"</span></span></code></pre></div>
-<p>This attribute can be used in the <code><a href="../reference/set_labels.html">set_labels()</a></code> function,
-or the imported requirements can be used:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt; $TSFD</span></span>
+<span><span class="co">#&gt; [1] "Time Since First Dose (h)"</span></span></code></pre></div>
+<p>Apply the labels to a data set:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dmcognigen_cov_labels_removed</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [254 × 3] (S3: tbl_df/tbl/data.frame)</span></span>
