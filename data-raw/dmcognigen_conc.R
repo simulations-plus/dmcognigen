@@ -3,19 +3,15 @@
 library(dplyr)
 
 
-new_variable_labels <- c(
-  # derived from pc
-  DTTM = "Date/Time",
-  DVID = "Observation Type",
-  DVIDC = "Observation Type",
-  EVID = "Event ID",
-  MDV = "Missing Dependent Variable",
-  DV = "Xanomeline Concentration (ug/mL)",
-  LOGDV = "Ln Transformed Xanomeline Conc (ug/mL)",
-  BLQFN = "BLQ Flag",
-  LLOQ = "Lower Limit of Quantitation",
-  DAY = "Day"
-)
+# requirements ------------------------------------------------------------
+
+data("dmcognigen_pk_requirements")
+requirements <- dmcognigen_pk_requirements
+
+# for reference
+requirements_decode_tbls <- as_decode_tbls(requirements)
+
+requirements_decode_tbls[c("EVID", "DVID", "MDV", "BLQFN")]
 
 
 # from pc dataset ---------------------------------------------------------
@@ -43,7 +39,6 @@ dmcognigen_conc <- pharmaversesdtm::pc %>%
     LOGDV = log(DV),
     EVID = 0,
     DVID = 1,
-    DVIDC = "Xanomeline Concentration (ug/mL)",
     MDV = 0,
     DAY = PCDY
   ) %>% 
@@ -53,11 +48,29 @@ dmcognigen_conc %>%
   cnt(is.na(DTTM))
 
 
-# combine -----------------------------------------------------------------
+# join decodes ------------------------------------------------------------
+
+dmcognigen_conc <- dmcognigen_conc %>%
+  join_decode_labels(
+    decode_tbls = requirements,
+    lvl_to_lbl = "{var}C"
+  )
+
+
+# labels and variable order -----------------------------------------------
 
 dmcognigen_conc <- dmcognigen_conc %>% 
-  relocate(any_of(names(new_variable_labels)), .after = USUBJID) %>% 
-  set_labels(new_variable_labels)
+  relocate(any_of(requirements$variable_name), .after = USUBJID) %>% 
+  set_labels(requirements)
+
+# don't include variables without a label
+missing_labels <- purrr::map(dmcognigen_conc, attr, which = "label") %>% 
+  purrr::keep(is.null) %>% 
+  names()
+
+dmcognigen_conc <- dmcognigen_conc %>% 
+  select(-any_of(missing_labels))
+
 
 # dataset label
 attr(dmcognigen_conc, "label") <- "CDISCPILOT01 PK Concentrations"

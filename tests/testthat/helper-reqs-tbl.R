@@ -49,7 +49,7 @@ dummy_paths <- file.path(dummy_dir, dummy_names)
 purrr::walk2(dummy_names, dummy_times, ~ {
   
   openxlsx::write.xlsx(
-  list(specs = example_requirements, unit_conversions = data.frame(), discussions = data.frame()),
+  list(specs = dmcognigen_pk_requirements, unit_conversions = data.frame(), discussions = data.frame()),
   file = file.path(dummy_dir, .x)
   )
   

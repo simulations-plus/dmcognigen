@@ -1,3 +1,20 @@
+#' Example PK Data Requirements
+#'
+#' @description
+#' Data Requirements designed based on \code{pharmaversesdtm} example datasets,
+#' which are updated SDTM datasets that use data from the CDISC pilot project.
+#' 
+#' This has the same structure and attributes as results from
+#' \code{\link{read_requirements}} and \code{\link{as_requirements}}.
+#' 
+#' @examples
+#' head(dmcognigen_pk_requirements)
+#' 
+#' as_decode_tbls(dmcognigen_pk_requirements)
+#' 
+"dmcognigen_pk_requirements"
+
+
 #' Covariate Dataset
 #'
 #' A dataset generated from \code{pharmaversesdtm} example datasets, which are

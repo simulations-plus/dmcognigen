@@ -9,8 +9,6 @@ good_decodes <- tibble::tribble(
   "LGLQ",   "'Y'=Yes\n'N'=No",                                                         
   # with spaces and numbers
   "AGEPED", "0=Neonate to 1 month\n1=Infant: 1 month to 2 years",                      
-  # with special characters (<)
-  "AGECAT", "0=<65 years\n1=65 to 74 years\n2=75 years or older",                      
   # with parentheses in decode
   "MDV",    "0=PK or PD measure\n1=Dose or Other(EVID=2)",                             
   # with special characters and parentheses

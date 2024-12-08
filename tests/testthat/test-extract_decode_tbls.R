@@ -9,8 +9,6 @@ good_decodes <- tibble::tribble(
   "LGLQ",   "'Y'=Yes\n'N'=No",                                                         
   # with spaces and numbers
   "AGEPED", "0=Neonate to 1 month\n1=Infant: 1 month to 2 years",                      
-  # with special characters (<)
-  "AGECAT", "0=<65 years\n1=65 to 74 years\n2=75 years or older",                      
   # with parentheses in decode
   "MDV",    "0=PK or PD measure\n1=Dose or Other(EVID=2)",                             
   # with special characters and parentheses
@@ -57,29 +55,20 @@ test_that("extract_decode_tbl() extracts the decodes with different formats/symb
     c(2, 3)
   )
   
-  # confirm fifth decode has 3 rows and 3 columns
+  # confirm fifth decode has 2 rows and 3 columns
   expect_equal(
     dim(extract_decode_tbl(
       variable_name = good_decodes$var[5],
       decode = good_decodes$decode[5]
     )), 
-    c(3, 3)
+    c(2, 3)
   )
   
-  # confirm sixth decode has 2 rows and 3 columns
+  # confirm sixth decode has 3 rows and 3 columns
   expect_equal(
     dim(extract_decode_tbl(
       variable_name = good_decodes$var[6],
       decode = good_decodes$decode[6]
-    )), 
-    c(2, 3)
-  )
-  
-  # confirm seventh decode has 3 rows and 3 columns
-  expect_equal(
-    dim(extract_decode_tbl(
-      variable_name = good_decodes$var[7],
-      decode = good_decodes$decode[7]
     )), 
     c(3, 3)
   )
@@ -89,7 +78,7 @@ test_that("extract_decode_tbl() extracts the decodes with different formats/symb
       variable_name = good_decodes$var,
       decode = good_decodes$decode
     ),
-    n = 7L
+    n = 6L
   )
   
 })

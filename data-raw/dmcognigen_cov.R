@@ -3,41 +3,14 @@
 library(dplyr)
 library(tidyr)
 
-new_variable_labels <- c(
-  
-  # derived from dm
-  SEXF = "Sex",
-  SEXFC = "Sex",
-  RACEN = "Race",
-  
-  # derived from vs
-  HTCM = "Height (cm)",
-  WTKG = "Weight (kg)",
-  
-  # derived from lb
-  AST = "Baseline AST (U/L)",
-  ASTULN = "AST Upper Limit of Normal (U/L)",
-  SCR = "Baseline SCR (mg/dL)",
-  SCRULN = "SCR Upper Limit of Normal (mg/dL)",
-  TBIL = "Baseline TBIL (mg/dL)",
-  TBILULN = "TBIL Upper Limit of Normal (mg/dL)",
-  
-  # derived from calculations
-  ASTCAT = "Baseline AST Category",
-  BMI = "Baseline BMI (kg/m^2)",
-  BSA = "Baseline BSA (m^2)",
-  IBW = "Baseline IBW (kg)",
-  CRCL = "Baseline CrCL (mL/min)",
-  CRCLP = "Baseline CrCL (mL/min)",
-  EGFR = "Baseline eGFR (mL/min/1.73m^2)",
-  EGFRSCHW = "Baseline eGFR (mL/min/1.73m^2)",
-  IBWCHILD = "Baseline IBW (kg)",
-  LBM = "Baseline LBM (kg)",
-  TBILCAT = "Baseline TBIL Category",
-  RFCAT = "Baseline Renal Fx Category",
-  NCILIV = "Baseline NCI Liver Fx Group"
-  
-)
+
+# requirements ------------------------------------------------------------
+
+data("dmcognigen_pk_requirements")
+requirements <- dmcognigen_pk_requirements
+
+# for reference
+requirements_decode_tbls <- as_decode_tbls(requirements)
 
 
 # from dm dataset ---------------------------------------------------------
@@ -50,15 +23,13 @@ pharmaversesdtm::dm %>%
 pharmaversesdtm::dm%>% 
   cnt(RACE, ETHNIC)
 
+requirements_decode_tbls[c("SEXF", "RACEN")]
+
 dm <- pharmaversesdtm::dm %>% 
   mutate(
     SEXF = case_when(
       SEX == "F" ~ 1,
       SEX == "M" ~ 0
-    ),
-    SEXFC = case_when(
-      SEXF == 1 ~ "Female",
-      SEXF == 0 ~ "Male"
     ),
     RACEN = case_when(
       RACE == "WHITE" ~ 1,
@@ -67,12 +38,10 @@ dm <- pharmaversesdtm::dm %>%
       RACE == "AMERICAN INDIAN OR ALASKA NATIVE" ~ 4
     )
   ) %>% 
-  arrange(STUDYID, USUBJID) %>% 
-  relocate(SEXF, SEXFC, .after = SEX) %>% 
-  relocate(RACEN, .after = RACE)
+  arrange(STUDYID, USUBJID)
 
 dm %>% 
-  cnt(SEXF, SEXFC, SEX)
+  cnt(SEXF, SEX)
 
 dm %>% 
   cnt(RACEN, RACE)
@@ -216,7 +185,13 @@ dmcognigen_cov <- dm %>%
     LBM = calculate_lbm(),
     RFCAT = calculate_rfcat(),
     NCILIV = calculate_nciliv()
+  ) %>%
+  mutate(
+    ID = 101 * 1e2 + 1:n()
   )
+
+dmcognigen_cov %>%
+  cnt(STUDYID, n_distinct_vars = c(USUBJID, SUBJID, ID))
 
 
 # drop screen failure subjects --------------------------------------------
@@ -242,12 +217,24 @@ dmcognigen_cov %>%
   cnt(STUDYID, ACTARMCD, ACTARM, n_distinct_vars = c(USUBJID, SUBJID))
 
 
+# join decodes ------------------------------------------------------------
+
+dmcognigen_cov <- dmcognigen_cov %>%
+  join_decode_labels(
+    decode_tbls = requirements,
+    lvl_to_lbl = list(
+      "{var}C",
+      RACEN = "RACEC"
+    )
+  )
+
+
 # labels and variable order -----------------------------------------------
 
 dmcognigen_cov <- dmcognigen_cov %>%
-  relocate(any_of(names(new_variable_labels)), .after = USUBJID) %>% 
+  relocate(any_of(requirements$variable_name), .after = USUBJID) %>% 
   set_labels(dm_labels) %>%
-  set_labels(new_variable_labels)
+  set_labels(requirements)
 
 # dataset label
 attr(dmcognigen_cov, "label") <- "CDISCPILOT01 Covariates"
