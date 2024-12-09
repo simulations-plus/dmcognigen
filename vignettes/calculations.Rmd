@@ -1,5 +1,6 @@
 ---
-title: "Create standard variables"
+title: "Calculations"
+subtitle: "Create standard variables"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{calculations}
@@ -66,7 +67,7 @@ When expected variables are missing, an attempt is made to detect them in the en
 
 For examples and testing, there are calculation-ready **sample** datasets incorporated into the package.
 
-## dmcognigen_cov
+## `dmcognigen_cov`
 
 The `dmcognigen_cov` dataset is a `data.frame` with demographic/covariate information. 
 It contains the variables required for most calculation functions. 
@@ -75,7 +76,7 @@ It contains the variables required for most calculation functions.
 glimpse(dmcognigen_cov)
 ```
 
-## dmcognigen_conc
+## `dmcognigen_conc`
 
 The `dmcognigen_conc` dataset is a `data.frame` with concentration variables.
 
@@ -91,7 +92,7 @@ For instance, `calculate_bmi` can calculate both `BMI` (baseline) and `BMIT` (ti
 If you provide time varying `WTKG` and `HTCM`, then the result will be time-varying. 
 Each function prints the formula that was used in a readable format.
 
-## calculate_crcl
+## `calculate_crcl()`
 
 `r get_from_calculations_table("crcl", "purpose")`
 
@@ -139,7 +140,7 @@ dmcognigen_cov %>%
 ```
 
 
-## calculate_crcl_peck
+## `calculate_crcl_peck()`
 
 `r get_from_calculations_table("crcl_peck", "purpose")`
 
@@ -183,7 +184,7 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, CRCL, IBW, SCR, SEXF, WTKG, CRCLP)
 ```
 
-## calculate_bmi
+## `calculate_bmi()`
 
 `r get_from_calculations_table("bmi", "purpose")`
 
@@ -219,7 +220,7 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, WTKG, BMI)
 ```
 
-## calculate_bsa
+## `calculate_bsa()`
 
 `r get_from_calculations_table("bsa", "purpose")`
 
@@ -255,7 +256,7 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, WTKG, BSA)
 ```
 
-## calculate_lbm
+## `calculate_lbm()`
 
 `r get_from_calculations_table("lbm", "purpose")`
 
@@ -293,7 +294,7 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, SEXF, WTKG, LBM)
 ```
 
-## calculate_ibw
+## `calculate_ibw()`
 
 `r get_from_calculations_table("ibw", "purpose")`
 
@@ -329,7 +330,7 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, SEXF, IBW)
 ```
 
-## calculate_ibw_child
+## `calculate_ibw_child()`
 
 `r get_from_calculations_table("ibw_child", "purpose")`
 
@@ -362,7 +363,7 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, HTCM, IBWCHILD)
 ```
 
-## calculate_egfr
+## `calculate_egfr()`
 
 `r get_from_calculations_table("egfr", "purpose")`
 
@@ -402,7 +403,7 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, RACEN, SCR, SEXF, EGFR)
 ```
 
-## calculate_egfr_child
+## `calculate_egfr_child()`
 
 `r get_from_calculations_table("egfr_child", "purpose")`
 
@@ -442,7 +443,7 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, HTCM, SCR, SEXF, EGFR_CHILD)
 ```
 
-## calculate_rfcat
+## `calculate_rfcat()`
 
 `r get_from_calculations_table("rfcat", "purpose")`
 
@@ -480,7 +481,7 @@ dmcognigen_cov %>%
   select(USUBJID, EGFR, RFCAT)
 ```
 
-## calculate_tbilcat
+## `calculate_tbilcat`()
 
 `r get_from_calculations_table("tbilcat", "purpose")`
 
@@ -516,7 +517,7 @@ dmcognigen_cov %>%
   select(USUBJID, TBIL, TBILULN, TBILCAT)
 ```
 
-## calculate_astcat
+## `calculate_astcat()`
 
 `r get_from_calculations_table("astcat", "purpose")`
 
@@ -552,7 +553,7 @@ dmcognigen_cov %>%
   select(USUBJID, AST, ASTULN, ASTCAT)
 ```
 
-## calculate_nciliv
+## `calculate_nciliv()`
 
 `r get_from_calculations_table("nciliv", "purpose")`
 

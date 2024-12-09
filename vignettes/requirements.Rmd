@@ -1,8 +1,8 @@
 ---
-title: "Data requirements"
+title: "Data Requirements"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Data requirements}
+  %\VignetteIndexEntry{Data Requirements}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -174,7 +174,7 @@ Resulting `requirements` objects can be used directly in other functions in this
 
 This attribute will be set if the `variable_name_col` and `decode_col` arguments are defined and those variables are in requirements. 
 
-See more details on using `decode_tbls` in the [Decodes vignette](decodes.html).
+See more details on using `decode_tbls` in the [Decode Tables vignette](decodes.html).
 
 ```{r}
 attr(requirements, "decode_tbls")

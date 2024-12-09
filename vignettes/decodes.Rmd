@@ -1,8 +1,8 @@
 ---
-title: "Decodes"
+title: "Decode Tables"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Decodes}
+  %\VignetteIndexEntry{Decode Tables}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -48,7 +48,7 @@ dmcognigen_pk_requirements %>%
 ```
 
 
-# Constructing decode tables
+# Constructing `decode_tbls`
 
 A decode table (`decode_tbl`) or a collection of decode tables (`decode_tbls`) can be constructed in 3 main ways:
 
