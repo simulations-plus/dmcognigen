@@ -5,44 +5,53 @@
 \alias{set_labels<-}
 \title{Set variable labels}
 \usage{
-set_labels(data, labels)
+set_labels(data, labels = list(), ...)
 
-set_labels(data) <- value
+set_labels(data, ...) <- value
 }
 \arguments{
 \item{data}{\code{data.frame} or \code{tibble}}
 
-\item{labels}{named \code{list} or \code{character} vector. Alternatively, 
-the result of \code{read_requirements()} can be used directly.}
+\item{labels, value}{either a named \code{list} or \code{character} vector, a
+\code{requirements} object, or a data frame with labelled variables.
+Additionally, \code{NULL} can be used to remove variable labels.}
 
-\item{value}{(labels) named \code{list} or \code{character} vector}
+\item{...}{named pairs where the name corresponds to one variable in
+\code{data} and the value is either the variable label or a source to 
+inherit the label from. This label is kept over an element in \code{labels}.}
 }
 \value{
-object with the same structure as \code{data}, with label attributes
-  assigned to variables provided in \code{labels}.
+object with the same structure as \code{data} with label attributes
+  assigned to the variables provided in \code{labels} and \code{...}.
 }
 \description{
 Set variable labels
 }
 \examples{
-str(mtcars)
 
-custom_labels <- list(
-  mpg = "Miles per gallon", 
-  cyl = "Number of cylinders"
-)
+# remove all variable labels for examples
+pk_no_labels <- dmcognigen_pk |>
+  set_labels(NULL)
 
-# set labels for an existing object in-place
-custom_mtcars <- mtcars
-set_labels(custom_mtcars) <- custom_labels
-str(custom_mtcars)
+# with a requirements object
+pk_with_labels <- pk_no_labels |>
+  set_labels(dmcognigen_pk_requirements)
 
-# or assign a labelled dataset to an object
-labelled_mtcars <- set_labels(mtcars, custom_labels)
-str(labelled_mtcars)
+# with another data set
+pk_with_labels <- pk_no_labels |>
+  set_labels(dmcognigen_pk)
+  
+# by providing individual variable labels with `...`
+pk_with_labels <- pk_no_labels |>
+  set_labels(ID = "ID")
 
-# or with the pipe
-labelled_mtcars <- mtcars \%>\% 
-  set_labels(custom_labels)
-str(labelled_mtcars)
+# or any combination
+pk_with_labels <- pk_no_labels |>
+  set_labels(dmcognigen_pk_requirements, USUBJID = dmcognigen_cov, ID = "ID")
+
+# apply labels from multiple datasets by using the function multiple times
+pk_with_labels <- pk_no_labels |>
+  set_labels(dmcognigen_cov) |>
+  set_labels(dmcognigen_dose) |>
+  set_labels(dmcognigen_conc)
 }
