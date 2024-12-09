@@ -50,13 +50,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/calculations.html">Create standard variables with dmcognigen</a>
+      <a href="articles/calculations.html">Calculations</a>
     </li>
     <li>
-      <a href="articles/decodes.html">Decodes</a>
+      <a href="articles/decodes.html">Decode Tables</a>
     </li>
     <li>
-      <a href="articles/requirements.html">Data requirements</a>
+      <a href="articles/requirements.html">Data Requirements</a>
     </li>
   </ul>
 </li>
@@ -87,6 +87,9 @@
 <div class="section level1">
 <div class="page-header"><h1 id="dmcognigen">dmcognigen<a class="anchor" aria-label="anchor" href="#dmcognigen"></a>
 </h1></div>
+<!-- badges: start -->
+
+<!-- badges: end -->
 </div>
 <div class="section level1">
 <h1 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -115,6 +118,7 @@
 <h2 id="calculate-standard-variables">Calculate Standard Variables<a class="anchor" aria-label="anchor" href="#calculate-standard-variables"></a>
 </h2>
 <ul>
+<li>See full details in the <a href="https://simulations-plus.github.io/dmcognigen/articles/calculations.html" class="external-link">Calculations vignette</a>.</li>
 <li>Use the <code>calculate_*()</code> family of functions to apply standard equations.</li>
 </ul>
 </div>
@@ -122,6 +126,7 @@
 <h2 id="read-and-leverage-data-requirements">Read and Leverage Data Requirements<a class="anchor" aria-label="anchor" href="#read-and-leverage-data-requirements"></a>
 </h2>
 <ul>
+<li>See full details in the <a href="https://simulations-plus.github.io/dmcognigen/articles/requirements.html" class="external-link">Data Requirements vignette</a>.</li>
 <li>Check which data requirement files are available with <code><a href="reference/requirements.html">available_requirements_table()</a></code> and import data requirements with <code><a href="reference/requirements.html">read_requirements()</a></code>.</li>
 <li>Use attributes of requirements to apply characteristics defined in data requirements to a dataset.
 <ul>
@@ -135,9 +140,11 @@
 <h2 id="interact-with-decodes">Interact with Decodes<a class="anchor" aria-label="anchor" href="#interact-with-decodes"></a>
 </h2>
 <ul>
+<li>See full details in the <a href="https://simulations-plus.github.io/dmcognigen/articles/decodes.html" class="external-link">Decode Tables vignette</a>.</li>
 <li>Extract decodes from vectors with <code><a href="reference/extract_decode_tbls.html">extract_decode_tbls()</a></code>.</li>
 <li>Extract decodes from a dataset with <code><a href="reference/extract_decode_tbls_from_data.html">extract_decode_tbls_from_data()</a></code>.</li>
 <li>Merge decodes with <code><a href="reference/join_decodes.html">join_decode_labels()</a></code> or <code><a href="reference/join_decodes.html">join_decode_levels()</a></code>.</li>
+<li>Create factor variables with <code><a href="reference/set_decode_factors.html">set_decode_factors()</a></code>.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -188,7 +195,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/simulations-plus/dmcognigen/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/simulations-plus/dmcognigen/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
