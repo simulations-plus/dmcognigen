@@ -1,5 +1,6 @@
 ---
-title: "Create standard variables with dmcognigen"
+title: "Calculations"
+subtitle: "Create standard variables"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{calculations}
@@ -22,78 +23,85 @@ vignette_equation <- function(.var_name) {
          gsub("^  ", "", get_from_calculations_table(.var_name, "equation")))
   )
 }
+
+# common text in examples
+example1_text <- "All expected variables are provided:"
+example2_text <- "All or some of expected variables are missing. In this case, the function will try to detect those missing variables from the parent environment:"
 ```
 
-The `calculations` family is a collection of functions intended to facilitate the calculation of variables that mostly use standard equations (e.g: CrCl, eGFR, BMI etc). This vignette shows and explains: 
 
-* How these functions work when expected variables are not passed.
-* The sample data integrated in the package, and how you can use it to practice.
+The `calculations` family is a collection of functions intended to facilitate the calculation of variables that mostly use standard equations (e.g: CrCl, eGFR, BMI etc). 
+This vignette demonstrates: 
+
+* How these functions work when required variables are missing.
 * Description of calculations functions.
-* Examples from different use cases.
+* Examples use-cases.
 
-# Loading `calculations`
-By installing `dmcognigen` package and loading it into your environment, you will have access to the `calculations` functions.
-
-Assuming you already have `dmcognigen` package installed on your machine, then you load it into your environment:
 ```{r, message=FALSE}
 library(dmcognigen)
 library(dplyr)
 ```
 
+In their simplest form, these functions apply and report formulas.
+
+```{r}
+calculate_crcl(
+  age = 50,
+  scr = 1,
+  sexf = 0,
+  wtkg = 70
+)
+```
+
 
 # Detect missing variables from environment
-There's a common behavior between all calculations functions when all or some of expected variables are missing. They will try to detect and use those missing variables from environment, details below: 
 
-* It identifies the missing variables/inputs, if found, then
-* It looks in the environment to see if it contains those missing variables (it's a case-insensitive match)
-* It'll stop and pass error if either no match found or more than one matches found
-* If only one match found, then it'll be used in calculation and user will be notified
+When expected variables are missing, an attempt is made to detect them in the environment.
+
+* The calculation function checks the calling environment for missing variables with a case-insensitive match.
+* An error is raised if either no match is found or more than one match is found.
+* If a single match is found, it is used and the user is notified.
 
 
 # Source datasets
-In order to provide some examples and facilitating the testing for users, we've integrated some calculation ready **sample** datasets into the package. Once you've loaded the package, you can simply access them by calling their names.
 
-```{r}
-dmcognigen_cov %>%
-  mutate(
-    CRCL = calculate_crcl(
-      age = AGE,
-      scr = SCR,
-      sexf = SEXF,
-      wtkg = WTKG
-    )
-  ) %>%
-  select(USUBJID, AGE, SCR, SEXF, WTKG, CRCL)
-```
+For examples and testing, there are calculation-ready **sample** datasets incorporated into the package.
 
-## dmcognigen_cov
-The `dmcognigen_cov` dataset is a `data.frame` type. It contains the necessary variables to test and practice the calculation functions. Some variables like SCR are already created in this dataset, so you don't need to create it.
+## `dmcognigen_cov`
+
+The `dmcognigen_cov` dataset is a `data.frame` with demographic/covariate information. 
+It contains the variables required for most calculation functions. 
 
 ```{r}
 glimpse(dmcognigen_cov)
 ```
 
-## dmcognigen_conc
-The `dmcognigen_conc` dataset is a `data.frame` type. It contains the concentration variables like DV to facilitate testing and practicing.
+## `dmcognigen_conc`
+
+The `dmcognigen_conc` dataset is a `data.frame` with concentration variables.
 
 ```{r}
 glimpse(dmcognigen_conc)
 ```
 
 
-<!-- This (Stationary vs Time varying variables) is explained in # Function section.  -->
-
 # Functions
-Each function calculates a specific variable, but the same function can be used to calculate both baseline and time varying of a variable because it depends on the inputs. For instance, `calculate_bmi` can calculate both `BMI` and `BMIT`. If you provide time varying `WTKG` and `HTCM`, then the output will be a time varying `BMI`. Additionally, each function prints the equation that was used to calculate in a readable format.
 
-## calculate_crcl
-The `calculate_crcl` function is to `r get_from_calculations_table("crcl","purpose")`. Following is the formula to calculate it: 
+Each function performs calculations according to some formula, so the same function can be used to calculate both baseline and time-varying versions of a variable. 
+For instance, `calculate_bmi` can calculate both `BMI` (baseline) and `BMIT` (time-varying). 
+If you provide time varying `WTKG` and `HTCM`, then the result will be time-varying. 
+Each function prints the formula that was used in a readable format.
+
+## `calculate_crcl()`
+
+`r get_from_calculations_table("crcl", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("crcl")
 ```
 
-`r describe_param("return_num_vect")`. Following are the inputs:
+`r describe_param("return_num_vect")`. 
+Following are the inputs:
 
 * `age`: `r describe_param("age")`
 * `wtkg`: `r describe_param("wtkg")`
@@ -102,14 +110,6 @@ vignette_equation("crcl")
 
 ### Examples
 
-<!-- Common text between sections -->
-```{r, include = FALSE}
-example1_text <- "All expected variables are provided:"
-
-example2_text <- "All or some of expected variables are missing. In this case, the function will try to detect those missing variables from the parent environment:"
-```
-
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -124,7 +124,6 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, SCR, SEXF, WTKG, CRCL)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -141,8 +140,9 @@ dmcognigen_cov %>%
 ```
 
 
-## calculate_crcl_peck
-The `calculate_crcl_peck` function is to `r get_from_calculations_table("crcl_peck","purpose")`. Following is the formula to calculate it: 
+## `calculate_crcl_peck()`
+
+`r get_from_calculations_table("crcl_peck", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("crcl_peck")
@@ -159,7 +159,6 @@ vignette_equation("crcl_peck")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -176,7 +175,6 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, CRCL, IBW, SCR, SEXF, WTKG, CRCLP)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -186,8 +184,9 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, CRCL, IBW, SCR, SEXF, WTKG, CRCLP)
 ```
 
-## calculate_bmi
-The `calculate_bmi` function is to `r get_from_calculations_table("bmi","purpose")`. Following is the formula to calculate it: 
+## `calculate_bmi()`
+
+`r get_from_calculations_table("bmi", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("bmi")
@@ -200,7 +199,6 @@ vignette_equation("bmi")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -213,7 +211,6 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, WTKG, BMI)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -223,8 +220,9 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, WTKG, BMI)
 ```
 
-## calculate_bsa
-The `calculate_bsa` function is to `r get_from_calculations_table("bsa","purpose")`. Following is the formula to calculate it: 
+## `calculate_bsa()`
+
+`r get_from_calculations_table("bsa", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("bsa")
@@ -237,7 +235,6 @@ vignette_equation("bsa")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -250,7 +247,6 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, WTKG, BSA)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -260,8 +256,9 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, WTKG, BSA)
 ```
 
-## calculate_lbm
-The `calculate_lbm` function is to `r get_from_calculations_table("lbm","purpose")`. Following is the formula to calculate it:
+## `calculate_lbm()`
+
+`r get_from_calculations_table("lbm", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("lbm")
@@ -275,7 +272,6 @@ vignette_equation("lbm")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -289,7 +285,6 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, SEXF, WTKG, LBM)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -299,8 +294,9 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, SEXF, WTKG, LBM)
 ```
 
-## calculate_ibw
-The `calculate_ibw` function is to `r get_from_calculations_table("ibw","purpose")`. Following is the formula to calculate it: 
+## `calculate_ibw()`
+
+`r get_from_calculations_table("ibw", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("ibw")
@@ -313,7 +309,6 @@ vignette_equation("ibw")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -326,7 +321,6 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, SEXF, IBW)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -336,8 +330,9 @@ dmcognigen_cov %>%
   select(USUBJID, HTCM, SEXF, IBW)
 ```
 
-## calculate_ibw_child
-The `calculate_ibw_child` function is to `r get_from_calculations_table("ibw_child","purpose")`. Following is the formula to calculate it: 
+## `calculate_ibw_child()`
+
+`r get_from_calculations_table("ibw_child", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("ibw_child")
@@ -350,7 +345,6 @@ vignette_equation("ibw_child")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -360,7 +354,6 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, HTCM, IBWCHILD)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -370,8 +363,9 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, HTCM, IBWCHILD)
 ```
 
-## calculate_egfr
-The `calculate_egfr` function is to `r get_from_calculations_table("egfr","purpose")`. Following is the formula to calculate it: 
+## `calculate_egfr()`
+
+`r get_from_calculations_table("egfr", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("egfr")
@@ -386,7 +380,6 @@ vignette_equation("egfr")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -401,7 +394,6 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, RACEN, SCR, SEXF, EGFR)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -411,8 +403,9 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, RACEN, SCR, SEXF, EGFR)
 ```
 
-## calculate_egfr_child
-The `calculate_egfr_child` function is to `r get_from_calculations_table("egfr_child", "purpose")`. Following is the formula to calculate it: 
+## `calculate_egfr_child()`
+
+`r get_from_calculations_table("egfr_child", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("egfr_child")
@@ -427,7 +420,6 @@ vignette_equation("egfr_child")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -442,7 +434,6 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, HTCM, SCR, SEXF, EGFR_CHILD)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -452,8 +443,9 @@ dmcognigen_cov %>%
   select(USUBJID, AGE, HTCM, SCR, SEXF, EGFR_CHILD)
 ```
 
-## calculate_rfcat
-The `calculate_rfcat` function is to `r get_from_calculations_table("rfcat","purpose")`. Following is the formula to calculate it: 
+## `calculate_rfcat()`
+
+`r get_from_calculations_table("rfcat", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("rfcat")
@@ -465,7 +457,6 @@ vignette_equation("rfcat")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -481,7 +472,6 @@ dmcognigen_cov %>%
   select(USUBJID, EGFR, RFCAT)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -491,8 +481,9 @@ dmcognigen_cov %>%
   select(USUBJID, EGFR, RFCAT)
 ```
 
-## calculate_tbilcat
-The `calculate_tbilcat` function is to `r get_from_calculations_table("tbilcat","purpose")`. Following is the formula to calculate it: 
+## `calculate_tbilcat`()
+
+`r get_from_calculations_table("tbilcat", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("tbilcat")
@@ -505,7 +496,6 @@ vignette_equation("tbilcat")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -518,7 +508,6 @@ dmcognigen_cov %>%
   select(USUBJID, TBIL, TBILULN, TBILCAT)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -528,8 +517,9 @@ dmcognigen_cov %>%
   select(USUBJID, TBIL, TBILULN, TBILCAT)
 ```
 
-## calculate_astcat
-The `calculate_astcat` function is to `r get_from_calculations_table("astcat","purpose")`. Following is the formula to calculate it: 
+## `calculate_astcat()`
+
+`r get_from_calculations_table("astcat", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("astcat")
@@ -542,7 +532,6 @@ vignette_equation("astcat")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -555,7 +544,6 @@ dmcognigen_cov %>%
   select(USUBJID, AST, ASTULN, ASTCAT)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -565,8 +553,9 @@ dmcognigen_cov %>%
   select(USUBJID, AST, ASTULN, ASTCAT)
 ```
 
-## calculate_nciliv
-The `calculate_nciliv` function is to `r get_from_calculations_table("nciliv","purpose")`. Following is the formula to calculate it: 
+## `calculate_nciliv()`
+
+`r get_from_calculations_table("nciliv", "purpose")`
 
 ```{r echo=FALSE}
 vignette_equation("nciliv")
@@ -579,7 +568,6 @@ vignette_equation("nciliv")
 
 ### Examples
 
-#### Example 1
 `r example1_text`
 ```{r}
 dmcognigen_cov %>% 
@@ -589,7 +577,6 @@ dmcognigen_cov %>%
   select(USUBJID, ASTCAT, TBILCAT, NCILIV)
 ```
 
-#### Example 2
 `r example2_text`
 ```{r}
 dmcognigen_cov %>% 

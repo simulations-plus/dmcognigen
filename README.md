@@ -1,5 +1,11 @@
 # dmcognigen
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/simulations-plus/dmcognigen/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/simulations-plus/dmcognigen/actions/workflows/R-CMD-check.yaml)
+
+<!-- badges: end -->
+
 # Overview
 
 `dmcognigen` provides functions for data management tasks at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
@@ -23,10 +29,12 @@ library(dmcognigen)
 
 ## Calculate Standard Variables
 
+- See full details in the [Calculations vignette](https://simulations-plus.github.io/dmcognigen/articles/calculations.html).
 - Use the `calculate_*()` family of functions to apply standard equations.
 
 ## Read and Leverage Data Requirements
 
+- See full details in the [Data Requirements vignette](https://simulations-plus.github.io/dmcognigen/articles/requirements.html).
 - Check which data requirement files are available with `available_requirements_table()` and import data requirements with `read_requirements()`.
 - Use attributes of requirements to apply characteristics defined in data requirements to a dataset.
   - The `"decode_tbls"` attribute can be utilized within `join_decode_labels()` or `join_decode_levels()`.
@@ -34,9 +42,11 @@ library(dmcognigen)
 
 ## Interact with Decodes
 
+- See full details in the [Decode Tables vignette](https://simulations-plus.github.io/dmcognigen/articles/decodes.html).
 - Extract decodes from vectors with `extract_decode_tbls()`.
 - Extract decodes from a dataset with `extract_decode_tbls_from_data()`.
 - Merge decodes with `join_decode_labels()` or `join_decode_levels()`.
+- Create factor variables with `set_decode_factors()`.
 
 ## Search Datasets
 
