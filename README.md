@@ -1,5 +1,11 @@
 # dmcognigen
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/simulations-plus/dmcognigen/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/simulations-plus/dmcognigen/actions/workflows/R-CMD-check.yaml)
+
+<!-- badges: end -->
+
 # Overview
 
 `dmcognigen` provides functions for data management tasks at the Clinical Pharmacology and Pharmacometrics (CPP) business unit of Simulations Plus, Inc.
