@@ -101,7 +101,7 @@ read_requirements <- function(
     decode_col = "format_decode",
     make_clean_names_fn = janitor::make_clean_names,
     ...
-  ) {
+) {
   
   assertthat::assert_that(
     length(path) == 1,
@@ -116,6 +116,29 @@ read_requirements <- function(
       is.character(sheet) || is.numeric(sheet),
       msg = "`sheet` should be a single sheet name, numeric index, or NULL."
     )
+  }
+  
+  # function to make clean names.
+  if(is.null(make_clean_names_fn)) {
+    # NULL: intentionally keeping names as-is
+    make_clean_names_fn <- identity
+  } else if(inherits(make_clean_names_fn, "function")) {
+    # function: apply the function
+  } else if(inherits(make_clean_names_fn, "formula")) {
+    # formula: convert to function
+    make_clean_names_fn <- rlang::as_function(make_clean_names_fn)
+  } else {
+    cli::cli_warn(c(
+      "No renaming method defined in {.fun read_requirements} for class {.cls {class(make_clean_names_fn)}}.",
+      "Names will be returned as-is."
+    ))
+    make_clean_names_fn <- identity
+  }
+  
+  make_clean_names <- function(x) {
+    suppressMessages({
+      make_clean_names_fn(x)
+    })
   }
   
   # if a directory was provided, select the appropriate file.
@@ -190,36 +213,30 @@ read_requirements <- function(
   )
   
   if(isTRUE(path_is_docx)) {
-    requirements <- read_docx_tables(
+    # results are not combined so the re-naming function can try to map more
+    # than one variable name to the same variable. in advanced cases.
+    docx_tables <- read_docx_tables(
       path = path,
       docx_header_pattern = docx_header_pattern,
+      combine = FALSE,
       ...
     )
+    # apply re-naming function
+    requirements <- purrr::list_rbind(purrr::map(
+      docx_tables, 
+      function(x) {
+        names(x) <- make_clean_names(names(x))
+        x
+      }
+    ))
   } else {
     requirements <- openxlsx::read.xlsx(
       path,
       sheet = sheet,
       ...
     )
-  }
-  
-  # apply naming function
-  if(!is.null(make_clean_names_fn)) {
-    if(inherits(make_clean_names_fn, "function")) {
-      # function: apply the function with the requirements data frame as input.
-      names(requirements) <- do.call(make_clean_names_fn, args = list(names(requirements)))
-    } else if(inherits(make_clean_names_fn, "formula")) {
-      # formula: convert to function then apply with requirements data frame as input.
-      names(requirements) <- do.call(
-        what = rlang::as_function(make_clean_names_fn),
-        args = list(names(requirements))
-      )
-    } else {
-      cli::cli_warn(c(
-        "No renaming method defined in {.fun read_requirements} for class {.class {class(make_clean_names_fn)}}.",
-        "Names will be returned as-is."
-      ))
-    }
+    # apply re-naming function
+    names(requirements) <- make_clean_names(names(requirements))
   }
   
   # variables to drop from the requirements. 
@@ -393,7 +410,7 @@ available_requirements_table <- function(
     sheet = "specs",
     date_format = c("ymd", "mdy", "dmy"),
     drop_qc = TRUE
-  ) {
+) {
   
   assertthat::assert_that(
     length(path) == 1,
