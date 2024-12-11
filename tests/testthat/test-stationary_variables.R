@@ -39,8 +39,15 @@ test_that("no groups means one or fewer rows", {
 test_that("magrittr pipe lets us use dot", {
   expect_true(
     dmcognigen_dose %>%
-      select(1:10) %>%
       cnt(across(stationary_variables(.)), n_distinct_vars = USUBJID) %>% 
       is.data.frame()
   )
+  
+  # with a variable
+  expect_true(
+    dmcognigen_dose %>%
+      cnt(across(stationary_variables(., TRT)), n_distinct_vars = USUBJID) %>% 
+      is.data.frame()
+  )
+  
 })
