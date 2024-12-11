@@ -19,15 +19,16 @@ library(dmcognigen)
 library(dplyr)
 
 data("dmcognigen_pk_requirements")
+requirements <- dmcognigen_pk_requirements %>% 
+  select(variable_name, variable_label, format_decode)
 
 data("dmcognigen_cov")
+cov <- dmcognigen_cov
+
 data("dmcognigen_pk")
+pk <- dmcognigen_pk
 ```
 
-```{r include=FALSE}
-dmcognigen_pk_requirements <- dmcognigen_pk_requirements %>% 
-  select(variable_name, variable_label, format_decode)
-```
 
 # Introduction
 
@@ -36,10 +37,10 @@ The level is generally a shorthand representation of the label and is ideally nu
 The label is intended to be a more detailed description, or the text to display on outputs like graphs and tables. 
 These `decode_tbls` can be used to provide specifications to functions like `set_decode_factors()`, `join_decode_labels()`, and `join_decode_levels()`.
 
-For example, below is a decode table for a variable `RFCAT` (`r attr(dmcognigen_cov$RFCAT, "label")`). 
+For example, below is a decode table for a variable `RFCAT` (`r attr(cov$RFCAT, "label")`). 
 The values on the left-hand-side of the equal sign are the levels and the values on the right-hand-side are the labels.
 ```{r echo=FALSE}
-dmcognigen_pk_requirements %>% 
+requirements %>% 
   filter(variable_name == "RFCAT") %>% 
   with(extract_decode_tbl(
     variable_name = variable_name,
@@ -64,7 +65,7 @@ This method is expected to be used when variables and their decodes are presente
 
 Like for the below variable descriptions:
 ```{r echo=FALSE}
-dmcognigen_pk_requirements %>% 
+requirements %>% 
   filter(format_decode != "")
 ```
 
@@ -73,7 +74,7 @@ Each entry on a new line defines one level-to-label relationship separated by an
 When an entry contains more than one equal sign, the first equal sign is considered the separator.
 ```{r echo=FALSE}
 # print the variable names and the content of their decode
-dmcognigen_pk_requirements %>% 
+requirements %>% 
   filter(format_decode != "") %>% 
   rowwise() %>% 
   summarise(cat(paste0(
@@ -85,8 +86,8 @@ dmcognigen_pk_requirements %>%
 To extract the decode tables from these types of strings:
 ```{r}
 extract_decode_tbls(
-  variable_name = dmcognigen_pk_requirements$variable_name,
-  decode = dmcognigen_pk_requirements$format_decode
+  variable_name = requirements$variable_name,
+  decode = requirements$format_decode
 )
 ```
 
@@ -97,10 +98,10 @@ This method is expected to be used when a data set already includes level and la
 
 Like `RACEN` and `RACEC` below:
 ```{r}
-dmcognigen_cov %>%
+cov %>%
   cnt(RACEN, RACEC)
 
-dmcognigen_cov %>%
+cov %>%
   extract_decode_tbls_from_data(
     lvl_to_lbl = list(RACEN = "RACEC")
   )
@@ -108,7 +109,7 @@ dmcognigen_cov %>%
 
 The `lvl_to_lbl` argument maps the names of level variables to the names of label variables.
 ```{r}
-dmcognigen_cov %>%
+cov %>%
   extract_decode_tbls_from_data(
     lvl_to_lbl = list(
       # map individual variables
@@ -121,9 +122,9 @@ dmcognigen_cov %>%
 ```
 
 Sometimes, more than one representation of a variable is in a data set. 
-Like how this `dmcognigen_cov` data set includes the pair of variables `RACEN` & `RACEC`, along with the original source variable `RACE`.
+Like how this `cov` data set includes the pair of variables `RACEN` & `RACEC`, along with the original source variable `RACE`.
 ```{r}
-dmcognigen_cov %>%
+cov %>%
   extract_decode_tbls_from_data(
     lvl_to_lbl = list(
       RACEN = "RACE"
@@ -135,7 +136,7 @@ Ideally, the level variable is numeric.
 But other data types are accepted. 
 One way to review merged content would be to map a label variable to the original source variable it was derived from.
 ```{r}
-dmcognigen_cov %>%
+cov %>%
   extract_decode_tbls_from_data(
     lvl_to_lbl = list(
       RACE = "RACEC"
@@ -169,7 +170,7 @@ tibble::tribble(
 
 To demonstrate the automation features of these utilities, consider a data set that contains only numeric variables. 
 ```{r}
-pk_numeric <- dmcognigen_pk %>% 
+pk_numeric <- pk %>% 
   select(where(is.numeric))
 ```
 
@@ -180,15 +181,24 @@ The order of the levels is defined based on the sort order of the level in the d
 This is useful for other functions that consider the order of factor levels.
 ```{r}
 pk_numeric %>% 
-  set_decode_factors(dmcognigen_pk_requirements) %>% 
-  cnt(RACEN, SEXF, RFCAT)
+  set_decode_factors(requirements) %>% 
+  cnt(RACEN, SEXF, n_distinct_vars = ID)
+```
+
+Since the resulting variables are factors, they are easy to summarize with `across()`. 
+This example provides a summary of categorical covariates by `ID`.
+```{r}
+pk_numeric %>% 
+  select(all_of(stationary_variables(., ID))) %>% 
+  set_decode_factors(requirements) %>% 
+  cnt(across(where(is.factor)), n_distinct_vars = ID)
 ```
 
 The `new_names` argument works similarly to the `lvl_to_lbl` argument in joining functions, but mapping an existing variable to itself is allowed by `set_decode_factors()`.
 ```{r}
 pk_numeric %>% 
   set_decode_factors(
-    decode_tbls = dmcognigen_pk_requirements, 
+    decode_tbls = requirements, 
     new_names = list(
       "{var}FCT",
       RACEN = "RACEN", 
@@ -204,7 +214,7 @@ pk_numeric %>%
 Create new label variables for variables with matching names in data and `decode_tbls`.
 ```{r}
 pk_numeric_with_label_vars <- pk_numeric %>% 
-  join_decode_labels(dmcognigen_pk_requirements)
+  join_decode_labels(requirements)
 ```
 
 The default label name will be the level name appended with a C. 
@@ -213,15 +223,15 @@ One unnamed element can be included in `lvl_to_lbl` to provide default behavior.
 ```{r}
 pk_numeric %>% 
   select(ID, RACEN, SEXF) %>% 
-  join_decode_labels(dmcognigen_pk_requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
+  join_decode_labels(requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
   cnt(RACEN, RACEC, SEXF, SEXFC, n_distinct_vars = ID)
 ```
 
 Variables will not be joined if they already exist.
 ```{r}
-dmcognigen_pk %>% 
+pk %>% 
   select(ID, RACEN, RACEC, SEXF) %>% 
-  join_decode_labels(dmcognigen_pk_requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
+  join_decode_labels(requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
   cnt(RACEN, RACEC, SEXF, SEXFC, n_distinct_vars = ID)
 ```
 
@@ -231,9 +241,9 @@ For scenarios where a label variable is already defined in a data set, the corre
 
 The `lvl_to_lbl` structure is identical whether joining labels or levels.
 ```{r}
-dmcognigen_pk %>% 
+pk %>% 
   select(ID, RACEC, SEXFC) %>% 
-  join_decode_levels(dmcognigen_pk_requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
+  join_decode_levels(requirements, lvl_to_lbl = list(RACEN = "RACEC", "{var}C")) %>% 
   cnt(RACEN, RACEC, SEXF, SEXFC, n_distinct_vars = ID)
 ```
 
