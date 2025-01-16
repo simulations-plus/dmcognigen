@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
 
 ```{r setup, message = FALSE}
 library(dmcognigen)
-library(tidyverse)
+library(stringr)
+library(dplyr)
 ```
 
 `search_environment_data()` searches for patterns in variable names, variable labels, and variable content.
