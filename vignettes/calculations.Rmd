@@ -1,7 +1,10 @@
 ---
 title: "Calculations"
 subtitle: "Create standard variables"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{calculations}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,6 +16,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+```
+
+```{r setup, message = FALSE}
+library(dmcognigen)
+library(dplyr)
 ```
 
 ```{r include=FALSE}
@@ -29,7 +37,6 @@ example1_text <- "All expected variables are provided:"
 example2_text <- "All or some of expected variables are missing. In this case, the function will try to detect those missing variables from the parent environment:"
 ```
 
-
 The `calculations` family is a collection of functions intended to facilitate the calculation of variables that mostly use standard equations (e.g: CrCl, eGFR, BMI etc). 
 This vignette demonstrates: 
 
@@ -37,10 +44,6 @@ This vignette demonstrates:
 * Description of calculations functions.
 * Examples use-cases.
 
-```{r, message=FALSE}
-library(dmcognigen)
-library(dplyr)
-```
 
 In their simplest form, these functions apply and report formulas.
 
