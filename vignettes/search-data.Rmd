@@ -1,0 +1,83 @@
+---
+title: "Search Environment Data"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{Search Environment Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(dmcognigen)
+library(tidyverse)
+```
+
+`search_environment_data()` searches for patterns in variable names, variable labels, and variable content.
+`cnt_search_result()` summarizes the matching results.
+These functions are particularly useful when the source of some information is expected to exist, but is unknown.
+The default `envir` is the global environment, but other environments and named lists that include data frames are also accepted.
+
+To demonstrate, load all of the `pharmaversesdtm` datasets into an environment.
+```{r}
+pharmaversesdtm_data_env <- new.env()
+
+data(
+  list = data(package = "pharmaversesdtm")$results[ , "Item"], 
+  package = "pharmaversesdtm", 
+  envir = pharmaversesdtm_data_env
+)
+```
+
+Then search for a pattern:
+```{r}
+search_environment_data(
+  regex("XANOMELINE", ignore_case = TRUE),
+  envir = pharmaversesdtm_data_env
+)
+```
+
+To immediately review the results that matched the pattern, pass to `cnt_search_result()`.
+```{r}
+search_environment_data(
+  regex("XANOMELINE", ignore_case = TRUE),
+  envir = pharmaversesdtm_data_env
+) %>% 
+  cnt_search_result(
+    n_distinct_vars = "USUBJID"
+  )
+```
+
+One way to further collect and review the results is to `bind_rows()`.
+```{r}
+search_environment_data(
+  regex("STUDYID", ignore_case = TRUE),
+  envir = pharmaversesdtm_data_env
+) %>% 
+  cnt_search_result(
+    n_distinct_vars = "USUBJID"
+  ) %>% 
+  bind_rows(.id = "dataset")
+```
+
+Optional arguments can be used to include/exclude datasets/variables.
+```{r}
+search_environment_data(
+  regex("cancer", ignore_case = TRUE),
+  envir = pharmaversesdtm_data_env
+) %>% 
+  cnt_search_result(
+    n_distinct_vars = "USUBJID",
+    ignore_df_names = c("ae", "ae_ophtha"),
+    extra_vars = c("STUDYID")
+  )
+```
