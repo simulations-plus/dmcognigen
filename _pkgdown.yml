@@ -1,0 +1,48 @@
+url: https://simulations-plus.github.io/dmcognigen
+
+template:
+  bootstrap: 5
+
+reference:
+- title: Calculations
+  desc: >
+    Apply standard equations.
+  contents:
+  - starts_with("calculate_")
+
+- title: Data requirements
+  desc: >
+    Import and leverage data requirements.
+  contents:
+  - requirements
+  - join_decodes
+  - set_labels
+
+- title: Data review and manipulation
+  contents:
+  - cnt
+  - set_labels
+  - stationary_variables
+
+- title: Decode tables
+  desc: >
+    Extract and join information from decodes.
+  contents:
+  - contains("decode")
+
+- title: Import data
+  contents:
+  - read_docx_tables
+
+- title: Search environment data
+  desc: >
+    Search for patterns in variable names, labels, and content.
+  contents:
+  - contains("search")
+  - in_which
+
+- title: Built in datasets
+  desc: >
+    Example datasets and data requirements generated from `pharmaversesdtm` datasets.
+  contents:
+  - starts_with("dmcognigen_")
