@@ -11,3 +11,4 @@
 ^public$
 ^data-raw$
 ^\.github$
+^docs$
