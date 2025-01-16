@@ -1,4 +1,4 @@
-# dmcognigen (development version)
+# dmcognigen 0.1.2
 
 * Added `set_decode_factors()` function to modify or create new factor variables based on `decode_tbls`.
 * Added `distinct_stationary_variables()` to subset to one row per group and `stationary_variables()` to collect the names of these variables.
